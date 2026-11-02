@@ -1893,10 +1893,8 @@ class DockerCard extends DockerBase {
 // ---------------------------------------------------------------------------
 
 const MINI_STYLE = `
-  .logo { height: 32px; width: 32px; }
-  .logo .icon { width: 18px; height: 18px; }
-  /* Top-aligned: the two title lines are a little taller than the 32 px icon. */
-  a.logo-link { align-self: flex-start; }
+  /* The header icon keeps the full card's 40 px (only the narrow-card rule of BASE_STYLE draws it smaller), taller
+     than the two title lines: centred, like on the full card. */
   .name { font-size: 16px; }
   .content { padding: 0 12px 12px; display: flex; flex-direction: column; gap: 8px; }
   /* Label column of up to 86 px (the bars line up across rows), a bar of at least 24 px, the value at its width. */

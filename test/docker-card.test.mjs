@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { load } from "./load.mjs";
 
@@ -454,6 +455,13 @@ test("header icon: the Docker icon in the status color, a link to Dockhand", () 
   assert.match(icon("unavailable"), /^idle /);
   // show_logo is gone: an old false value no longer hides the icon.
   assert.match(icon("on", { show_logo: false }), /^ok /);
+});
+
+test("the mini card keeps the full card's header icon size", () => {
+  const src = readFileSync(new URL("../src/docker-card.js", import.meta.url), "utf8");
+  const mini = src.match(/const MINI_STYLE = `([\s\S]*?)`;/)[1].replace(/\/\*[\s\S]*?\*\//g, "");
+  assert.doesNotMatch(mini, /\.logo[^{]*\{/, "MINI_STYLE does not resize or move the header icon");
+  assert.match(src, /\.logo \{ height: 40px; width: 40px;/);
 });
 
 test("the card types before 2.0 still render the cards", () => {

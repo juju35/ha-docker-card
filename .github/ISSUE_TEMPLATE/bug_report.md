@@ -26,7 +26,7 @@ If applicable, add screenshots to help explain your problem.
 - Browser:
 - HACS version:
 - Card version:
-- Integration and version (Dockhand or Monitor Docker):
+- Integration and version (Dockhand, Monitor Docker or Portainer):
 
 **Card configuration:**
 ```yaml

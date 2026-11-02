@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.0 - 2026-11-02
+
+### Added
+- Portainer support: the endpoints of the [Portainer integration](https://www.home-assistant.io/integrations/portainer/) (Home Assistant 2025.10+) show up next to the Dockhand environments and Monitor Docker instances (labelled "(Portainer)" in the editor). Online chip, Docker version, OS and architecture; CPU and memory gauges from the containers' usage added up against the host's total CPU and memory; running containers, images and pending image updates; stacks with status, container count and start / stop; containers with state, health, image, image update, start / stop and restart. Found through the registries, like Dockhand.
+
+### Changed
+- "No environment found" message: it now names the three supported integrations.
+
 ## 2.0.0 - 2026-11-02
 
 ### Changed

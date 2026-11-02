@@ -71,7 +71,7 @@ const openCard = async (browser, s) => {
           .querySelector(".zoom")
           .dispatchEvent(new MouseEvent("click", { bubbles: true, composed: true, detail: 1 }));
     },
-    { type: s.type, config: s.config, states: s.states ?? states, entities, devices, zoom: !!s.zoom }
+    { type: s.type, config: s.config, states: s.states ?? states, entities: s.entities ?? entities, devices: s.devices ?? devices, zoom: !!s.zoom }
   );
   return page;
 };

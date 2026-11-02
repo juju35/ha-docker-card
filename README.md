@@ -11,7 +11,8 @@ Lovelace cards for Home Assistant to monitor and control Docker hosts: CPU, memo
 Supported integrations:
 
 - [Dockhand](https://github.com/raetha/ha-dockhand) — environments managed by [Dockhand](https://dockhand.pro), with stacks, Git sync and image updates;
-- [Monitor Docker](https://github.com/ualex73/monitor_docker) — Docker hosts and their containers.
+- [Monitor Docker](https://github.com/ualex73/monitor_docker) — Docker hosts and their containers;
+- [Portainer](https://www.home-assistant.io/integrations/portainer/) — Portainer endpoints, their stacks and containers, with image updates.
 
 Entities are **discovered automatically**, you don't have to pick them one by one, and it works whatever your Home Assistant language.
 
@@ -24,7 +25,7 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 ## Features
 
 - Two cards: a full **Docker Card** and a compact **Docker Mini Card**
-- Automatic discovery of the Dockhand environments and Monitor Docker instances (several of each supported)
+- Automatic discovery of the Dockhand environments, Monitor Docker instances and Portainer endpoints (several of each supported)
 - CPU, memory and running containers gauges, Docker version and connection type
 - Stacks, images, volumes, networks and pending updates counters
 - Stacks list with status, Git badge, sync errors and available updates
@@ -42,7 +43,8 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 Home Assistant 2024.8 or later, and one of:
 
 - the [Dockhand integration](https://github.com/raetha/ha-dockhand) (available in HACS), installed and configured;
-- the [Monitor Docker integration](https://github.com/ualex73/monitor_docker) (available in HACS), configured in YAML — see [Monitor Docker](#monitor-docker) below.
+- the [Monitor Docker integration](https://github.com/ualex73/monitor_docker) (available in HACS), configured in YAML — see [Monitor Docker](#monitor-docker) below;
+- the [Portainer integration](https://www.home-assistant.io/integrations/portainer/) (built into Home Assistant 2025.10 and later) — see [Portainer](#portainer) below.
 
 ## Installation
 
@@ -118,9 +120,9 @@ language: fr
 
 | Option | Card | Default | Description |
 |---|---|---|---|
-| `environment` | both | First environment | Environment to display. Dockhand: its name (as shown in Dockhand) or its Home Assistant device id (set by the visual editor). Monitor Docker: `monitor_docker.<prefix>` (`monitor_docker.docker` for `name: Docker`) |
+| `environment` | both | First environment | Environment to display. Dockhand: its name (as shown in Dockhand) or its Home Assistant device id (set by the visual editor). Monitor Docker: `monitor_docker.<prefix>` (`monitor_docker.docker` for `name: Docker`). Portainer: the endpoint name or its device id |
 | `title` | both | Environment name | Card title |
-| `url` | both | Detected | Address opened in a new tab when clicking the header icon. Defaults to the Dockhand web UI known by the integration, or [dockhand.pro](https://dockhand.pro) if none ([Monitor Docker](https://github.com/ualex73/monitor_docker) for a Monitor Docker instance) |
+| `url` | both | Detected | Address opened in a new tab when clicking the header icon. Defaults to the Dockhand web UI known by the integration, or [dockhand.pro](https://dockhand.pro) if none ([Monitor Docker](https://github.com/ualex73/monitor_docker) for a Monitor Docker instance). Portainer: the endpoint dashboard in Portainer |
 | `show_stats` | full | `true` | CPU, memory and running containers gauges |
 | `show_counts` | full | `true` | Stacks, images, volumes, networks and updates counters |
 | `show_stacks` | full | `true` | Stacks list |
@@ -176,6 +178,35 @@ Monitor Docker has no stacks, volumes, networks nor image updates: those section
 | ![card with Monitor Docker](screenshots/card-monitor-docker.png) | ![card with Monitor Docker dark](screenshots/card-monitor-docker-dark.png) |
 | ![mini card with Monitor Docker](screenshots/mini-card-monitor-docker.png) | ![mini card with Monitor Docker dark](screenshots/mini-card-monitor-docker-dark.png) |
 
+## Portainer
+
+The cards also show the endpoints of the [Portainer integration](https://www.home-assistant.io/integrations/portainer/) (Home Assistant 2025.10 and later), side by side with the other sources: pick one in the editor's environment list, where it is labelled `<name> (Portainer)`.
+
+```yaml
+type: custom:docker-card
+environment: local
+show_containers: true
+```
+
+Like for Dockhand, its entities are found through the Home Assistant registries (`translation_key`, endpoint → stack → container devices), whatever their entity ids or language.
+
+| Card | Portainer |
+|---|---|
+| Header | Status (online chip), Docker version, OS and architecture |
+| CPU gauge | Containers' CPU usage added up, against the host's **Total CPU** |
+| Memory gauge | Containers' memory usage added up, against the host's **Total memory** (else the largest container memory limit) |
+| Containers gauge | Containers running / Container count |
+| Images and updates | Image count; updates counted on the containers' image update entities |
+| Stacks list | Status, container count and start / stop switch |
+| Containers list | State, health, image, image update, start / stop switch and restart button |
+
+Portainer has no host usage sensor: enable the **Total CPU** sensor of the endpoint (disabled by default) for the CPU gauge, and **Total memory** for an exact memory gauge. **Docker version**, **Operating system** and **Architecture** (also disabled by default) fill the header. The CPU and memory usage sensors of the containers are diagnostic entities, enabled by default.
+
+| Light | Dark |
+|---|---|
+| ![card with Portainer](screenshots/card-portainer.png) | ![card with Portainer dark](screenshots/card-portainer-dark.png) |
+| ![mini card with Portainer](screenshots/mini-card-portainer.png) | ![mini card with Portainer dark](screenshots/mini-card-portainer-dark.png) |
+
 ## Screenshots
 
 | Light | Dark |
@@ -230,7 +261,7 @@ Thresholds:
 npm install
 npm run build        # bundles src/docker-card.js into dist/docker-card.js
 npm run check        # builds and checks the card (run in CI)
-npm run screenshots  # renders the cards with mock data (scripts/mock-states.mjs, scripts/mock-states-monitor-docker.mjs) into screenshots/, PNG and animated GIF (needs ffmpeg)
+npm run screenshots  # renders the cards with mock data (scripts/mock-states*.mjs) into screenshots/, PNG and animated GIF (needs ffmpeg)
 ```
 
 The **Screenshots** workflow re-renders `screenshots/` on every pull request touching `src/`, `scripts/`, `images/` or `package-lock.json` (a Playwright/Chromium bump changes the rendering) and commits the refreshed captures onto the pull request's branch, so the README always matches the code.
@@ -264,7 +295,7 @@ Contributions for additional languages are welcome!
 
 ## Credits
 
-Dockhand is a project by [Finsys](https://github.com/Finsys/dockhand), with its Home Assistant integration by [raetha](https://github.com/raetha/ha-dockhand). Monitor Docker is a project by [ualex73](https://github.com/ualex73/monitor_docker).
+Dockhand is a project by [Finsys](https://github.com/Finsys/dockhand), with its Home Assistant integration by [raetha](https://github.com/raetha/ha-dockhand). Monitor Docker is a project by [ualex73](https://github.com/ualex73/monitor_docker). Portainer is a project by [Portainer.io](https://www.portainer.io), with its Home Assistant integration in Home Assistant core.
 
 ## License
 

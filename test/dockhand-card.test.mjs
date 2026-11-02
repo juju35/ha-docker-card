@@ -438,3 +438,18 @@ test("the confirmation popup is named by its question (aria-labelledby)", async 
   assert.ok(id, "no aria-labelledby");
   assert.match(html, new RegExp(`<div class="msg" id="${id}">Restart web\\?</div>`));
 });
+
+test("header icon: the Docker icon in the status color, a link to Dockhand", () => {
+  const ents = { ...entities, "binary_sensor.online": { entity_id: "binary_sensor.online", device_id: "env", platform: "dockhand", translation_key: "online" } };
+  const icon = (state, config = {}) => {
+    const el = new DockhandCard();
+    el._config = { language: "en", ...config };
+    el._hass = { states: { ...baseStates(), "binary_sensor.online": { entity_id: "binary_sensor.online", state, attributes: {} } }, entities: ents, devices, language: "en" };
+    return el._render().match(/<a class="logo-link logo (\w+)" href="([^"]*)"[^>]*><svg class="icon /)?.slice(1).join(" ");
+  };
+  assert.equal(icon("on", { dockhand_url: "http://dockhand.local" }), "ok http://dockhand.local");
+  assert.match(icon("off"), /^crit /);
+  assert.match(icon("unavailable"), /^idle /);
+  // show_logo is gone: an old false value no longer hides the icon.
+  assert.match(icon("on", { show_logo: false }), /^ok /);
+});

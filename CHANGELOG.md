@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- Cards: the header shows the round Docker icon of the project's showcase page instead of the Dockhand logo, tinted with the status color like the chip next to it (green online, red offline, grey unavailable). Clicking it still opens Dockhand.
+- Cards: the `show_logo` option is removed: the icon is always shown. An existing `show_logo` line is ignored.
+
 ## 1.11.6 - 2026-11-01
 
 ### Fixed

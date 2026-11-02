@@ -8,10 +8,11 @@
  */
 
 const VERSION = "__VERSION__";
-const IMG_LOGO = "__IMG_LOGO__";
 const DOCKHAND_SITE = "https://dockhand.pro";
 
 const ICONS = {
+  docker:
+    "M21.81 10.25C21.75 10.21 21.25 9.82 20.17 9.82C19.89 9.82 19.61 9.85 19.33 9.9C19.12 8.5 17.95 7.79 17.9 7.76L17.61 7.59L17.43 7.86C17.19 8.22 17 8.63 16.92 9.05C16.72 9.85 16.84 10.61 17.25 11.26C16.76 11.54 15.96 11.61 15.79 11.61H2.62C2.28 11.61 2 11.89 2 12.24C2 13.39 2.18 14.54 2.58 15.62C3.03 16.81 3.71 17.69 4.58 18.23C5.56 18.83 7.17 19.17 9 19.17C9.79 19.17 10.61 19.1 11.42 18.95C12.54 18.75 13.62 18.36 14.61 17.79C15.43 17.32 16.16 16.72 16.78 16C17.83 14.83 18.45 13.5 18.9 12.35H19.09C20.23 12.35 20.94 11.89 21.33 11.5C21.59 11.26 21.78 10.97 21.92 10.63L22 10.39L21.81 10.25M3.85 11.24H5.61C5.69 11.24 5.77 11.17 5.77 11.08V9.5C5.77 9.42 5.7 9.34 5.61 9.34H3.85C3.76 9.34 3.69 9.41 3.69 9.5V11.08C3.7 11.17 3.76 11.24 3.85 11.24M6.28 11.24H8.04C8.12 11.24 8.2 11.17 8.2 11.08V9.5C8.2 9.42 8.13 9.34 8.04 9.34H6.28C6.19 9.34 6.12 9.41 6.12 9.5V11.08C6.13 11.17 6.19 11.24 6.28 11.24M8.75 11.24H10.5C10.6 11.24 10.67 11.17 10.67 11.08V9.5C10.67 9.42 10.61 9.34 10.5 9.34H8.75C8.67 9.34 8.6 9.41 8.6 9.5V11.08C8.6 11.17 8.66 11.24 8.75 11.24M11.19 11.24H12.96C13.04 11.24 13.11 11.17 13.11 11.08V9.5C13.11 9.42 13.05 9.34 12.96 9.34H11.19C11.11 9.34 11.04 9.41 11.04 9.5V11.08C11.04 11.17 11.11 11.24 11.19 11.24M6.28 9H8.04C8.12 9 8.2 8.91 8.2 8.82V7.25C8.2 7.16 8.13 7.09 8.04 7.09H6.28C6.19 7.09 6.12 7.15 6.12 7.25V8.82C6.13 8.91 6.19 9 6.28 9M8.75 9H10.5C10.6 9 10.67 8.91 10.67 8.82V7.25C10.67 7.16 10.61 7.09 10.5 7.09H8.75C8.67 7.09 8.6 7.15 8.6 7.25V8.82C8.6 8.91 8.66 9 8.75 9M11.19 9H12.96C13.04 9 13.11 8.91 13.11 8.82V7.25C13.11 7.16 13.04 7.09 12.96 7.09H11.19C11.11 7.09 11.04 7.15 11.04 7.25V8.82C11.04 8.91 11.11 9 11.19 9M11.19 6.72H12.96C13.04 6.72 13.11 6.65 13.11 6.56V5C13.11 4.9 13.04 4.83 12.96 4.83H11.19C11.11 4.83 11.04 4.89 11.04 5V6.56C11.04 6.64 11.11 6.72 11.19 6.72M13.65 11.24H15.41C15.5 11.24 15.57 11.17 15.57 11.08V9.5C15.57 9.42 15.5 9.34 15.41 9.34H13.65C13.57 9.34 13.5 9.41 13.5 9.5V11.08C13.5 11.17 13.57 11.24 13.65 11.24",
   chevron: "M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z",
   cpu: "M6,4H18V5H21V7H18V9H21V11H18V13H21V15H18V17H21V19H18V20H6V19H3V17H6V15H3V13H6V11H3V9H6V7H3V5H6V4M11,15V18H12V15H11M13,15V18H14V15H13M15,15V18H16V15H15Z",
   ram: "M17,17H7V7H17M21,11V9H19V7C19,5.89 18.1,5 17,5H15V3H13V5H11V3H9V5H7C5.89,5 5,5.89 5,7V9H3V11H5V13H3V15H5V17A2,2 0 0,0 7,19H9V21H11V19H13V21H15V19H17A2,2 0 0,0 19,17V15H21V13H19V11M13,13H11V11H13M15,9H9V15H15V9Z",
@@ -85,7 +86,6 @@ const STRINGS = {
     // Editor
     environment: "Dockhand environment",
     title: "Title (optional, defaults to the environment name)",
-    show_logo: "Show Dockhand logo",
     dockhand_url: "Dockhand URL opened by the logo (optional, detected from the integration)",
     show_stats: "Show CPU, memory and containers",
     show_counts: "Show counts (stacks, images…)",
@@ -151,7 +151,6 @@ const STRINGS = {
     zoom_out: "Revenir à la vue compacte",
     environment: "Environnement Dockhand",
     title: "Titre (facultatif, nom de l'environnement par défaut)",
-    show_logo: "Afficher le logo Dockhand",
     dockhand_url: "URL de Dockhand ouverte par le logo (facultatif, détectée depuis l'intégration)",
     show_stats: "Afficher CPU, mémoire et conteneurs",
     show_counts: "Afficher les compteurs (stacks, images…)",
@@ -217,7 +216,6 @@ const STRINGS = {
     zoom_out: "Zurück zur kompakten Ansicht",
     environment: "Dockhand-Umgebung",
     title: "Titel (optional, standardmäßig der Name der Umgebung)",
-    show_logo: "Dockhand-Logo anzeigen",
     dockhand_url: "Vom Logo geöffnete Dockhand-URL (optional, wird aus der Integration ermittelt)",
     show_stats: "CPU, Speicher und Container anzeigen",
     show_counts: "Zähler anzeigen (Stacks, Images…)",
@@ -283,7 +281,6 @@ const STRINGS = {
     zoom_out: "Volver a la vista compacta",
     environment: "Entorno de Dockhand",
     title: "Título (opcional, por defecto el nombre del entorno)",
-    show_logo: "Mostrar el logo de Dockhand",
     dockhand_url: "URL de Dockhand abierta por el logo (opcional, detectada desde la integración)",
     show_stats: "Mostrar CPU, memoria y contenedores",
     show_counts: "Mostrar contadores (stacks, imágenes…)",
@@ -354,7 +351,6 @@ const STRINGS = {
     zoom_out: "Назад на компактни приказ",
     environment: "Dockhand окружење",
     title: "Наслов (опционо, подразумевано је назив окружења)",
-    show_logo: "Прикажи Dockhand лого",
     dockhand_url: "Dockhand URL који отвара лого (опционо, преузима се из интеграције)",
     show_stats: "Прикажи CPU, меморију и контејнере",
     show_counts: "Прикажи бројаче (стекови, слике…)",
@@ -425,7 +421,6 @@ const STRINGS = {
     zoom_out: "Nazad na kompaktni prikaz",
     environment: "Dockhand okruženje",
     title: "Naslov (opciono, podrazumevano je naziv okruženja)",
-    show_logo: "Prikaži Dockhand logo",
     dockhand_url: "Dockhand URL koji otvara logo (opciono, preuzima se iz integracije)",
     show_stats: "Prikaži CPU, memoriju i kontejnere",
     show_counts: "Prikaži brojače (stekovi, slike…)",
@@ -491,7 +486,6 @@ const STRINGS = {
     zoom_out: "Torna alla vista compatta",
     environment: "Ambiente Dockhand",
     title: "Titolo (facoltativo, predefinito: nome dell'ambiente)",
-    show_logo: "Mostra il logo Dockhand",
     dockhand_url: "URL di Dockhand aperto dal logo (facoltativo, rilevato dall'integrazione)",
     show_stats: "Mostra CPU, memoria e container",
     show_counts: "Mostra i contatori (stack, immagini…)",
@@ -557,7 +551,6 @@ const STRINGS = {
     zoom_out: "Terug naar de compacte weergave",
     environment: "Dockhand-omgeving",
     title: "Titel (optioneel, standaard de naam van de omgeving)",
-    show_logo: "Dockhand-logo tonen",
     dockhand_url: "Dockhand-URL die het logo opent (optioneel, gedetecteerd via de integratie)",
     show_stats: "CPU, geheugen en containers tonen",
     show_counts: "Tellers tonen (stacks, images…)",
@@ -623,7 +616,6 @@ const STRINGS = {
     zoom_out: "Voltar à vista compacta",
     environment: "Ambiente Dockhand",
     title: "Título (opcional, por predefinição o nome do ambiente)",
-    show_logo: "Mostrar o logótipo Dockhand",
     dockhand_url: "URL do Dockhand aberto pelo logótipo (opcional, detetado a partir da integração)",
     show_stats: "Mostrar CPU, memória e contentores",
     show_counts: "Mostrar contadores (stacks, imagens…)",
@@ -700,7 +692,6 @@ const STRINGS = {
     zoom_out: "Wróć do widoku kompaktowego",
     environment: "Środowisko Dockhand",
     title: "Tytuł (opcjonalnie, domyślnie nazwa środowiska)",
-    show_logo: "Pokaż logo Dockhand",
     dockhand_url: "URL Dockhand otwierany przez logo (opcjonalnie, wykrywany z integracji)",
     show_stats: "Pokaż CPU, pamięć i kontenery",
     show_counts: "Pokaż liczniki (stosy, obrazy…)",
@@ -969,8 +960,10 @@ const BASE_STYLE = `
   .bar { height: 4px; border-radius: 3px; background: var(--divider-color, rgba(127,127,127,.25)); overflow: hidden; }
   .bar > div { height: 100%; border-radius: 3px; background: var(--c, var(--dh-orange)); transition: width .6s ease; }
   .header { display: flex; align-items: center; gap: 10px; padding: 12px 12px 8px; }
-  .logo { height: 40px; width: 40px; object-fit: contain; flex: none; }
-  a.logo-link { display: flex; flex: none; }
+  /* Tinted round icon, in the status colour like the chip; it opens Dockhand. */
+  .logo { height: 40px; width: 40px; flex: none; border-radius: 50%; display: grid; place-items: center;
+          color: var(--c, var(--dh-ok)); background: color-mix(in srgb, var(--c, var(--dh-ok)) 16%, transparent); }
+  .logo .icon { width: 24px; height: 24px; fill: currentColor; }
   /* The title block takes what the chip and buttons leave (flex basis 0) and shrinks with an ellipsis down to
      a few characters; only then does the chip cut its label. */
   .titles { flex: 1 1 0; min-width: 5ch; }
@@ -986,6 +979,7 @@ const BASE_STYLE = `
   @container (max-width: 239px) {
     .header { gap: 6px; }
     .header .logo { height: 32px; width: 32px; }
+    .header .logo .icon { width: 18px; height: 18px; }
     /* Only the coloured dot, in an 18 px chip that no longer shrinks: its text stays in title and aria-label. */
     .header .chip { flex: none; padding: 6px; }
     .header .chip .chip-label { display: none; }
@@ -1269,11 +1263,7 @@ class DockhandBase extends HTMLElement {
     const sub = [docker && docker !== "unknown" && docker !== "unavailable" ? `Docker ${docker}` : null, platform, conn].filter((v) => v && v !== "unknown" && v !== "unavailable");
     return `
       <div class="header">
-        ${
-          c.show_logo !== false
-            ? `<a class="logo-link" href="${esc(this._dockhandUrl(env))}" target="_blank" rel="noopener noreferrer" title="Dockhand"><img class="logo" src="${IMG_LOGO}" alt="Dockhand"></a>`
-            : ""
-        }
+        <a class="logo-link logo ${online ? chipCls : "idle"}" href="${esc(this._dockhandUrl(env))}" target="_blank" rel="noopener noreferrer" title="Dockhand" aria-label="Dockhand">${svgIcon(ICONS.docker)}</a>
         <div class="titles">
           <div class="name">${esc(c.title || env.name)}</div>
           ${sub.length ? `<div class="sub">${esc(sub.join(" · "))}</div>` : ""}
@@ -1642,7 +1632,8 @@ class DockhandCard extends DockhandBase {
 
 const MINI_STYLE = `
   .logo { height: 32px; width: 32px; }
-  /* Top-aligned: the two title lines are a little taller than the 32 px logo. */
+  .logo .icon { width: 18px; height: 18px; }
+  /* Top-aligned: the two title lines are a little taller than the 32 px icon. */
   a.logo-link { align-self: flex-start; }
   .name { font-size: 16px; }
   .content { padding: 0 12px 12px; display: flex; flex-direction: column; gap: 8px; }
@@ -1810,7 +1801,7 @@ class DockhandEditorBase extends HTMLElement {
       {
         type: "grid",
         name: "",
-        schema: [["show_logo", true], ...this.constructor.toggles].map(([name]) => ({ name, selector: { boolean: {} } })),
+        schema: [...this.constructor.toggles].map(([name]) => ({ name, selector: { boolean: {} } })),
       },
       {
         name: "language",
@@ -1838,7 +1829,7 @@ class DockhandEditorBase extends HTMLElement {
 
   _render() {
     if (!this._hass || !this._config) return;
-    const toggles = [["show_logo", true], ...this.constructor.toggles];
+    const toggles = [...this.constructor.toggles];
     if (!this._form) {
       this._form = document.createElement("ha-form");
       this._form.computeLabel = (s) => t(this._hass, this._config, s.name);

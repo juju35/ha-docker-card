@@ -2,16 +2,21 @@
  * Docker Card for Home Assistant
  * https://github.com/juju35/ha-docker-card
  *
- * Lovelace cards for the Dockhand integration (https://github.com/raetha/ha-dockhand) and
- * Monitor Docker (https://github.com/ualex73/monitor_docker).
- * Dockhand entities are resolved through the entity and device registries (platform, translation_key,
+ * Lovelace cards for the Dockhand integration (https://github.com/raetha/ha-dockhand),
+ * Monitor Docker (https://github.com/ualex73/monitor_docker) and Portainer (core integration).
+ * Dockhand and Portainer entities are resolved through the entity and device registries (platform, translation_key,
  * device model and hierarchy), so they work whatever the Home Assistant language or entity ids.
  * Monitor Docker entities are not registered: they are found by their entity id pattern.
  */
 
 const VERSION = "__VERSION__";
 const DOCKHAND_SITE = "https://dockhand.pro";
-const MONITOR_DOCKER_SITE = "https://github.com/ualex73/monitor_docker";
+// Name shown for each source (logo tooltip, editor list) and the site its logo opens when nothing better is known.
+const SOURCES = {
+  dockhand: { name: "Dockhand", site: DOCKHAND_SITE },
+  monitor_docker: { name: "Monitor Docker", site: "https://github.com/ualex73/monitor_docker" },
+  portainer: { name: "Portainer", site: "https://www.portainer.io" },
+};
 
 const ICONS = {
   docker:
@@ -71,7 +76,7 @@ const STRINGS = {
     confirm_restart: "Restart {name}?",
     confirm_stop: "Stop {name}?",
     all_ok: "Nothing to report",
-    no_env: "No Dockhand environment or Monitor Docker instance found. Is the Dockhand or Monitor Docker integration installed?",
+    no_env: "No Docker environment found. Is the Dockhand, Monitor Docker or Portainer integration installed?",
     unknown_env: "Environment not found",
     no_registry: "This card needs Home Assistant 2024.8 or later.",
     state_running: "Running",
@@ -137,7 +142,7 @@ const STRINGS = {
     confirm_restart: "Redémarrer {name} ?",
     confirm_stop: "Arrêter {name} ?",
     all_ok: "Rien à signaler",
-    no_env: "Aucun environnement Dockhand ni instance Monitor Docker trouvé. L'intégration Dockhand ou Monitor Docker est-elle installée ?",
+    no_env: "Aucun environnement Docker trouvé. L'intégration Dockhand, Monitor Docker ou Portainer est-elle installée ?",
     unknown_env: "Environnement introuvable",
     no_registry: "Cette carte nécessite Home Assistant 2024.8 ou plus récent.",
     state_running: "Actif",
@@ -202,7 +207,7 @@ const STRINGS = {
     confirm_restart: "{name} neu starten?",
     confirm_stop: "{name} stoppen?",
     all_ok: "Keine Auffälligkeiten",
-    no_env: "Keine Dockhand-Umgebung und keine Monitor-Docker-Instanz gefunden. Ist die Dockhand- oder Monitor-Docker-Integration installiert?",
+    no_env: "Keine Docker-Umgebung gefunden. Ist die Dockhand-, Monitor-Docker- oder Portainer-Integration installiert?",
     unknown_env: "Umgebung nicht gefunden",
     no_registry: "Diese Karte benötigt Home Assistant 2024.8 oder neuer.",
     state_running: "Aktiv",
@@ -267,7 +272,7 @@ const STRINGS = {
     confirm_restart: "¿Reiniciar {name}?",
     confirm_stop: "¿Detener {name}?",
     all_ok: "Sin incidencias",
-    no_env: "No se encontró ningún entorno de Dockhand ni instancia de Monitor Docker. ¿Está instalada la integración Dockhand o Monitor Docker?",
+    no_env: "No se encontró ningún entorno de Docker. ¿Está instalada la integración Dockhand, Monitor Docker o Portainer?",
     unknown_env: "Entorno no encontrado",
     no_registry: "Esta tarjeta requiere Home Assistant 2024.8 o posterior.",
     state_running: "En ejecución",
@@ -337,7 +342,7 @@ const STRINGS = {
     confirm_restart: "Поново покренути {name}?",
     confirm_stop: "Зауставити {name}?",
     all_ok: "Све је у реду",
-    no_env: "Није пронађено ниједно Dockhand окружење ни Monitor Docker инстанца. Да ли је интеграција Dockhand или Monitor Docker инсталирана?",
+    no_env: "Није пронађено ниједно Docker окружење. Да ли је интеграција Dockhand, Monitor Docker или Portainer инсталирана?",
     unknown_env: "Окружење није пронађено",
     no_registry: "Ова картица захтева Home Assistant 2024.8 или новији.",
     state_running: "Покренуто",
@@ -407,7 +412,7 @@ const STRINGS = {
     confirm_restart: "Ponovo pokrenuti {name}?",
     confirm_stop: "Zaustaviti {name}?",
     all_ok: "Sve je u redu",
-    no_env: "Nije pronađeno nijedno Dockhand okruženje ni Monitor Docker instanca. Da li je integracija Dockhand ili Monitor Docker instalirana?",
+    no_env: "Nije pronađeno nijedno Docker okruženje. Da li je integracija Dockhand, Monitor Docker ili Portainer instalirana?",
     unknown_env: "Okruženje nije pronađeno",
     no_registry: "Ova kartica zahteva Home Assistant 2024.8 ili noviji.",
     state_running: "Pokrenuto",
@@ -472,7 +477,7 @@ const STRINGS = {
     confirm_restart: "Riavviare {name}?",
     confirm_stop: "Arrestare {name}?",
     all_ok: "Nulla da segnalare",
-    no_env: "Nessun ambiente Dockhand né istanza Monitor Docker trovati. L'integrazione Dockhand o Monitor Docker è installata?",
+    no_env: "Nessun ambiente Docker trovato. L'integrazione Dockhand, Monitor Docker o Portainer è installata?",
     unknown_env: "Ambiente non trovato",
     no_registry: "Questa scheda richiede Home Assistant 2024.8 o successivo.",
     state_running: "In esecuzione",
@@ -537,7 +542,7 @@ const STRINGS = {
     confirm_restart: "{name} herstarten?",
     confirm_stop: "{name} stoppen?",
     all_ok: "Niets te melden",
-    no_env: "Geen Dockhand-omgeving of Monitor Docker-instantie gevonden. Is de Dockhand- of Monitor Docker-integratie geïnstalleerd?",
+    no_env: "Geen Docker-omgeving gevonden. Is de Dockhand-, Monitor Docker- of Portainer-integratie geïnstalleerd?",
     unknown_env: "Omgeving niet gevonden",
     no_registry: "Deze kaart vereist Home Assistant 2024.8 of nieuwer.",
     state_running: "Actief",
@@ -602,7 +607,7 @@ const STRINGS = {
     confirm_restart: "Reiniciar {name}?",
     confirm_stop: "Parar {name}?",
     all_ok: "Nada a assinalar",
-    no_env: "Nenhum ambiente Dockhand nem instância Monitor Docker encontrados. A integração Dockhand ou Monitor Docker está instalada?",
+    no_env: "Nenhum ambiente Docker encontrado. A integração Dockhand, Monitor Docker ou Portainer está instalada?",
     unknown_env: "Ambiente não encontrado",
     no_registry: "Este cartão requer o Home Assistant 2024.8 ou posterior.",
     state_running: "Em execução",
@@ -678,7 +683,7 @@ const STRINGS = {
     confirm_restart: "Uruchomić ponownie {name}?",
     confirm_stop: "Zatrzymać {name}?",
     all_ok: "Wszystko w porządku",
-    no_env: "Nie znaleziono środowiska Dockhand ani instancji Monitor Docker. Czy integracja Dockhand lub Monitor Docker jest zainstalowana?",
+    no_env: "Nie znaleziono środowiska Docker. Czy integracja Dockhand, Monitor Docker lub Portainer jest zainstalowana?",
     unknown_env: "Nie znaleziono środowiska",
     no_registry: "Ta karta wymaga Home Assistant 2024.8 lub nowszego.",
     state_running: "Uruchomiony",
@@ -771,6 +776,14 @@ const fmtBytesPair = (used, total) => {
   const u = fmtBytes(used);
   const t = fmtBytes(total);
   return `${u.split(" ")[1] === t.split(" ")[1] ? u.split(" ")[0] : u} / ${t}`;
+};
+
+// A data size state in bytes, whatever unit Home Assistant displays it in (Portainer suggests MB).
+const UNIT_BYTES = { B: 1, kB: 1e3, KB: 1e3, MB: 1e6, GB: 1e9, TB: 1e12, KiB: 1024, MiB: 1048576, GiB: 1073741824, TiB: 1099511627776 };
+const bytesOf = (s) => {
+  const v = num(s);
+  const k = UNIT_BYTES[s?.attributes?.unit_of_measurement ?? "B"];
+  return v === null || !k ? null : v * k;
 };
 
 const level = (v, warn, crit) => (v === null ? "" : v >= crit ? "crit" : v >= warn ? "warn" : "ok");
@@ -870,44 +883,80 @@ const _cache = new WeakMap();
 const _mdCache = new WeakMap();
 
 /**
- * Model shared by both sources:
+ * Model shared by every source:
  * { envs: [{ id, name, source, entities, stacks: [...], containers: [...] }] }
- * Dockhand environments come from the registries, Monitor Docker instances from the states.
+ * Dockhand and Portainer environments come from the registries, Monitor Docker instances from the states.
  */
 const resolve = (hass) => {
-  const dockhand = resolveDockhand(hass);
-  if (!dockhand || !hass.states) return dockhand;
+  const registry = resolveRegistry(hass);
+  if (!registry || !hass.states) return registry;
   const cached = _mdCache.get(hass.states);
-  if (cached && cached.dockhand === dockhand && cached.entities === hass.entities) return cached.model;
+  if (cached && cached.registry === registry && cached.entities === hass.entities) return cached.model;
   const md = resolveMonitorDocker(hass.states, hass.entities);
-  const model = md.length ? { envs: [...dockhand.envs, ...md] } : dockhand;
-  _mdCache.set(hass.states, { dockhand, entities: hass.entities, model });
+  const model = md.length ? { envs: [...registry.envs, ...md] } : registry;
+  _mdCache.set(hass.states, { registry, entities: hass.entities, model });
   return model;
 };
 
+// Portainer (core integration, 2025.10+): its translation keys mapped to the ones the cards read (Dockhand's),
+// per device model; entities not listed are not used. Keys starting with "_" have no Dockhand counterpart.
+const PORTAINER_KEYS = {
+  Endpoint: {
+    status: "online",
+    docker_version: "host_docker_version",
+    operating_system: "_os",
+    architecture: "_arch",
+    containers_count: "containers",
+    containers_running: "_running",
+    images_count: "image_count",
+    memory_total: "_memory_total",
+    cpu_total: "_cpu_total",
+  },
+  Stack: { stack: "_switch", status: "_active", stack_containers_count: "containers_in_stack" },
+  Container: {
+    container_state: "state",
+    container_health_state: "health",
+    image: "_image",
+    container: "_switch",
+    restart_container: "restart",
+    container_image_update: "_update",
+    cpu_usage_total: "_cpu",
+    memory_usage: "_memory",
+    memory_limit: "_memory_limit",
+  },
+};
+
+// Per registry platform: the device model of an environment, and how an entity is keyed on its device.
+const REGISTRY_SOURCES = {
+  // Keyed by translation_key; primary entities without one (running switch, container update) by "_<domain>".
+  dockhand: { env: "Environment", key: (e) => e.translation_key || `_${e.entity_id.split(".")[0]}` },
+  portainer: { env: "Endpoint", key: (e, d) => PORTAINER_KEYS[d?.model]?.[e.translation_key] },
+};
+
 /**
- * Dockhand environments from hass.entities / hass.devices.
- * Entities are keyed by translation_key; primary entities without one (running switch,
- * container update) are keyed "_<domain>".
+ * Dockhand and Portainer environments from hass.entities / hass.devices: an environment device, its stacks
+ * and its containers (directly or through a stack or a group device).
  */
-const resolveDockhand = (hass) => {
+const resolveRegistry = (hass) => {
   if (!hass.entities || !hass.devices) return null;
   const cached = _cache.get(hass.entities);
   if (cached && cached.devices === hass.devices) return cached.model;
 
   const byDevice = new Map();
   for (const e of Object.values(hass.entities)) {
-    if (e.platform !== "dockhand" || !e.device_id) continue;
-    const key = e.translation_key || `_${e.entity_id.split(".")[0]}`;
-    const map = byDevice.get(e.device_id) || {};
-    if (!(key in map)) map[key] = e.entity_id;
-    byDevice.set(e.device_id, map);
+    const src = REGISTRY_SOURCES[e.platform];
+    if (!src || !e.device_id) continue;
+    const key = src.key(e, hass.devices[e.device_id]);
+    if (!key) continue;
+    const dev = byDevice.get(e.device_id) || { source: e.platform, entities: {} };
+    if (!(key in dev.entities)) dev.entities[key] = e.entity_id;
+    byDevice.set(e.device_id, dev);
   }
 
   const devName = (d) => d.name_by_user || d.name || "";
-  const envOf = (d) => {
+  const envOf = (d, source) => {
     for (let i = 0, cur = d; cur && i < 4; i++, cur = hass.devices[cur.via_device_id]) {
-      if (cur.model === "Environment") return cur.id;
+      if (cur.model === REGISTRY_SOURCES[source].env) return cur.id;
     }
     return null;
   };
@@ -915,15 +964,14 @@ const resolveDockhand = (hass) => {
   const shortName = (d) => devName(d).split(" – ").pop();
 
   const envs = new Map();
-  for (const id of byDevice.keys()) {
+  for (const [id, { source, entities }] of byDevice) {
     const d = hass.devices[id];
-    if (d && d.model === "Environment")
-      envs.set(id, { id, name: devName(d), source: "dockhand", entities: byDevice.get(id), stacks: [], containers: [] });
+    if (d && d.model === REGISTRY_SOURCES[source].env) envs.set(id, { id, name: devName(d), source, entities, stacks: [], containers: [] });
   }
-  for (const [id, entities] of byDevice) {
+  for (const [id, { source, entities }] of byDevice) {
     const d = hass.devices[id];
     if (!d) continue;
-    const env = envs.get(envOf(d));
+    const env = envs.get(envOf(d, source));
     if (!env) continue;
     if (d.model === "Container") env.containers.push({ id, name: shortName(d), entities });
     else if (/Stack$/.test(d.model || "")) env.stacks.push({ id, name: shortName(d), type: d.model, entities });
@@ -1040,7 +1088,8 @@ const resolveMonitorDocker = (states, registry = {}) => {
 
 const listEnvs = (hass) => {
   const m = hass && resolve(hass);
-  return m ? m.envs.map((e) => ({ value: e.id, label: e.source === "monitor_docker" ? `${e.name} (Monitor Docker)` : e.name })) : [];
+  // Dockhand environments by their name only (as before Monitor Docker and Portainer were supported).
+  return m ? m.envs.map((e) => ({ value: e.id, label: e.source === "dockhand" ? e.name : `${e.name} (${SOURCES[e.source].name})` })) : [];
 };
 
 const findEnv = (hass, config) => {
@@ -1361,16 +1410,15 @@ class DockerBase extends HTMLElement {
   }
 
   // Logo target: url option (dockhand_url before 2.0), else the Dockhand web UI advertised by the integration
-  // (environment device configuration_url, minus its settings deep link), else the project website
-  // (Monitor Docker's for a Monitor Docker instance).
+  // (environment device configuration_url, minus its settings deep link; Portainer's endpoint dashboard),
+  // else the website of the source.
   _logoUrl(env) {
     // Only http(s) addresses: any other scheme (javascript:…) would run on a click on the logo.
     const url = this._config.url ?? this._config.dockhand_url;
     if (/^https?:\/\//i.test(url || "")) return url;
-    if (env.source === "monitor_docker") return MONITOR_DOCKER_SITE;
     const conf = this._hass.devices?.[env.id]?.configuration_url;
     if (conf) return conf.replace(/\/settings(?:[/?#].*)?$/, "") || conf;
-    return DOCKHAND_SITE;
+    return SOURCES[env.source].site;
   }
 
   _header(env) {
@@ -1381,11 +1429,9 @@ class DockerBase extends HTMLElement {
       online?.state === "on" ? ["ok", "online"] : online?.state === "off" ? ["crit", "offline"] : ["idle", `state_${online?.state === "unknown" ? "unknown" : "unavailable"}`];
     const chipText = esc(this._t(chipKey));
     const docker = this._s(env.entities.host_docker_version)?.state;
-    // Monitor Docker has no platform sensor: its version sensor carries the host OS and architecture.
-    const va = env.source === "monitor_docker" ? this._s(env.entities.host_docker_version)?.attributes : null;
-    const platform = va ? [va.OS, va.Architecture].filter(Boolean).join(" ") : this._s(env.entities.host_platform)?.state;
+    const platform = this._platform(env);
     const conn = this._s(env.entities.connection_type)?.state;
-    const srcName = env.source === "monitor_docker" ? "Monitor Docker" : "Dockhand";
+    const srcName = SOURCES[env.source].name;
     // Without an online sensor (Monitor Docker), the logo is tinted while the containers counter answers.
     const total = this._s(env.entities.containers)?.state;
     const logoCls = online ? chipCls : env.source === "monitor_docker" && total !== undefined && total !== "unknown" && total !== "unavailable" ? "ok" : "idle";
@@ -1418,7 +1464,7 @@ class DockerBase extends HTMLElement {
   }
 
   _containerStats(env) {
-    if (env.source === "monitor_docker") return this._mdContainerStats(env);
+    if (env.source !== "dockhand") return this._countedContainerStats(env);
     const s = this._s(env.entities.containers);
     const total = num(s);
     const a = s?.attributes || {};
@@ -1433,11 +1479,85 @@ class DockerBase extends HTMLElement {
     };
   }
 
-  // Monitor Docker: running and total come from their own sensors, unhealthy from the containers'
-  // health; it does not track image updates (`updates` undefined: no updates tile nor footer).
-  _mdContainerStats(env) {
+  // Monitor Docker and Portainer: running and total come from their own sensors, unhealthy and updates are
+  // counted on the containers. No update entity at all (Monitor Docker): `updates` undefined, no updates
+  // tile nor footer.
+  _countedContainerStats(env) {
     const unhealthy = env.containers.filter((ct) => this._health(ct.entities) === "unhealthy").length;
-    return { entity: env.entities.containers, total: num(this._s(env.entities.containers)), running: num(this._s(env.entities._running)), unhealthy, updates: undefined };
+    const upd = env.containers.map((ct) => this._s(ct.entities._update)).filter(Boolean);
+    return {
+      entity: env.entities.containers,
+      total: num(this._s(env.entities.containers)),
+      running: num(this._s(env.entities._running)),
+      unhealthy,
+      updates: upd.length ? upd.filter((u) => u.state === "on").length : undefined,
+    };
+  }
+
+  // Host OS and architecture: Dockhand's platform sensor, Portainer's OS and architecture sensors (disabled
+  // by default) or the attributes of Monitor Docker's version sensor.
+  _platform(env) {
+    const e = env.entities;
+    const known = (id) => {
+      const st = this._s(id)?.state;
+      return st && st !== "unknown" && st !== "unavailable" ? st : null;
+    };
+    if (env.source === "monitor_docker") {
+      const va = this._s(e.host_docker_version)?.attributes || {};
+      return [va.OS, va.Architecture].filter(Boolean).join(" ");
+    }
+    if (env.source === "portainer") return [known(e._os), known(e._arch)].filter(Boolean).join(" ");
+    return this._s(e.host_platform)?.state;
+  }
+
+  // CPU and memory of the host: { cpu, mem } in %, cores, used / total bytes and the entities they open.
+  // Portainer has no host usage sensor: its containers' usage is added up, against the host's cores and
+  // memory (the "Total CPU" / "Total memory" sensors, disabled by default; memory falls back on the
+  // containers' memory limit, the host memory when none is set).
+  _host(env) {
+    const e = env.entities;
+    if (env.source === "portainer") {
+      const sum = (key, of = num) => {
+        const vals = env.containers.map((ct) => of(this._s(ct.entities[key]))).filter((v) => v !== null);
+        return vals.length ? vals.reduce((a, b) => a + b, 0) : null;
+      };
+      const cores = num(this._s(e._cpu_total));
+      const cpuSum = sum("_cpu");
+      const used = sum("_memory", bytesOf);
+      const limits = env.containers.map((ct) => bytesOf(this._s(ct.entities._memory_limit))).filter((v) => v);
+      const total = bytesOf(this._s(e._memory_total)) ?? (limits.length ? Math.max(...limits) : null);
+      return {
+        cpu: cores && cpuSum !== null ? cpuSum / cores : null,
+        mem: total && used !== null ? (100 * used) / total : null,
+        cores,
+        used,
+        total,
+        cpuId: e._cpu_total,
+        memId: e._memory_total,
+      };
+    }
+    const cpuS = this._s(e.cpu_usage);
+    const memS = this._s(e.memory_usage);
+    // Monitor Docker: cores and host memory on the version sensor, containers memory in MiB.
+    const md = env.source === "monitor_docker";
+    const va = (md && this._s(e.host_docker_version)?.attributes) || {};
+    const usedMiB = md ? num(this._s(e._memory)) : null;
+    return {
+      cpu: num(cpuS),
+      mem: num(memS),
+      cores: cpuS?.attributes?.cpu_count ?? va.Online_CPUs,
+      used: memS?.attributes?.memory_used_bytes ?? (usedMiB !== null ? usedMiB * 1048576 : undefined),
+      total: memS?.attributes?.memory_total_bytes ?? va.Memory_limit,
+      cpuId: e.cpu_usage,
+      memId: e.memory_usage,
+    };
+  }
+
+  // Stack state: Dockhand's status sensor, else Portainer's active binary sensor (running / stopped).
+  _stackStatus(e) {
+    if (e.status || !e._active) return { id: e.status, state: this._s(e.status)?.state, s: this._s(e.status) };
+    const s = this._s(e._active);
+    return { id: e._active, state: { on: "running", off: "stopped" }[s?.state] ?? s?.state, s: undefined };
   }
 
   // Health sensor, else the attribute of a Monitor Docker "allinone" sensor.
@@ -1582,29 +1702,20 @@ class DockerCard extends DockerBase {
   }
 
   _stats(env) {
-    const cpuS = this._s(env.entities.cpu_usage);
-    const memS = this._s(env.entities.memory_usage);
-    const cpu = num(cpuS);
-    const mem = num(memS);
-    // Monitor Docker: cores and host memory on the version sensor, containers memory in MiB.
-    const va = this._s(env.entities.host_docker_version)?.attributes || {};
-    const usedMiB = env.source === "monitor_docker" ? num(this._s(env.entities._memory)) : null;
-    const cores = cpuS?.attributes?.cpu_count ?? (env.source === "monitor_docker" ? va.Online_CPUs : undefined);
-    const used = memS?.attributes?.memory_used_bytes ?? (usedMiB !== null ? usedMiB * 1048576 : undefined);
-    const total = memS?.attributes?.memory_total_bytes ?? (env.source === "monitor_docker" ? va.Memory_limit : undefined);
+    const { cpu, mem, cores, used, total, cpuId, memId } = this._host(env);
     const cs = this._containerStats(env);
     const runPct = cs.total ? (100 * (cs.running ?? 0)) / cs.total : null;
     const memLabel = used && total ? `${this._t("memory")}<small>${fmtBytesPair(used, total)}</small>` : this._t("memory");
     return `<div class="gauges">
       ${this._gauge(
-        env.entities.cpu_usage,
+        cpuId,
         cores ? `${this._t("cpu")}<small>${esc(cores)} ${esc(this._tn("cores", cores))}</small>` : this._t("cpu"),
         ICONS.cpu,
         cpu,
         cpu === null ? "—" : `${cpu < 10 ? cpu.toFixed(1) : Math.round(cpu)}%`,
         level(cpu, 70, 90)
       )}
-      ${this._gauge(env.entities.memory_usage, memLabel, ICONS.ram, mem, mem === null ? "—" : `${Math.round(mem)}%`, level(mem, 80, 95))}
+      ${this._gauge(memId, memLabel, ICONS.ram, mem, mem === null ? "—" : `${Math.round(mem)}%`, level(mem, 80, 95))}
       ${this._gauge(
         cs.entity,
         `${this._t("containers")}<small>${this._t("running")}</small>`,
@@ -1667,7 +1778,7 @@ class DockerCard extends DockerBase {
   _stackProblem(st) {
     const e = st.entities;
     return (
-      stateClass(this._s(e.status)?.state) !== "ok" ||
+      stateClass(this._stackStatus(e).state) !== "ok" ||
       this._s(e.stack_updates_available)?.state === "on" ||
       this._s(e.git_stack_sync_error)?.state === "on"
     );
@@ -1681,25 +1792,25 @@ class DockerCard extends DockerBase {
   _stacks(env) {
     const rows = env.stacks.map((st) => {
       const e = st.entities;
-      const status = this._s(e.status);
+      const status = this._stackStatus(e);
       // A count only: an unknown or unavailable sensor (or attribute) leaves it out of the detail line.
-      const attrCount = parseFloat(status?.attributes?.container_count);
+      const attrCount = parseFloat(status.s?.attributes?.container_count);
       const count = num(this._s(e.containers_in_stack)) ?? (Number.isFinite(attrCount) ? attrCount : null);
       const upd = this._s(e.stack_updates_available);
       const hasUpd = upd?.state === "on";
       const syncErr = this._s(e.git_stack_sync_error)?.state === "on";
-      const cls = stateClass(status?.state);
+      const cls = stateClass(status.state);
       const problem = this._stackProblem(st);
       const isGit = /^Git/.test(st.type || "");
       const detail = [
-        status ? this._stateLabel(status.state) : null,
+        status.state ? this._stateLabel(status.state) : null,
         count !== null ? `${count} ${this._tn("containers_lc", count, "container_lc")}` : null,
       ].filter(Boolean);
       return {
         problem,
         html: `<div class="item" data-key="${esc(st.id)}">
           <span class="dot ${cls}"></span>
-          <div class="main clickable" role="button" tabindex="0" data-entity="${esc(e.status || "")}">
+          <div class="main clickable" role="button" tabindex="0" data-entity="${esc(status.id || "")}">
             <div class="title"><span>${esc(st.name)}</span>
               ${isGit ? `<span class="tag">${svgIcon(ICONS.git)}git</span>` : ""}
               ${syncErr ? `<span class="tag alert crit">${esc(this._t("sync_error"))}</span>` : ""}
@@ -1884,13 +1995,12 @@ class DockerMiniCard extends DockerCard {
     const { env, error } = findEnv(this._hass, this._config);
     if (error) return this._error(error);
     const e = env.entities;
-    const cpu = num(this._s(e.cpu_usage));
-    const mem = num(this._s(e.memory_usage));
+    const { cpu, mem, cpuId, memId } = this._host(env);
     const cs = this._containerStats(env);
     const runPct = cs.total ? (100 * (cs.running ?? 0)) / cs.total : null;
     const rows = [
-      this._metric(e.cpu_usage, ICONS.cpu, this._t("cpu"), cpu, cpu === null ? "—" : `${cpu < 10 ? cpu.toFixed(1) : Math.round(cpu)}%`, level(cpu, 70, 90)),
-      this._metric(e.memory_usage, ICONS.ram, this._t("memory"), mem, mem === null ? "—" : `${Math.round(mem)}%`, level(mem, 80, 95)),
+      this._metric(cpuId, ICONS.cpu, this._t("cpu"), cpu, cpu === null ? "—" : `${cpu < 10 ? cpu.toFixed(1) : Math.round(cpu)}%`, level(cpu, 70, 90)),
+      this._metric(memId, ICONS.ram, this._t("memory"), mem, mem === null ? "—" : `${Math.round(mem)}%`, level(mem, 80, 95)),
       this._metric(
         cs.entity,
         ICONS.container,
@@ -2077,12 +2187,12 @@ for (const card of [
   {
     type: "docker-card",
     name: "Docker Card",
-    description: "Monitor and control Docker hosts (Dockhand, Monitor Docker): CPU, memory, containers, stacks and updates.",
+    description: "Monitor and control Docker hosts (Dockhand, Monitor Docker, Portainer): CPU, memory, containers, stacks and updates.",
   },
   {
     type: "docker-mini-card",
     name: "Docker Mini Card",
-    description: "Compact Docker host overview (Dockhand, Monitor Docker): CPU, memory, containers and updates.",
+    description: "Compact Docker host overview (Dockhand, Monitor Docker, Portainer): CPU, memory, containers and updates.",
   },
 ]) {
   if (!window.customCards.some((c) => c.type === card.type))

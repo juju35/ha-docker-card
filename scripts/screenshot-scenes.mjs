@@ -1,10 +1,13 @@
 // The README captures rendered by scripts/screenshots.mjs: one entry per PNG (`shots`) and per GIF (`gifs`).
 // Kept apart from the renderer so the tests can check them without a browser.
 import { states as monitorDocker } from "./mock-states-monitor-docker.mjs";
+import * as portainer from "./mock-states-portainer.mjs";
 
 // Monitor Docker scenes: its own states (scripts/mock-states-monitor-docker.mjs), environment pinned.
 const md = { states: monitorDocker };
 const mdEnv = { environment: "monitor_docker.docker" };
+// Portainer scenes: its own registries and states (scripts/mock-states-portainer.mjs).
+const pt = { states: portainer.states, entities: portainer.entities, devices: portainer.devices };
 
 // Every capture is rendered in both themes: each light shot gets a `-dark` twin with the exact same setup,
 // so a light/dark pair only differs by its theme.
@@ -16,6 +19,8 @@ const lightShots = [
   { file: "mini-card-zoom", type: "docker-mini-card", theme: "light", width: 460, config: {}, zoom: true },
   { file: "card-monitor-docker", type: "docker-card", theme: "light", width: 460, config: { ...mdEnv, expand_containers: true }, ...md },
   { file: "mini-card-monitor-docker", type: "docker-mini-card", theme: "light", width: 380, config: mdEnv, ...md },
+  { file: "card-portainer", type: "docker-card", theme: "light", width: 460, config: { show_containers: true, expand_stacks: true, expand_containers: true }, ...pt },
+  { file: "mini-card-portainer", type: "docker-mini-card", theme: "light", width: 380, config: {}, ...pt },
 ];
 const withDarkTwins = (light) => [...light, ...light.map((s) => ({ ...s, file: `${s.file}-dark`, theme: "dark" }))];
 export const shots = withDarkTwins(lightShots);

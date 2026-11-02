@@ -39,7 +39,7 @@ test("I18N parity: every language has exactly the keys of en", () => {
 });
 
 test("I18N script: sr is Cyrillic and sr-Latn is Latin (proper nouns, brands and units aside)", () => {
-  const keep = /CPU|Dockhand|Monitor Docker|Home Assistant|URL|\{\w+\}/g;
+  const keep = /CPU|Dockhand|Monitor Docker|Portainer|Docker|Home Assistant|URL|\{\w+\}/g;
   for (const [key, value] of Object.entries(STRINGS.sr)) {
     assert.doesNotMatch(String(value).replace(keep, ""), /[A-Za-z]/, `Latin letter in sr.${key}`);
   }

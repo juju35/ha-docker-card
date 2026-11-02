@@ -6,7 +6,7 @@ import { readFileSync } from "node:fs";
 import { after, before, test } from "node:test";
 import { devices, entities, states } from "../scripts/mock-states.mjs";
 
-const src = readFileSync(new URL("../src/dockhand-card.js", import.meta.url), "utf8");
+const src = readFileSync(new URL("../src/docker-card.js", import.meta.url), "utf8");
 let browser;
 let skip = false;
 before(async () => {
@@ -41,8 +41,8 @@ const run = async ({ stack, change, noMoveBefore = false }) => {
     ({ states, entities, devices, stack, change }) => {
       window.calls = [];
       const hass = (st) => ({ states: st, entities, devices, language: "en", callService: (d, s, data) => window.calls.push(`${d}.${s} ${data.entity_id}`) });
-      const el = document.createElement("dockhand-card");
-      el.setConfig({ type: "custom:dockhand-card", expand_stacks: true, show_stats: false, show_counts: false });
+      const el = document.createElement("docker-card");
+      el.setConfig({ type: "custom:docker-card", expand_stacks: true, show_stats: false, show_counts: false });
       el.hass = hass(states);
       document.getElementById("root").appendChild(el);
       el.shadowRoot.querySelector(`button[data-action="toggle"][data-entity="switch.host_stacks_${stack}"]`).focus();
@@ -99,8 +99,8 @@ test("mini card detail button: the focus is put back without scrolling", async (
   await page.addScriptTag({ content: src });
   const r = await page.evaluate(
     ({ states, entities, devices }) => {
-      const el = document.createElement("dockhand-mini-card");
-      el.setConfig({ type: "custom:dockhand-mini-card" });
+      const el = document.createElement("docker-mini-card");
+      el.setConfig({ type: "custom:docker-mini-card" });
       el.hass = { states, entities, devices, language: "en", callService: () => {} };
       document.getElementById("root").appendChild(el);
       const calls = [];

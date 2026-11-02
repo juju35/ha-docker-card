@@ -1,6 +1,6 @@
 /*
- * Dockhand Card for Home Assistant
- * https://github.com/juju35/ha-dockhand-card
+ * Docker Card for Home Assistant
+ * https://github.com/juju35/ha-docker-card
  *
  * Lovelace cards for the Dockhand integration (https://github.com/raetha/ha-dockhand) and
  * Monitor Docker (https://github.com/ualex73/monitor_docker).
@@ -72,7 +72,7 @@ const STRINGS = {
     confirm_stop: "Stop {name}?",
     all_ok: "Nothing to report",
     no_env: "No Dockhand environment or Monitor Docker instance found. Is the Dockhand or Monitor Docker integration installed?",
-    unknown_env: "Dockhand environment not found",
+    unknown_env: "Environment not found",
     no_registry: "This card needs Home Assistant 2024.8 or later.",
     state_running: "Running",
     state_exited: "Stopped",
@@ -87,9 +87,9 @@ const STRINGS = {
     zoom_in: "Show the full card",
     zoom_out: "Back to the compact view",
     // Editor
-    environment: "Dockhand environment",
+    environment: "Environment",
     title: "Title (optional, defaults to the environment name)",
-    dockhand_url: "Dockhand URL opened by the logo (optional, detected from the integration)",
+    url: "URL opened by the logo (optional, detected from the integration)",
     show_stats: "Show CPU, memory and containers",
     show_counts: "Show counts (stacks, images…)",
     show_stacks: "Show stacks",
@@ -138,7 +138,7 @@ const STRINGS = {
     confirm_stop: "Arrêter {name} ?",
     all_ok: "Rien à signaler",
     no_env: "Aucun environnement Dockhand ni instance Monitor Docker trouvé. L'intégration Dockhand ou Monitor Docker est-elle installée ?",
-    unknown_env: "Environnement Dockhand introuvable",
+    unknown_env: "Environnement introuvable",
     no_registry: "Cette carte nécessite Home Assistant 2024.8 ou plus récent.",
     state_running: "Actif",
     state_exited: "Arrêté",
@@ -152,9 +152,9 @@ const STRINGS = {
     state_unknown: "Inconnu",
     zoom_in: "Afficher la carte complète",
     zoom_out: "Revenir à la vue compacte",
-    environment: "Environnement Dockhand",
+    environment: "Environnement",
     title: "Titre (facultatif, nom de l'environnement par défaut)",
-    dockhand_url: "URL de Dockhand ouverte par le logo (facultatif, détectée depuis l'intégration)",
+    url: "URL ouverte par le logo (facultatif, détectée depuis l'intégration)",
     show_stats: "Afficher CPU, mémoire et conteneurs",
     show_counts: "Afficher les compteurs (stacks, images…)",
     show_stacks: "Afficher les stacks",
@@ -203,7 +203,7 @@ const STRINGS = {
     confirm_stop: "{name} stoppen?",
     all_ok: "Keine Auffälligkeiten",
     no_env: "Keine Dockhand-Umgebung und keine Monitor-Docker-Instanz gefunden. Ist die Dockhand- oder Monitor-Docker-Integration installiert?",
-    unknown_env: "Dockhand-Umgebung nicht gefunden",
+    unknown_env: "Umgebung nicht gefunden",
     no_registry: "Diese Karte benötigt Home Assistant 2024.8 oder neuer.",
     state_running: "Aktiv",
     state_exited: "Gestoppt",
@@ -217,9 +217,9 @@ const STRINGS = {
     state_unknown: "Unbekannt",
     zoom_in: "Vollständige Karte anzeigen",
     zoom_out: "Zurück zur kompakten Ansicht",
-    environment: "Dockhand-Umgebung",
+    environment: "Umgebung",
     title: "Titel (optional, standardmäßig der Name der Umgebung)",
-    dockhand_url: "Vom Logo geöffnete Dockhand-URL (optional, wird aus der Integration ermittelt)",
+    url: "Vom Logo geöffnete URL (optional, wird aus der Integration ermittelt)",
     show_stats: "CPU, Speicher und Container anzeigen",
     show_counts: "Zähler anzeigen (Stacks, Images…)",
     show_stacks: "Stacks anzeigen",
@@ -268,7 +268,7 @@ const STRINGS = {
     confirm_stop: "¿Detener {name}?",
     all_ok: "Sin incidencias",
     no_env: "No se encontró ningún entorno de Dockhand ni instancia de Monitor Docker. ¿Está instalada la integración Dockhand o Monitor Docker?",
-    unknown_env: "Entorno de Dockhand no encontrado",
+    unknown_env: "Entorno no encontrado",
     no_registry: "Esta tarjeta requiere Home Assistant 2024.8 o posterior.",
     state_running: "En ejecución",
     state_exited: "Detenido",
@@ -282,9 +282,9 @@ const STRINGS = {
     state_unknown: "Desconocido",
     zoom_in: "Mostrar la tarjeta completa",
     zoom_out: "Volver a la vista compacta",
-    environment: "Entorno de Dockhand",
+    environment: "Entorno",
     title: "Título (opcional, por defecto el nombre del entorno)",
-    dockhand_url: "URL de Dockhand abierta por el logo (opcional, detectada desde la integración)",
+    url: "URL abierta por el logo (opcional, detectada desde la integración)",
     show_stats: "Mostrar CPU, memoria y contenedores",
     show_counts: "Mostrar contadores (stacks, imágenes…)",
     show_stacks: "Mostrar los stacks",
@@ -338,7 +338,7 @@ const STRINGS = {
     confirm_stop: "Зауставити {name}?",
     all_ok: "Све је у реду",
     no_env: "Није пронађено ниједно Dockhand окружење ни Monitor Docker инстанца. Да ли је интеграција Dockhand или Monitor Docker инсталирана?",
-    unknown_env: "Dockhand окружење није пронађено",
+    unknown_env: "Окружење није пронађено",
     no_registry: "Ова картица захтева Home Assistant 2024.8 или новији.",
     state_running: "Покренуто",
     state_exited: "Заустављено",
@@ -352,9 +352,9 @@ const STRINGS = {
     state_unknown: "Непознато",
     zoom_in: "Прикажи целу картицу",
     zoom_out: "Назад на компактни приказ",
-    environment: "Dockhand окружење",
+    environment: "Окружење",
     title: "Наслов (опционо, подразумевано је назив окружења)",
-    dockhand_url: "Dockhand URL који отвара лого (опционо, преузима се из интеграције)",
+    url: "URL који отвара лого (опционо, преузима се из интеграције)",
     show_stats: "Прикажи CPU, меморију и контејнере",
     show_counts: "Прикажи бројаче (стекови, слике…)",
     show_stacks: "Прикажи стекове",
@@ -408,7 +408,7 @@ const STRINGS = {
     confirm_stop: "Zaustaviti {name}?",
     all_ok: "Sve je u redu",
     no_env: "Nije pronađeno nijedno Dockhand okruženje ni Monitor Docker instanca. Da li je integracija Dockhand ili Monitor Docker instalirana?",
-    unknown_env: "Dockhand okruženje nije pronađeno",
+    unknown_env: "Okruženje nije pronađeno",
     no_registry: "Ova kartica zahteva Home Assistant 2024.8 ili noviji.",
     state_running: "Pokrenuto",
     state_exited: "Zaustavljeno",
@@ -422,9 +422,9 @@ const STRINGS = {
     state_unknown: "Nepoznato",
     zoom_in: "Prikaži celu karticu",
     zoom_out: "Nazad na kompaktni prikaz",
-    environment: "Dockhand okruženje",
+    environment: "Okruženje",
     title: "Naslov (opciono, podrazumevano je naziv okruženja)",
-    dockhand_url: "Dockhand URL koji otvara logo (opciono, preuzima se iz integracije)",
+    url: "URL koji otvara logo (opciono, preuzima se iz integracije)",
     show_stats: "Prikaži CPU, memoriju i kontejnere",
     show_counts: "Prikaži brojače (stekovi, slike…)",
     show_stacks: "Prikaži stekove",
@@ -473,7 +473,7 @@ const STRINGS = {
     confirm_stop: "Arrestare {name}?",
     all_ok: "Nulla da segnalare",
     no_env: "Nessun ambiente Dockhand né istanza Monitor Docker trovati. L'integrazione Dockhand o Monitor Docker è installata?",
-    unknown_env: "Ambiente Dockhand non trovato",
+    unknown_env: "Ambiente non trovato",
     no_registry: "Questa scheda richiede Home Assistant 2024.8 o successivo.",
     state_running: "In esecuzione",
     state_exited: "Arrestato",
@@ -487,9 +487,9 @@ const STRINGS = {
     state_unknown: "Sconosciuto",
     zoom_in: "Mostra la scheda completa",
     zoom_out: "Torna alla vista compatta",
-    environment: "Ambiente Dockhand",
+    environment: "Ambiente",
     title: "Titolo (facoltativo, predefinito: nome dell'ambiente)",
-    dockhand_url: "URL di Dockhand aperto dal logo (facoltativo, rilevato dall'integrazione)",
+    url: "URL aperto dal logo (facoltativo, rilevato dall'integrazione)",
     show_stats: "Mostra CPU, memoria e container",
     show_counts: "Mostra i contatori (stack, immagini…)",
     show_stacks: "Mostra gli stack",
@@ -538,7 +538,7 @@ const STRINGS = {
     confirm_stop: "{name} stoppen?",
     all_ok: "Niets te melden",
     no_env: "Geen Dockhand-omgeving of Monitor Docker-instantie gevonden. Is de Dockhand- of Monitor Docker-integratie geïnstalleerd?",
-    unknown_env: "Dockhand-omgeving niet gevonden",
+    unknown_env: "Omgeving niet gevonden",
     no_registry: "Deze kaart vereist Home Assistant 2024.8 of nieuwer.",
     state_running: "Actief",
     state_exited: "Gestopt",
@@ -552,9 +552,9 @@ const STRINGS = {
     state_unknown: "Onbekend",
     zoom_in: "Volledige kaart tonen",
     zoom_out: "Terug naar de compacte weergave",
-    environment: "Dockhand-omgeving",
+    environment: "Omgeving",
     title: "Titel (optioneel, standaard de naam van de omgeving)",
-    dockhand_url: "Dockhand-URL die het logo opent (optioneel, gedetecteerd via de integratie)",
+    url: "URL die het logo opent (optioneel, gedetecteerd via de integratie)",
     show_stats: "CPU, geheugen en containers tonen",
     show_counts: "Tellers tonen (stacks, images…)",
     show_stacks: "Stacks tonen",
@@ -603,7 +603,7 @@ const STRINGS = {
     confirm_stop: "Parar {name}?",
     all_ok: "Nada a assinalar",
     no_env: "Nenhum ambiente Dockhand nem instância Monitor Docker encontrados. A integração Dockhand ou Monitor Docker está instalada?",
-    unknown_env: "Ambiente Dockhand não encontrado",
+    unknown_env: "Ambiente não encontrado",
     no_registry: "Este cartão requer o Home Assistant 2024.8 ou posterior.",
     state_running: "Em execução",
     state_exited: "Parado",
@@ -617,9 +617,9 @@ const STRINGS = {
     state_unknown: "Desconhecido",
     zoom_in: "Mostrar o cartão completo",
     zoom_out: "Voltar à vista compacta",
-    environment: "Ambiente Dockhand",
+    environment: "Ambiente",
     title: "Título (opcional, por predefinição o nome do ambiente)",
-    dockhand_url: "URL do Dockhand aberto pelo logótipo (opcional, detetado a partir da integração)",
+    url: "URL aberto pelo logótipo (opcional, detetado a partir da integração)",
     show_stats: "Mostrar CPU, memória e contentores",
     show_counts: "Mostrar contadores (stacks, imagens…)",
     show_stacks: "Mostrar os stacks",
@@ -679,7 +679,7 @@ const STRINGS = {
     confirm_stop: "Zatrzymać {name}?",
     all_ok: "Wszystko w porządku",
     no_env: "Nie znaleziono środowiska Dockhand ani instancji Monitor Docker. Czy integracja Dockhand lub Monitor Docker jest zainstalowana?",
-    unknown_env: "Nie znaleziono środowiska Dockhand",
+    unknown_env: "Nie znaleziono środowiska",
     no_registry: "Ta karta wymaga Home Assistant 2024.8 lub nowszego.",
     state_running: "Uruchomiony",
     state_exited: "Zatrzymany",
@@ -693,9 +693,9 @@ const STRINGS = {
     state_unknown: "Nieznany",
     zoom_in: "Pokaż pełną kartę",
     zoom_out: "Wróć do widoku kompaktowego",
-    environment: "Środowisko Dockhand",
+    environment: "Środowisko",
     title: "Tytuł (opcjonalnie, domyślnie nazwa środowiska)",
-    dockhand_url: "URL Dockhand otwierany przez logo (opcjonalnie, wykrywany z integracji)",
+    url: "URL otwierany przez logo (opcjonalnie, wykrywany z integracji)",
     show_stats: "Pokaż CPU, pamięć i kontenery",
     show_counts: "Pokaż liczniki (stosy, obrazy…)",
     show_stacks: "Pokaż stosy",
@@ -1079,7 +1079,7 @@ const BASE_STYLE = `
   .bar { height: 4px; border-radius: 3px; background: var(--divider-color, rgba(127,127,127,.25)); overflow: hidden; }
   .bar > div { height: 100%; border-radius: 3px; background: var(--c, var(--dh-orange)); transition: width .6s ease; }
   .header { display: flex; align-items: center; gap: 10px; padding: 12px 12px 8px; }
-  /* Tinted round icon, in the status colour like the chip; it opens Dockhand. */
+  /* Tinted round icon, in the status colour like the chip; it opens Dockhand (or the url option). */
   .logo { height: 40px; width: 40px; flex: none; border-radius: 50%; display: grid; place-items: center;
           color: var(--c, var(--dh-ok)); background: color-mix(in srgb, var(--c, var(--dh-ok)) 16%, transparent); }
   .logo .icon { width: 24px; height: 24px; fill: currentColor; }
@@ -1145,7 +1145,7 @@ const CONFIRM_GUARD_MS = 400;
 // A click inside a dialog (more-info opened from the card, say) is not a click outside the card.
 const inDialog = (ev) => ev.composedPath().some((n) => ["ha-more-info-dialog", "ha-dialog", "dialog"].includes(n.localName));
 
-class DockhandBase extends HTMLElement {
+class DockerBase extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -1261,7 +1261,7 @@ class DockhandBase extends HTMLElement {
   _call(domain, service, data) {
     return Promise.resolve()
       .then(() => this._hass.callService(domain, service, data))
-      .catch((err) => console.error(`dockhand-card: ${domain}.${service} failed`, err));
+      .catch((err) => console.error(`docker-card: ${domain}.${service} failed`, err));
   }
 
   _onClick(ev) {
@@ -1360,12 +1360,13 @@ class DockhandBase extends HTMLElement {
     </div>`;
   }
 
-  // Logo target: dockhand_url option, else the Dockhand web UI advertised by the integration
+  // Logo target: url option (dockhand_url before 2.0), else the Dockhand web UI advertised by the integration
   // (environment device configuration_url, minus its settings deep link), else the project website
   // (Monitor Docker's for a Monitor Docker instance).
-  _dockhandUrl(env) {
+  _logoUrl(env) {
     // Only http(s) addresses: any other scheme (javascript:…) would run on a click on the logo.
-    if (/^https?:\/\//i.test(this._config.dockhand_url || "")) return this._config.dockhand_url;
+    const url = this._config.url ?? this._config.dockhand_url;
+    if (/^https?:\/\//i.test(url || "")) return url;
     if (env.source === "monitor_docker") return MONITOR_DOCKER_SITE;
     const conf = this._hass.devices?.[env.id]?.configuration_url;
     if (conf) return conf.replace(/\/settings(?:[/?#].*)?$/, "") || conf;
@@ -1391,7 +1392,7 @@ class DockhandBase extends HTMLElement {
     const sub = [docker && docker !== "unknown" && docker !== "unavailable" ? `Docker ${docker}` : null, platform, conn].filter((v) => v && v !== "unknown" && v !== "unavailable");
     return `
       <div class="header">
-        <a class="logo-link logo ${logoCls}" href="${esc(this._dockhandUrl(env))}" target="_blank" rel="noopener noreferrer" title="${esc(srcName)}" aria-label="${esc(srcName)}">${svgIcon(ICONS.docker)}</a>
+        <a class="logo-link logo ${logoCls}" href="${esc(this._logoUrl(env))}" target="_blank" rel="noopener noreferrer" title="${esc(srcName)}" aria-label="${esc(srcName)}">${svgIcon(ICONS.docker)}</a>
         <div class="titles">
           <div class="name">${esc(c.title || env.name)}</div>
           ${sub.length ? `<div class="sub">${esc(sub.join(" · "))}</div>` : ""}
@@ -1525,9 +1526,9 @@ const FULL_STYLE = `
   .empty { font-size: 13px; color: var(--secondary-text-color); padding: 4px 0; }
 `;
 
-class DockhandCard extends DockhandBase {
+class DockerCard extends DockerBase {
   static getConfigElement() {
-    return document.createElement("dockhand-card-editor");
+    return document.createElement("docker-card-editor");
   }
 
   static getStubConfig(hass) {
@@ -1806,13 +1807,13 @@ const MINI_STYLE = `
 
 // The mini card extends the full card: its detail button (top right, `zoom: false` removes it) switches it to the
 // full card's content, same configuration, and back; a click anywhere outside the card brings it back too.
-class DockhandMiniCard extends DockhandCard {
+class DockerMiniCard extends DockerCard {
   static getConfigElement() {
-    return document.createElement("dockhand-mini-card-editor");
+    return document.createElement("docker-mini-card-editor");
   }
 
   static getStubConfig(hass) {
-    return DockhandCard.getStubConfig(hass);
+    return DockerCard.getStubConfig(hass);
   }
 
   constructor() {
@@ -1926,14 +1927,16 @@ class DockhandMiniCard extends DockhandCard {
 // Visual editors (ha-form)
 // ---------------------------------------------------------------------------
 
-class DockhandEditorBase extends HTMLElement {
+class DockerEditorBase extends HTMLElement {
   // [name, default]
   static get toggles() {
     return [];
   }
 
   setConfig(config) {
-    this._config = { ...config };
+    // dockhand_url (before 2.0) is edited as url: the next change saves it under its new name.
+    const { dockhand_url, ...rest } = config;
+    this._config = dockhand_url && !rest.url ? { ...rest, url: dockhand_url } : rest;
     this._render();
   }
 
@@ -1947,7 +1950,7 @@ class DockhandEditorBase extends HTMLElement {
     return [
       { name: "environment", selector: { select: { mode: "dropdown", options: envs } } },
       { name: "title", selector: { text: {} } },
-      { name: "dockhand_url", selector: { text: { type: "url" } } },
+      { name: "url", selector: { text: { type: "url" } } },
       {
         type: "grid",
         name: "",
@@ -2024,7 +2027,7 @@ class DockhandEditorBase extends HTMLElement {
   }
 }
 
-class DockhandCardEditor extends DockhandEditorBase {
+class DockerCardEditor extends DockerEditorBase {
   static get toggles() {
     return [
       ["show_stats", true],
@@ -2045,7 +2048,7 @@ class DockhandCardEditor extends DockhandEditorBase {
   }
 }
 
-class DockhandMiniCardEditor extends DockhandEditorBase {
+class DockerMiniCardEditor extends DockerEditorBase {
   static get toggles() {
     return [
       ["show_updates", true],
@@ -2061,30 +2064,33 @@ class DockhandMiniCardEditor extends DockhandEditorBase {
 const define = (name, cls) => {
   if (!customElements.get(name)) customElements.define(name, cls);
 };
-define("dockhand-card", DockhandCard);
-define("dockhand-mini-card", DockhandMiniCard);
-define("dockhand-card-editor", DockhandCardEditor);
-define("dockhand-mini-card-editor", DockhandMiniCardEditor);
+define("docker-card", DockerCard);
+define("docker-mini-card", DockerMiniCard);
+define("docker-card-editor", DockerCardEditor);
+define("docker-mini-card-editor", DockerMiniCardEditor);
+// Card types before 2.0: same cards, kept working (subclasses, an element class is defined only once).
+define("dockhand-card", class extends DockerCard {});
+define("dockhand-mini-card", class extends DockerMiniCard {});
 
 window.customCards = window.customCards || [];
 for (const card of [
   {
-    type: "dockhand-card",
-    name: "Dockhand Card",
-    description: "Monitor and control a Dockhand Docker environment: CPU, memory, containers, stacks and updates.",
+    type: "docker-card",
+    name: "Docker Card",
+    description: "Monitor and control Docker hosts (Dockhand, Monitor Docker): CPU, memory, containers, stacks and updates.",
   },
   {
-    type: "dockhand-mini-card",
-    name: "Dockhand Mini Card",
-    description: "Compact Dockhand environment overview: CPU, memory, containers and updates.",
+    type: "docker-mini-card",
+    name: "Docker Mini Card",
+    description: "Compact Docker host overview (Dockhand, Monitor Docker): CPU, memory, containers and updates.",
   },
 ]) {
   if (!window.customCards.some((c) => c.type === card.type))
-    window.customCards.push({ ...card, preview: true, documentationURL: "https://github.com/juju35/ha-dockhand-card" });
+    window.customCards.push({ ...card, preview: true, documentationURL: "https://github.com/juju35/ha-docker-card" });
 }
 
 console.info(
-  `%c DOCKHAND-CARD %c v${VERSION} `,
+  `%c DOCKER-CARD %c v${VERSION} `,
   "color: white; background: #f26b21; font-weight: 700;",
   "color: #f26b21; background: white; font-weight: 700;"
 );

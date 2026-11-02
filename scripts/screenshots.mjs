@@ -13,7 +13,7 @@ import { replaceIfChanged } from "./pixels.mjs";
 import { gifs, shots } from "./screenshot-scenes.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
-const cardJs = readFileSync(`${root}dist/dockhand-card.js`, "utf8");
+const cardJs = readFileSync(`${root}dist/docker-card.js`, "utf8");
 
 const THEMES = {
   light: {

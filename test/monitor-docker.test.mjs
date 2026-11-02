@@ -5,7 +5,7 @@ import { load } from "./load.mjs";
 // Values built in the card's context: compared as JSON (another realm's arrays are not deepEqual).
 const same = (a, b) => assert.equal(JSON.stringify(a), JSON.stringify(b));
 
-const { DockhandCard, DockhandMiniCard, resolve, sameSig } = load("dockhand-card.js", ["DockhandCard", "DockhandMiniCard", "resolve", "sameSig"]);
+const { DockerCard, DockerMiniCard, resolve, sameSig } = load("docker-card.js", ["DockerCard", "DockerMiniCard", "resolve", "sameSig"]);
 
 // Monitor Docker entities, as created by `monitor_docker: - name: Docker` (no unique_id: not registered).
 const st = (entity_id, state, attributes = {}) => [entity_id, { entity_id, state: String(state), attributes }];
@@ -90,7 +90,7 @@ test("no Monitor Docker without its host sensors", () => {
 });
 
 test("full card shows the containers list, host details and no updates tile", () => {
-  const html = make(DockhandCard, baseStates(), { expand_containers: true })._render();
+  const html = make(DockerCard, baseStates(), { expand_containers: true })._render();
   assert.ok(html.includes("Docker 27.5.1 · Debian GNU/Linux 12 x86_64"));
   assert.ok(html.includes("8 cores"));
   assert.ok(html.includes("2/3"));
@@ -103,28 +103,28 @@ test("full card shows the containers list, host details and no updates tile", ()
 });
 
 test("show_containers: false hides the Monitor Docker containers list", () => {
-  const html = make(DockhandCard, baseStates(), { show_containers: false })._render();
+  const html = make(DockerCard, baseStates(), { show_containers: false })._render();
   assert.ok(!html.includes('data-section="containers"'));
 });
 
 test("only_problems keeps the stopped and unhealthy containers", () => {
-  const card = make(DockhandCard, baseStates(), { only_problems: true, expand_containers: true });
+  const card = make(DockerCard, baseStates(), { only_problems: true, expand_containers: true });
   const html = card._render();
   assert.ok(html.includes(">web<") && html.includes(">db<"));
   assert.ok(!html.includes(">cache<"));
 });
 
 test("mini card has no updates footer for Monitor Docker", () => {
-  const html = make(DockhandMiniCard, baseStates())._render();
+  const html = make(DockerMiniCard, baseStates())._render();
   assert.ok(html.includes("5 images"));
   assert.ok(!html.includes("update"));
 });
 
 test("a new Monitor Docker container changes the render signature", () => {
   const states = baseStates();
-  const before = make(DockhandCard, states)._signature();
+  const before = make(DockerCard, states)._signature();
   const next = { ...states, ...Object.fromEntries([st("sensor.docker_new_state", "running", {})]) };
-  assert.ok(!sameSig(before, make(DockhandCard, next)._signature()));
+  assert.ok(!sameSig(before, make(DockerCard, next)._signature()));
   const unrelated = { ...states, "light.kitchen": { ...states["light.kitchen"], state: "on" } };
-  assert.ok(sameSig(before, make(DockhandCard, unrelated)._signature()));
+  assert.ok(sameSig(before, make(DockerCard, unrelated)._signature()));
 });

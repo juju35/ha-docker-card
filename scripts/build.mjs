@@ -1,4 +1,4 @@
-// Bundles src/dockhand-card.js into the single HACS file dist/dockhand-card.js.
+// Bundles src/docker-card.js into the single HACS file dist/docker-card.js.
 // Usage: node scripts/build.mjs  (dist/ is not committed: CI and the release workflow build it)
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -6,10 +6,10 @@ import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("..", import.meta.url));
 const pkg = JSON.parse(readFileSync(`${root}package.json`, "utf8"));
 
-const out = readFileSync(`${root}src/dockhand-card.js`, "utf8")
+const out = readFileSync(`${root}src/docker-card.js`, "utf8")
   .replace("__VERSION__", pkg.version);
 
-const target = `${root}dist/dockhand-card.js`;
+const target = `${root}dist/docker-card.js`;
 mkdirSync(`${root}dist`, { recursive: true });
 writeFileSync(target, out);
-console.log(`Built dist/dockhand-card.js (${(out.length / 1024).toFixed(1)} KB)`);
+console.log(`Built dist/docker-card.js (${(out.length / 1024).toFixed(1)} KB)`);

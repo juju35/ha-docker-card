@@ -1,14 +1,19 @@
 // Mock Home Assistant registries and states shaped like the Dockhand integration,
 // used to render screenshots. Entity ids are in French on purpose: the cards never rely on them.
-export const states = {};
-export const entities = {};
-export const devices = {};
-
-const device = (id, name, model, via) => (devices[id] = { id, name, model, via_device_id: via || null, name_by_user: null });
-const entity = (entity_id, device_id, translation_key, state, attributes = {}) => {
-  entities[entity_id] = { entity_id, device_id, platform: "dockhand", translation_key: translation_key || null };
-  states[entity_id] = { entity_id, state: String(state), attributes };
+// Registries and states of one integration, with helpers adding a device and an entity to them (also used by
+// scripts/mock-states-portainer.mjs).
+export const mockRegistry = (platform) => {
+  const r = { states: {}, entities: {}, devices: {} };
+  r.device = (id, name, model, via) => (r.devices[id] = { id, name, model, via_device_id: via || null, name_by_user: null });
+  r.entity = (entity_id, device_id, translation_key, state, attributes = {}) => {
+    r.entities[entity_id] = { entity_id, device_id, platform, translation_key: translation_key || null };
+    r.states[entity_id] = { entity_id, state: String(state), attributes };
+  };
+  return r;
 };
+
+const { states, entities, devices, device, entity } = mockRegistry("dockhand");
+export { devices, entities, states };
 
 device("env", "Docker host", "Environment");
 devices.env.configuration_url = "http://192.168.1.10:3000/settings?tab=environments&edit=1";

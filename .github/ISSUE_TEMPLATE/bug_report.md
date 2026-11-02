@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a bug with the Dockhand Card
+about: Report a bug with the Docker Card
 title: "[Bug] "
 labels: bug
 assignees: ""
@@ -26,11 +26,11 @@ If applicable, add screenshots to help explain your problem.
 - Browser:
 - HACS version:
 - Card version:
-- Dockhand version:
+- Integration and version (Dockhand, Monitor Docker or Portainer):
 
 **Card configuration:**
 ```yaml
-type: custom:dockhand-card
+type: custom:docker-card
 ```
 
 **Additional context**

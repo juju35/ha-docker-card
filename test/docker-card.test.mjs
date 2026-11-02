@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { load } from "./load.mjs";
 
-const { DockhandCard, DockhandMiniCard, resolve, sameSig, fmtBytesPair } = load("dockhand-card.js", [
-  "DockhandCard",
-  "DockhandMiniCard",
+const { DockerCard, DockerMiniCard, resolve, sameSig, fmtBytesPair } = load("docker-card.js", [
+  "DockerCard",
+  "DockerMiniCard",
   "resolve",
   "sameSig",
   "fmtBytesPair",
@@ -44,33 +44,33 @@ test("resolve groups containers under their environment", () => {
 });
 
 test("attributes from the API are escaped in the full card", () => {
-  const html = make(DockhandCard, baseStates())._render();
+  const html = make(DockerCard, baseStates())._render();
   assert.ok(!html.includes("<img src=x"), "raw attribute injected");
   assert.ok(html.includes("&lt;img src=x"));
 });
 
 test("attributes from the API are escaped in the mini card", () => {
-  const html = make(DockhandMiniCard, baseStates())._render();
+  const html = make(DockerMiniCard, baseStates())._render();
   assert.ok(!html.includes("<img src=x"), "raw attribute injected");
 });
 
 test("an unrelated state change keeps the render signature", () => {
   const states = baseStates();
-  const before = make(DockhandCard, states)._signature();
-  const after = make(DockhandCard, { ...states, "light.kitchen": { ...states["light.kitchen"], state: "on" } })._signature();
+  const before = make(DockerCard, states)._signature();
+  const after = make(DockerCard, { ...states, "light.kitchen": { ...states["light.kitchen"], state: "on" } })._signature();
   assert.ok(sameSig(before, after));
 });
 
 test("a change of a container state changes the render signature", () => {
   const states = baseStates();
-  const before = make(DockhandCard, states)._signature();
+  const before = make(DockerCard, states)._signature();
   const next = { ...states, "sensor.web_state": { ...states["sensor.web_state"], state: "exited" } };
-  assert.ok(!sameSig(before, make(DockhandCard, next)._signature()));
+  assert.ok(!sameSig(before, make(DockerCard, next)._signature()));
 });
 
-test("dockhand_url is only used for an http(s) address", () => {
+test("url is only used for an http(s) address", () => {
   const env = resolve({ entities, devices }).envs[0];
-  const card = (url) => make(DockhandCard, baseStates(), { dockhand_url: url })._dockhandUrl(env);
+  const card = (url) => make(DockerCard, baseStates(), { url })._logoUrl(env);
   assert.equal(card("http://nas.local:3000"), "http://nas.local:3000");
   assert.equal(card("HTTPS://dockhand.example"), "HTTPS://dockhand.example");
   assert.ok(!card("javascript:alert(1)").startsWith("javascript"));
@@ -80,7 +80,7 @@ test("dockhand_url is only used for an http(s) address", () => {
 test("unknown or unavailable counters are shown as a dash", () => {
   const ents = { ...entities, "sensor.images": { entity_id: "sensor.images", device_id: "env", platform: "dockhand", translation_key: "image_count" } };
   const states = { ...baseStates(), "sensor.images": { entity_id: "sensor.images", state: "unavailable", attributes: {} } };
-  for (const Cls of [DockhandCard, DockhandMiniCard]) {
+  for (const Cls of [DockerCard, DockerMiniCard]) {
     const el = make(Cls, states);
     el._hass.entities = ents;
     const html = el._render();
@@ -91,15 +91,15 @@ test("unknown or unavailable counters are shown as a dash", () => {
 
 test("getCardSize follows the sections shown and the open lists", () => {
   const states = baseStates();
-  assert.equal(make(DockhandCard, states, {}).getCardSize(), 4);
-  assert.equal(make(DockhandCard, states, { show_stats: false, show_counts: false }).getCardSize(), 1);
-  assert.equal(make(DockhandCard, states, { show_containers: true }).getCardSize(), 5);
-  assert.equal(make(DockhandCard, states, { show_containers: true, expand_containers: true }).getCardSize(), 6);
+  assert.equal(make(DockerCard, states, {}).getCardSize(), 4);
+  assert.equal(make(DockerCard, states, { show_stats: false, show_counts: false }).getCardSize(), 1);
+  assert.equal(make(DockerCard, states, { show_containers: true }).getCardSize(), 5);
+  assert.equal(make(DockerCard, states, { show_containers: true, expand_containers: true }).getCardSize(), 6);
 });
 
 // Mini card detail button: a mini card whose renders are captured instead of patched into a DOM.
 const zoomCard = (config = {}) => {
-  const el = make(DockhandMiniCard, baseStates(), config);
+  const el = make(DockerMiniCard, baseStates(), config);
   el._hass.language = config.language || "en";
   el._update = () => {
     el.html = el._render();
@@ -114,7 +114,7 @@ const zoomButton = () => click([], { target: { closest: (sel) => (sel === ".zoom
 
 test("the mini card detail button switches to the full card content and back", () => {
   const el = zoomCard();
-  const full = make(DockhandCard, el._hass.states);
+  const full = make(DockerCard, el._hass.states);
   full._hass = el._hass;
   assert.match(el.html, /class="metric/);
   // Rightmost header element.
@@ -157,7 +157,7 @@ test("a click outside the mini card collapses it, a click inside or in a dialog 
 
 test("zoom: false removes the mini card detail button, the full card has none", () => {
   assert.doesNotMatch(zoomCard({ zoom: false }).html, /class="zoom"/);
-  assert.doesNotMatch(make(DockhandCard, baseStates())._render(), /class="zoom"/);
+  assert.doesNotMatch(make(DockerCard, baseStates())._render(), /class="zoom"/);
 });
 
 test("memory label keeps the used unit when it differs from the total's", () => {
@@ -171,7 +171,7 @@ test("getCardSize applies the only_problems filter, as the rendered sections do"
   const ents = { ...entities, "sensor.db_state": { entity_id: "sensor.db_state", device_id: "ct2", platform: "dockhand", translation_key: "state" } };
   const states = { ...baseStates(), "sensor.db_state": { entity_id: "sensor.db_state", state: "exited", attributes: {} } };
   const mk = (config) => {
-    const el = new DockhandCard();
+    const el = new DockerCard();
     el._config = config;
     el._hass = { states, entities: ents, devices: devs, language: "en" };
     return el;
@@ -182,7 +182,7 @@ test("getCardSize applies the only_problems filter, as the rendered sections do"
 });
 
 test("restart asks for an in-card confirmation, Cancel closes it without acting", async () => {
-  const el = make(DockhandCard, baseStates());
+  const el = make(DockerCard, baseStates());
   const calls = [];
   el._hass.callService = (d, s, data) => calls.push(`${d}.${s} ${data.entity_id}`);
   el._update = () => {
@@ -205,7 +205,7 @@ test("restart asks for an in-card confirmation, Cancel closes it without acting"
 
 test("stopping asks for an in-card confirmation, starting does not", async () => {
   const states = { ...baseStates(), "switch.web": { entity_id: "switch.web", state: "on", attributes: {} } };
-  const el = make(DockhandCard, states);
+  const el = make(DockerCard, states);
   const calls = [];
   el._hass.callService = (d, s, data) => calls.push(`${d}.${s} ${data.entity_id}`);
   el._update = () => {};
@@ -218,7 +218,7 @@ test("stopping asks for an in-card confirmation, starting does not", async () =>
   assert.deepEqual(calls, ["switch.turn_off switch.web"]);
   assert.equal(el._confirm, null);
   // Starting a stopped switch needs no confirmation.
-  const el2 = make(DockhandCard, { ...baseStates(), "switch.db": { entity_id: "switch.db", state: "off", attributes: {} } });
+  const el2 = make(DockerCard, { ...baseStates(), "switch.db": { entity_id: "switch.db", state: "off", attributes: {} } });
   const calls2 = [];
   el2._hass.callService = (d, s, data) => calls2.push(`${d}.${s} ${data.entity_id}`);
   el2._update = () => {};
@@ -230,7 +230,7 @@ test("stopping asks for an in-card confirmation, starting does not", async () =>
 
 test("an unavailable or unknown switch is neither started nor stopped, its button is disabled", async () => {
   for (const state of ["unavailable", "unknown"]) {
-    const el = make(DockhandCard, { ...baseStates(), "switch.web": { entity_id: "switch.web", state, attributes: {} } });
+    const el = make(DockerCard, { ...baseStates(), "switch.web": { entity_id: "switch.web", state, attributes: {} } });
     const calls = [];
     el._hass.callService = (d, s, data) => calls.push(`${d}.${s} ${data.entity_id}`);
     el._update = () => {};
@@ -240,12 +240,12 @@ test("an unavailable or unknown switch is neither started nor stopped, its butto
     assert.deepEqual(calls, [], state);
     assert.match(el._controls({ _switch: "switch.web" }, "web"), / disabled>/, state);
   }
-  const on = make(DockhandCard, { ...baseStates(), "switch.web": { entity_id: "switch.web", state: "on", attributes: {} } });
+  const on = make(DockerCard, { ...baseStates(), "switch.web": { entity_id: "switch.web", state: "on", attributes: {} } });
   assert.doesNotMatch(on._controls({ _switch: "switch.web" }, "web"), /disabled/);
 });
 
 test("closing the confirmation gives the focus back to the button that opened it", async () => {
-  const el = make(DockhandCard, baseStates());
+  const el = make(DockerCard, baseStates());
   el._hass.callService = () => {};
   el._update = () => {};
   const focused = [];
@@ -264,7 +264,7 @@ test("closing the confirmation gives the focus back to the button that opened it
 });
 
 test("Tab stays on the confirmation buttons", () => {
-  const el = make(DockhandCard, baseStates());
+  const el = make(DockerCard, baseStates());
   el._update = () => {};
   const focused = [];
   const btns = ["cancel", "ok"].map((name) => ({ name, focus: () => focused.push(name) }));
@@ -287,12 +287,12 @@ test("German keeps its capitalised nouns in inline counts", () => {
     "sensor.stacks": { entity_id: "sensor.stacks", device_id: "env", platform: "dockhand", translation_key: "stacks" },
   };
   const states = { ...baseStates(), "sensor.stacks": { entity_id: "sensor.stacks", state: "5", attributes: {} } };
-  const el = make(DockhandMiniCard, states, { language: "de" });
+  const el = make(DockerMiniCard, states, { language: "de" });
   el._hass.entities = ents;
   const html = el._render();
   assert.match(html, /5 Stacks/);
   assert.doesNotMatch(html, /\d (stacks|updates)\b/);
-  const en = make(DockhandMiniCard, states);
+  const en = make(DockerMiniCard, states);
   en._hass.entities = ents;
   assert.match(en._render(), /5 stacks/);
 });
@@ -300,13 +300,13 @@ test("German keeps its capitalised nouns in inline counts", () => {
 test("an unavailable containers sensor shows its pending updates as a dash, not 0", () => {
   const states = { ...baseStates(), "sensor.containers": { entity_id: "sensor.containers", state: "unavailable", attributes: {} } };
   const env = resolve({ entities, devices }).envs[0];
-  assert.equal(make(DockhandCard, states)._containerStats(env).updates, null);
-  for (const Cls of [DockhandCard, DockhandMiniCard]) {
+  assert.equal(make(DockerCard, states)._containerStats(env).updates, null);
+  for (const Cls of [DockerCard, DockerMiniCard]) {
     const html = make(Cls, states)._render();
     assert.doesNotMatch(html, />0 ?(<\/span>)? ?updates/i, Cls.name);
     assert.doesNotMatch(html, /class="v">0</, Cls.name);
   }
-  assert.equal(make(DockhandCard, { ...baseStates(), "sensor.containers": { entity_id: "sensor.containers", state: "3", attributes: {} } })._containerStats(env).updates, 0);
+  assert.equal(make(DockerCard, { ...baseStates(), "sensor.containers": { entity_id: "sensor.containers", state: "3", attributes: {} } })._containerStats(env).updates, 0);
 });
 
 test("a stack whose container count is unavailable leaves it out of its detail line", () => {
@@ -317,7 +317,7 @@ test("a stack whose container count is unavailable leaves it out of its detail l
     "sensor.app_count": { entity_id: "sensor.app_count", device_id: "stk", platform: "dockhand", translation_key: "containers_in_stack" },
   };
   const mk = (count, attrs = {}) => {
-    const el = new DockhandCard();
+    const el = new DockerCard();
     el._config = { expand_stacks: true };
     el._hass = {
       states: {
@@ -340,7 +340,7 @@ test("a stack whose container count is unavailable leaves it out of its detail l
 });
 
 test("unavailable and unknown states are translated", () => {
-  const el = make(DockhandCard, baseStates(), { language: "fr" });
+  const el = make(DockerCard, baseStates(), { language: "fr" });
   assert.equal(el._stateLabel("unavailable"), "Indisponible");
   assert.equal(el._stateLabel("unknown"), "Inconnu");
 });
@@ -352,7 +352,7 @@ test("header subtitle hides unavailable or unknown host sensors", () => {
   addEnv("sensor.platform", "host_platform");
   addEnv("sensor.conn", "connection_type");
   const sub = (docker, platform, conn) => {
-    const el = new DockhandCard();
+    const el = new DockerCard();
     el._config = { language: "fr" };
     const st = (id, state) => ({ entity_id: id, state, attributes: {} });
     el._hass = {
@@ -373,4 +373,97 @@ test("header subtitle hides unavailable or unknown host sensors", () => {
   assert.equal(sub("unavailable", "linux", "socket"), "linux · socket");
   assert.equal(sub("27.3.1", "unavailable", "socket"), "Docker 27.3.1 · socket");
   assert.equal(sub("27.3.1", "linux", "socket"), "Docker 27.3.1 · linux · socket");
+});
+
+test("an unavailable restart button is disabled and does nothing; a never pressed one (unknown) still works", async () => {
+  const st = (state) => ({ ...baseStates(), "button.web_restart": { entity_id: "button.web_restart", state, attributes: {} } });
+  const el = make(DockerCard, st("unavailable"));
+  const calls = [];
+  el._hass.callService = (d, s, data) => calls.push(`${d}.${s} ${data.entity_id}`);
+  el._update = () => {};
+  assert.match(el._controls({ restart: "button.web_restart" }, "web"), / disabled>/);
+  el._onClick(click([{ dataset: { action: "restart", entity: "button.web_restart", label: "web" } }]));
+  await null;
+  assert.equal(el._confirm ?? null, null);
+  assert.deepEqual(calls, []);
+  // A button entity is "unknown" until first pressed: that is not unavailable.
+  for (const state of ["unknown", "2026-11-01T10:00:00+00:00"]) {
+    const ok = make(DockerCard, st(state));
+    ok._update = () => {};
+    assert.doesNotMatch(ok._controls({ restart: "button.web_restart" }, "web"), /disabled/, state);
+    ok._onClick(click([{ dataset: { action: "restart", entity: "button.web_restart", label: "web" } }]));
+    await null;
+    assert.ok(ok._confirm, state);
+  }
+});
+
+test("header chip: an unavailable or unknown online sensor is shown as such, not as Offline", () => {
+  const ents = { ...entities, "binary_sensor.online": { entity_id: "binary_sensor.online", device_id: "env", platform: "dockhand", translation_key: "online" } };
+  const chip = (state, language = "en") => {
+    const el = new DockerCard();
+    el._config = { language };
+    el._hass = {
+      states: { ...baseStates(), "binary_sensor.online": { entity_id: "binary_sensor.online", state, attributes: {} } },
+      entities: ents,
+      devices,
+      language,
+    };
+    const m = el._render().match(/<span class="chip ([^"]*)"[^>]*>([\s\S]*?)<\/span><\/span>/);
+    return m && `${m[1].split(" ").filter((c) => ["ok", "crit", "idle"].includes(c)).join("")}:${m[2].replace(/<[^>]+>/g, "").trim()}`;
+  };
+  assert.equal(chip("on"), "ok:Online");
+  assert.equal(chip("off"), "crit:Offline");
+  assert.equal(chip("unavailable"), "idle:Unavailable");
+  assert.equal(chip("unknown"), "idle:Unknown");
+  assert.equal(chip("unavailable", "fr"), "idle:Indisponible");
+});
+
+test("the header chip keeps its text in title and aria-label (the label can be hidden on a narrow card)", () => {
+  const ents = { ...entities, "binary_sensor.online": { entity_id: "binary_sensor.online", device_id: "env", platform: "dockhand", translation_key: "online" } };
+  const el = new DockerCard();
+  el._config = { language: "sr" };
+  el._hass = { states: { ...baseStates(), "binary_sensor.online": { entity_id: "binary_sensor.online", state: "on", attributes: {} } }, entities: ents, devices, language: "sr" };
+  const html = el._render();
+  assert.match(html, /<span class="chip [^"]*"[^>]* title="На мрежи" aria-label="На мрежи"/);
+  assert.match(html, /<span class="chip-label">На мрежи<\/span>/);
+});
+
+test("the confirmation popup is named by its question (aria-labelledby)", async () => {
+  const el = make(DockerCard, baseStates());
+  el._update = () => {};
+  el._onClick(click([{ dataset: { action: "restart", entity: "button.web_restart", label: "web" } }]));
+  await null;
+  const html = el._confirmHtml();
+  const id = html.match(/role="dialog" aria-modal="true" aria-labelledby="([^"]+)"/)?.[1];
+  assert.ok(id, "no aria-labelledby");
+  assert.match(html, new RegExp(`<div class="msg" id="${id}">Restart web\\?</div>`));
+});
+
+test("header icon: the Docker icon in the status color, a link to Dockhand", () => {
+  const ents = { ...entities, "binary_sensor.online": { entity_id: "binary_sensor.online", device_id: "env", platform: "dockhand", translation_key: "online" } };
+  const icon = (state, config = {}) => {
+    const el = new DockerCard();
+    el._config = { language: "en", ...config };
+    el._hass = { states: { ...baseStates(), "binary_sensor.online": { entity_id: "binary_sensor.online", state, attributes: {} } }, entities: ents, devices, language: "en" };
+    return el._render().match(/<a class="logo-link logo (\w+)" href="([^"]*)"[^>]*><svg class="icon /)?.slice(1).join(" ");
+  };
+  assert.equal(icon("on", { url: "http://dockhand.local" }), "ok http://dockhand.local");
+  // dockhand_url: the option's name before 2.0.
+  assert.equal(icon("on", { dockhand_url: "http://dockhand.local" }), "ok http://dockhand.local");
+  assert.match(icon("off"), /^crit /);
+  assert.match(icon("unavailable"), /^idle /);
+  // show_logo is gone: an old false value no longer hides the icon.
+  assert.match(icon("on", { show_logo: false }), /^ok /);
+});
+
+test("the card types before 2.0 still render the cards", () => {
+  const { customElements } = load("docker-card.js", ["customElements"]);
+  for (const [old, cur] of [
+    ["dockhand-card", "docker-card"],
+    ["dockhand-mini-card", "docker-mini-card"],
+  ]) {
+    const Old = customElements.get(old);
+    assert.ok(Old, `${old} is not defined`);
+    assert.ok(Old.prototype instanceof customElements.get(cur), `${old} is not a ${cur}`);
+  }
 });

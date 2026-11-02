@@ -1,5 +1,44 @@
 # Changelog
 
+## 3.0.0 - 2026-11-02
+
+### Added
+- Portainer support: the endpoints of the [Portainer integration](https://www.home-assistant.io/integrations/portainer/) (Home Assistant 2025.10+) show up next to the Dockhand environments and Monitor Docker instances (labelled "(Portainer)" in the editor). Online chip, Docker version, OS and architecture; CPU and memory gauges from the containers' usage added up against the host's total CPU and memory; running containers, images and pending image updates; stacks with status, container count and start / stop; containers with state, health, image, image update, start / stop and restart. Found through the registries, like Dockhand.
+
+### Changed
+- "No environment found" message: it now names the three supported integrations.
+
+## 2.0.0 - 2026-11-02
+
+### Changed
+- The cards are now generic Docker cards: repository renamed `ha-docker-card` (ex `ha-dockhand-card`), cards `custom:docker-card` / `custom:docker-mini-card` ("Docker Card" / "Docker Mini Card" in the card picker), file `docker-card.js`. The old `custom:dockhand-card` / `custom:dockhand-mini-card` types keep working.
+- The `dockhand_url` option is renamed `url`; `dockhand_url` is still read, and the visual editor saves it as `url`.
+- The editor and messages no longer say "Dockhand environment" but "Environment".
+- HACS: redownload the card after updating; a manual install must point its resource to `/local/docker-card.js`.
+
+### Added
+- Monitor Docker support: the instances of the [Monitor Docker](https://github.com/ualex73/monitor_docker) integration show up next to the Dockhand environments (`environment: monitor_docker.<prefix>`, labelled "(Monitor Docker)" in the editor). Both cards show the CPU, memory and running containers of the host, its Docker version, OS and architecture, the images counter and, in the full card, the containers list with status, health, image, start / stop and restart. Its entities have no unique id: they are found by their entity id. Separate sensors and the `allinone` sensor are both supported.
+- Full card: the containers list is shown by default for a Monitor Docker instance, which has no stacks (`show_containers: false` hides it).
+
+## 1.11.7 - 2026-11-02
+
+### Changed
+- Cards: the header shows the round Docker icon of the project's showcase page instead of the Dockhand logo, tinted with the status color like the chip next to it (green online, red offline, grey unavailable). Clicking it still opens Dockhand.
+- Cards: the `show_logo` option is removed: the icon is always shown. An existing `show_logo` line is ignored.
+
+## 1.11.6 - 2026-11-01
+
+### Fixed
+- Counted nouns are singular for 1 in every language ("1 update", "1 stack", "1 image", "1 core" instead of "1 updates"…), and Serbian (Cyrillic and Latin) uses its three forms: 1 стек, 2 стека, 5 стекова, 21 стек (same for images, updates, cores and containers). European Portuguese keeps 0 in the plural.
+- The cards stay readable at their smallest Sections width (6 columns, about 160 px): the mini card bars and values no longer disappear or get cut, its labels give way to the row icons, the full card gauges shrink to fit, and the header title always keeps a few characters while the status chip falls back to its coloured dot.
+- The header status chip lines up with the title line when there is a subtitle.
+- An unavailable or unknown "online" sensor now shows "Unavailable" / "Unknown" in grey instead of a red "Offline".
+- The restart button of an unavailable stack or container is disabled.
+- Screen readers announce the question of the confirmation popup ("Restart auth?").
+- The header status chip shows its whole label ("Online", "Unavailable"…) at usual card widths (245 px and up) instead of being cut to "Onl…" while the title had room to spare.
+- Using the mini card detail button from the keyboard no longer scrolls the dashboard to the card.
+- In a container without a set width (an inline-block or `auto` grid column of layout-card / button-card), the cards no longer collapse to a few pixels: they take a natural width of 300 px, and still shrink to their column in a `1fr` grid (layout-card, grid card) or a flex row, without overflowing it.
+
 ## 1.11.5 - 2026-11-01
 
 ### Added

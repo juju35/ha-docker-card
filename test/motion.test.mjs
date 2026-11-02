@@ -3,7 +3,7 @@ import { test } from "node:test";
 import { entities, devices as mockDevices, states } from "../scripts/mock-states.mjs";
 import { load } from "./load.mjs";
 
-const { DockhandCard, DockhandMiniCard } = load("dockhand-card.js", ["DockhandCard", "DockhandMiniCard"]);
+const { DockerCard, DockerMiniCard } = load("docker-card.js", ["DockerCard", "DockerMiniCard"]);
 
 const REDUCED = "@media (prefers-reduced-motion: reduce)";
 const rules = (css) => [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map(([, sel, body]) => ({ sel: sel.trim(), body }));
@@ -36,8 +36,8 @@ const style = (Cls, config) => {
 const animates = (body) => /\b(transition|animation)\s*:/.test(body) && !/\b(transition|animation)\s*:\s*none\b/.test(body);
 
 const cards = {
-  "full card": [DockhandCard, { show_containers: true }],
-  "mini card": [DockhandMiniCard, {}],
+  "full card": [DockerCard, { show_containers: true }],
+  "mini card": [DockerMiniCard, {}],
 };
 
 for (const [name, [Cls, config]] of Object.entries(cards)) {

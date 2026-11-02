@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.12.0 - 2026-11-02
+
+### Added
+- Monitor Docker support: the instances of the [Monitor Docker](https://github.com/ualex73/monitor_docker) integration show up next to the Dockhand environments (`environment: monitor_docker.<prefix>`, labelled "(Monitor Docker)" in the editor). Both cards show the CPU, memory and running containers of the host, its Docker version, OS and architecture, the images counter and, in the full card, the containers list with status, health, image, start / stop and restart. Its entities have no unique id: they are found by their entity id. Separate sensors and the `allinone` sensor are both supported.
+- Full card: the containers list is shown by default for a Monitor Docker instance, which has no stacks (`show_containers: false` hides it).
+
 ## 1.11.7 - 2026-11-02
 
 ### Changed

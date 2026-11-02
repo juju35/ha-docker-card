@@ -10,7 +10,7 @@
 
 Lovelace cards for Home Assistant to monitor and control Docker environments managed by [Dockhand](https://dockhand.pro): CPU, memory, containers, stacks and pending updates at a glance.
 
-The cards are built on top of the [Dockhand integration](https://github.com/raetha/ha-dockhand): entities are **discovered automatically** from the Home Assistant registries, you don't have to pick them one by one, and it works whatever your Home Assistant language.
+The cards are built on top of the [Dockhand integration](https://github.com/raetha/ha-dockhand) and also work with [Monitor Docker](https://github.com/ualex73/monitor_docker): entities are **discovered automatically**, you don't have to pick them one by one, and it works whatever your Home Assistant language.
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=juju35&repository=ha-dockhand-card&category=plugin)
 
@@ -21,7 +21,7 @@ The cards are built on top of the [Dockhand integration](https://github.com/raet
 ## Features
 
 - Two cards: a full **Dockhand Card** and a compact **Dockhand Mini Card**
-- Automatic discovery of the Dockhand environments (several environments supported)
+- Automatic discovery of the Dockhand environments and Monitor Docker instances (several of each supported)
 - CPU, memory and running containers gauges, Docker version and connection type
 - Stacks, images, volumes, networks and pending updates counters
 - Stacks list with status, Git badge, sync errors and available updates
@@ -36,7 +36,10 @@ The cards are built on top of the [Dockhand integration](https://github.com/raet
 
 ## Prerequisites
 
-The [Dockhand integration](https://github.com/raetha/ha-dockhand) must be installed and configured (available in HACS), with Home Assistant 2024.8 or later.
+Home Assistant 2024.8 or later, and one of:
+
+- the [Dockhand integration](https://github.com/raetha/ha-dockhand) (available in HACS), installed and configured;
+- the [Monitor Docker integration](https://github.com/ualex73/monitor_docker) (available in HACS), configured in YAML — see [Monitor Docker](#monitor-docker) below.
 
 ## Installation
 
@@ -112,13 +115,13 @@ language: fr
 
 | Option | Card | Default | Description |
 |---|---|---|---|
-| `environment` | both | First environment | Dockhand environment to display: its name (as shown in Dockhand) or its Home Assistant device id (set by the visual editor) |
+| `environment` | both | First environment | Environment to display. Dockhand: its name (as shown in Dockhand) or its Home Assistant device id (set by the visual editor). Monitor Docker: `monitor_docker.<prefix>` (`monitor_docker.docker` for `name: Docker`) |
 | `title` | both | Environment name | Card title |
-| `dockhand_url` | both | Detected | Address opened in a new tab when clicking the header icon. Defaults to the Dockhand web UI known by the integration, or [dockhand.pro](https://dockhand.pro) if none |
+| `dockhand_url` | both | Detected | Address opened in a new tab when clicking the header icon. Defaults to the Dockhand web UI known by the integration, or [dockhand.pro](https://dockhand.pro) if none ([Monitor Docker](https://github.com/ualex73/monitor_docker) for a Monitor Docker instance) |
 | `show_stats` | full | `true` | CPU, memory and running containers gauges |
 | `show_counts` | full | `true` | Stacks, images, volumes, networks and updates counters |
 | `show_stacks` | full | `true` | Stacks list |
-| `show_containers` | full | `false` | Containers list |
+| `show_containers` | full | `false` (`true` for Monitor Docker) | Containers list |
 | `show_controls` | full | `true` | Start / stop and restart buttons |
 | `only_problems` | full | `false` | Only list stacks and containers that are stopped, unhealthy, out of sync or have an update |
 | `expand_stacks` | full | `false` | Stacks list expanded when the card loads (click the section title to fold / unfold) |
@@ -126,6 +129,41 @@ language: fr
 | `show_updates` | mini | `true` | Pending updates in the footer |
 | `zoom` | mini | `true` | Detail button at the top right: switches to the full card and back (`false` removes it) |
 | `language` | both | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt` or `pl` (auto-detects from HA settings) |
+
+## Monitor Docker
+
+The cards also show the instances of [Monitor Docker](https://github.com/ualex73/monitor_docker), side by side with the Dockhand environments: pick one in the editor's environment list, where it is labelled `<name> (Monitor Docker)`.
+
+```yaml
+# configuration.yaml
+monitor_docker:
+  - name: Docker
+    switchenabled: true   # start / stop buttons (default)
+    buttonenabled: true   # restart buttons
+```
+
+```yaml
+type: custom:dockhand-card
+environment: monitor_docker.docker
+```
+
+What the card uses, when the condition is monitored (all of them by default):
+
+| Card | Monitor Docker |
+|---|---|
+| CPU gauge | `containers_1cpu_percentage` (else `containers_cpu_percentage`), cores from the `version` sensor |
+| Memory gauge | `containers_memory_percentage`, used memory from `containers_memory`, host memory from the `version` sensor |
+| Containers gauge | `containers_running` / `containers_total` |
+| Images counter | `images` |
+| Header | Docker version, OS and architecture from the `version` sensor |
+| Containers list | `state`, `status`, `health` and `image` of each container (or the `allinone` sensor), its switch and restart button |
+
+Monitor Docker has no stacks, volumes, networks nor image updates: those sections, counters and the updates footer are left out, and the containers list is shown by default. Its entities have no unique id, so the card finds them by their entity id (`sensor.<prefix>_containers_total`, `sensor.<prefix>_<container>_state`, `switch.<prefix>_<container>`…): keep the entity ids Monitor Docker creates. Restart buttons only exist with `buttonenabled`.
+
+| Light | Dark |
+|---|---|
+| ![card with Monitor Docker](screenshots/card-monitor-docker.png) | ![card with Monitor Docker dark](screenshots/card-monitor-docker-dark.png) |
+| ![mini card with Monitor Docker](screenshots/mini-card-monitor-docker.png) | ![mini card with Monitor Docker dark](screenshots/mini-card-monitor-docker-dark.png) |
 
 ## Screenshots
 
@@ -161,7 +199,7 @@ Containers list:
 
 ## How it works
 
-The cards read the Home Assistant entity and device registries instead of entity ids: every entity of the Dockhand integration is matched by its `translation_key` (`cpu_usage`, `containers`, `status`, `restart`…) and by the device it belongs to (`Environment`, `Container`, `*Stack`). Entity ids can therefore be in any language or renamed without breaking the cards.
+For Dockhand, the cards read the Home Assistant entity and device registries instead of entity ids: every entity of the Dockhand integration is matched by its `translation_key` (`cpu_usage`, `containers`, `status`, `restart`…) and by the device it belongs to (`Environment`, `Container`, `*Stack`). Entity ids can therefore be in any language or renamed without breaking the cards.
 
 Some sensors of the integration are disabled by default (Docker version, host platform…). Enable them in Home Assistant to show them in the header.
 
@@ -181,7 +219,7 @@ Thresholds:
 npm install
 npm run build        # bundles src/dockhand-card.js into dist/dockhand-card.js
 npm run check        # builds and checks the card (run in CI)
-npm run screenshots  # renders the cards with mock data (scripts/mock-states.mjs) into screenshots/, PNG and animated GIF (needs ffmpeg)
+npm run screenshots  # renders the cards with mock data (scripts/mock-states.mjs, scripts/mock-states-monitor-docker.mjs) into screenshots/, PNG and animated GIF (needs ffmpeg)
 ```
 
 The **Screenshots** workflow re-renders `screenshots/` on every pull request touching `src/`, `scripts/`, `images/` or `package-lock.json` (a Playwright/Chromium bump changes the rendering) and commits the refreshed captures onto the pull request's branch, so the README always matches the code.

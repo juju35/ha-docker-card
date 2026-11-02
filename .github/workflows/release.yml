@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # A version is published only once Lint and Validate pass on this commit.
+  # A version is published only once Lint, Validate and HACS Validation pass on this commit.
   lint:
     uses: ./.github/workflows/lint.yml
     permissions:
@@ -26,10 +26,13 @@ jobs:
     permissions:
       contents: read
 
-  # HACS Validation is left out of the gate for 2.0.0 only: it needs a release that already ships
-  # docker-card.js, which 2.0.0 is the first to do. Restored right after.
+  hacs:
+    uses: ./.github/workflows/hacs.yml
+    permissions:
+      contents: read
+
   release:
-    needs: [lint, validate]
+    needs: [lint, validate, hacs]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

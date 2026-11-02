@@ -32,7 +32,7 @@ The cards are built on top of the [Dockhand integration](https://github.com/raet
 - Detail button at the top right of the mini card: it switches to the full card and back; a click anywhere outside the card brings the compact view back
 - Visual editor in the dashboard UI for both cards (no YAML needed)
 - Light and dark mode; English, French, German, Spanish, Serbian (Cyrillic and Latin), Italian, Dutch, European Portuguese and Polish
-- Single file, no external dependency, the Dockhand logo is embedded
+- Single file, no external dependency
 
 ## Prerequisites
 
@@ -87,7 +87,6 @@ type: custom:dockhand-card
 environment: Docker host
 title: Docker
 dockhand_url: http://192.168.1.10:3000
-show_logo: true
 show_stats: true
 show_counts: true
 show_stacks: true
@@ -104,7 +103,6 @@ type: custom:dockhand-mini-card
 environment: Docker host
 title: Docker
 dockhand_url: http://192.168.1.10:3000
-show_logo: true
 show_updates: true
 zoom: true
 language: fr
@@ -116,8 +114,7 @@ language: fr
 |---|---|---|---|
 | `environment` | both | First environment | Dockhand environment to display: its name (as shown in Dockhand) or its Home Assistant device id (set by the visual editor) |
 | `title` | both | Environment name | Card title |
-| `show_logo` | both | `true` | Show the Dockhand logo |
-| `dockhand_url` | both | Detected | Address opened in a new tab when clicking the logo. Defaults to the Dockhand web UI known by the integration, or [dockhand.pro](https://dockhand.pro) if none |
+| `dockhand_url` | both | Detected | Address opened in a new tab when clicking the header icon. Defaults to the Dockhand web UI known by the integration, or [dockhand.pro](https://dockhand.pro) if none |
 | `show_stats` | full | `true` | CPU, memory and running containers gauges |
 | `show_counts` | full | `true` | Stacks, images, volumes, networks and updates counters |
 | `show_stacks` | full | `true` | Stacks list |
@@ -182,7 +179,7 @@ Thresholds:
 
 ```bash
 npm install
-npm run build        # bundles src/dockhand-card.js + images/logo.webp into dist/dockhand-card.js
+npm run build        # bundles src/dockhand-card.js into dist/dockhand-card.js
 npm run check        # builds and checks the card (run in CI)
 npm run screenshots  # renders the cards with mock data (scripts/mock-states.mjs) into screenshots/, PNG and animated GIF (needs ffmpeg)
 ```

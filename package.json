@@ -1,12 +1,12 @@
 {
-  "name": "ha-dockhand-card",
-  "version": "1.11.7",
-  "description": "Lovelace cards for Home Assistant to monitor and control Docker environments managed by Dockhand.",
+  "name": "ha-docker-card",
+  "version": "2.0.0",
+  "description": "Lovelace cards for Home Assistant to monitor and control Docker hosts (Dockhand, Monitor Docker).",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check": "node scripts/build.mjs && node --check dist/dockhand-card.js",
+    "check": "node scripts/build.mjs && node --check dist/docker-card.js",
     "screenshots": "node scripts/screenshots.mjs",
     "test": "node --test test/*.test.mjs"
   },

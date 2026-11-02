@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { load } from "./load.mjs";
 
-const { STRINGS, lang, tn, pluralLocale, DockhandCardEditor } = load("dockhand-card.js", ["STRINGS", "lang", "tn", "pluralLocale", "DockhandCardEditor"]);
+const { STRINGS, lang, tn, pluralLocale, DockerCardEditor } = load("docker-card.js", ["STRINGS", "lang", "tn", "pluralLocale", "DockerCardEditor"]);
 const placeholders = (s) => [...String(s).matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort();
 // Plural forms (key_one, key_few, key_many…) are optional per language: the key without suffix is the fallback.
 const PLURAL = /_(zero|one|two|few|many|other)$/;
@@ -39,7 +39,7 @@ test("I18N parity: every language has exactly the keys of en", () => {
 });
 
 test("I18N script: sr is Cyrillic and sr-Latn is Latin (proper nouns, brands and units aside)", () => {
-  const keep = /CPU|Dockhand|Home Assistant|URL|\{\w+\}/g;
+  const keep = /CPU|Dockhand|Monitor Docker|Home Assistant|URL|\{\w+\}/g;
   for (const [key, value] of Object.entries(STRINGS.sr)) {
     assert.doesNotMatch(String(value).replace(keep, ""), /[A-Za-z]/, `Latin letter in sr.${key}`);
   }
@@ -70,7 +70,7 @@ test("I18N resolution: Italian, Dutch, Portuguese and Polish", () => {
 });
 
 test("Editor: the language list offers every translation, plus automatic", () => {
-  const editor = new DockhandCardEditor();
+  const editor = new DockerCardEditor();
   editor._config = {};
   const field = editor._schema([]).find((s) => s.name === "language");
   // The card runs in another realm (vm): copy the values into a local array before comparing.

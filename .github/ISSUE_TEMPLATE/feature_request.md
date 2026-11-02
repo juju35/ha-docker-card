@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for the Dockhand Card
+about: Suggest an idea for the Docker Card
 title: "[Feature] "
 labels: enhancement
 assignees: ""

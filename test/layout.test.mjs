@@ -7,7 +7,7 @@ import { readFileSync } from "node:fs";
 import { after, before, test } from "node:test";
 import { devices, entities, states } from "../scripts/mock-states.mjs";
 
-const src = readFileSync(new URL("../src/dockhand-card.js", import.meta.url), "utf8");
+const src = readFileSync(new URL("../src/docker-card.js", import.meta.url), "utf8");
 let browser;
 let skip = false;
 before(async () => {
@@ -93,9 +93,9 @@ const cards = [];
 for (const width of WIDTHS)
   for (const language of LANGS)
     for (const [type, zoom] of [
-      ["dockhand-mini-card", false],
-      ["dockhand-mini-card", true],
-      ["dockhand-card", false],
+      ["docker-mini-card", false],
+      ["docker-mini-card", true],
+      ["docker-card", false],
     ])
       cards.push({ type, width, language, zoom });
 
@@ -115,9 +115,9 @@ test("narrow widths: title kept, nothing out of the card, bars and values visibl
 test("header chip lines up with the title line when there is a subtitle", async (t) => {
   if (skip) return t.skip(skip);
   for (const m of await measure([
-    { type: "dockhand-card", width: 460, language: "en" },
-    { type: "dockhand-mini-card", width: 460, language: "en" },
-    { type: "dockhand-mini-card", width: 300, language: "pl" },
+    { type: "docker-card", width: 460, language: "en" },
+    { type: "docker-mini-card", width: 460, language: "en" },
+    { type: "docker-mini-card", width: 300, language: "pl" },
   ])) {
     assert.ok(m.hasSub, "the mock environment has a subtitle");
     assert.ok(Math.abs(m.chipCenter - m.titleCenter) <= 2, `${m.type} ${m.width}px: chip centre ${m.chipCenter} vs title centre ${m.titleCenter}`);
@@ -144,9 +144,9 @@ const render = async ({ widths, wraps = [], langs, states: stateSets }) => {
         for (const language of langs)
           for (const [st, states] of Object.entries(stateSets))
             for (const [type, zoom] of [
-              ["dockhand-mini-card", false],
-              ["dockhand-mini-card", true],
-              ["dockhand-card", false],
+              ["docker-mini-card", false],
+              ["docker-mini-card", true],
+              ["docker-card", false],
             ]) {
               const box = document.createElement("div");
               box.style.cssText = css;

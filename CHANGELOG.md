@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.0.0 - 2026-11-02
+
+### Changed
+- The cards are now generic Docker cards: repository renamed `ha-docker-card` (ex `ha-dockhand-card`), cards `custom:docker-card` / `custom:docker-mini-card` ("Docker Card" / "Docker Mini Card" in the card picker), file `docker-card.js`. The old `custom:dockhand-card` / `custom:dockhand-mini-card` types keep working.
+- The `dockhand_url` option is renamed `url`; `dockhand_url` is still read, and the visual editor saves it as `url`.
+- The editor and messages no longer say "Dockhand environment" but "Environment".
+- HACS: redownload the card after updating; a manual install must point its resource to `/local/docker-card.js`.
+
+### Added
+- Monitor Docker support: the instances of the [Monitor Docker](https://github.com/ualex73/monitor_docker) integration show up next to the Dockhand environments (`environment: monitor_docker.<prefix>`, labelled "(Monitor Docker)" in the editor). Both cards show the CPU, memory and running containers of the host, its Docker version, OS and architecture, the images counter and, in the full card, the containers list with status, health, image, start / stop and restart. Its entities have no unique id: they are found by their entity id. Separate sensors and the `allinone` sensor are both supported.
+- Full card: the containers list is shown by default for a Monitor Docker instance, which has no stacks (`show_containers: false` hides it).
+
 ## 1.11.7 - 2026-11-02
 
 ### Changed

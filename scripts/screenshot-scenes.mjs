@@ -1,14 +1,21 @@
 // The README captures rendered by scripts/screenshots.mjs: one entry per PNG (`shots`) and per GIF (`gifs`).
 // Kept apart from the renderer so the tests can check them without a browser.
+import { states as monitorDocker } from "./mock-states-monitor-docker.mjs";
+
+// Monitor Docker scenes: its own states (scripts/mock-states-monitor-docker.mjs), environment pinned.
+const md = { states: monitorDocker };
+const mdEnv = { environment: "monitor_docker.docker" };
 
 // Every capture is rendered in both themes: each light shot gets a `-dark` twin with the exact same setup,
 // so a light/dark pair only differs by its theme.
 const lightShots = [
-  { file: "card", type: "dockhand-card", theme: "light", width: 460, config: {} },
-  { file: "card-problems", type: "dockhand-card", theme: "light", width: 460, config: { show_containers: true, only_problems: true, expand_stacks: true, expand_containers: true } },
-  { file: "card-containers", type: "dockhand-card", theme: "light", width: 460, config: { show_stats: false, show_counts: false, show_stacks: false, show_containers: true, expand_containers: true } },
-  { file: "mini-card", type: "dockhand-mini-card", theme: "light", width: 380, config: {} },
-  { file: "mini-card-zoom", type: "dockhand-mini-card", theme: "light", width: 460, config: {}, zoom: true },
+  { file: "card", type: "docker-card", theme: "light", width: 460, config: {} },
+  { file: "card-problems", type: "docker-card", theme: "light", width: 460, config: { show_containers: true, only_problems: true, expand_stacks: true, expand_containers: true } },
+  { file: "card-containers", type: "docker-card", theme: "light", width: 460, config: { show_stats: false, show_counts: false, show_stacks: false, show_containers: true, expand_containers: true } },
+  { file: "mini-card", type: "docker-mini-card", theme: "light", width: 380, config: {} },
+  { file: "mini-card-zoom", type: "docker-mini-card", theme: "light", width: 460, config: {}, zoom: true },
+  { file: "card-monitor-docker", type: "docker-card", theme: "light", width: 460, config: { ...mdEnv, expand_containers: true }, ...md },
+  { file: "mini-card-monitor-docker", type: "docker-mini-card", theme: "light", width: 380, config: mdEnv, ...md },
 ];
 const withDarkTwins = (light) => [...light, ...light.map((s) => ({ ...s, file: `${s.file}-dark`, theme: "dark" }))];
 export const shots = withDarkTwins(lightShots);
@@ -21,7 +28,7 @@ export const shots = withDarkTwins(lightShots);
 const lightGifs = [
   {
     file: "card-sections",
-    type: "dockhand-card",
+    type: "docker-card",
     theme: "light",
     width: 460,
     config: {},
@@ -34,7 +41,7 @@ const lightGifs = [
   },
   {
     file: "card-gauges",
-    type: "dockhand-card",
+    type: "docker-card",
     theme: "light",
     width: 460,
     config: { show_stacks: false, show_containers: false },
@@ -58,7 +65,7 @@ const lightGifs = [
   },
   {
     file: "mini-card-zoom",
-    type: "dockhand-mini-card",
+    type: "docker-mini-card",
     theme: "light",
     width: 460,
     config: {},

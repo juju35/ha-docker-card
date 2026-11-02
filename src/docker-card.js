@@ -1,14 +1,17 @@
 /*
- * Dockhand Card for Home Assistant
- * https://github.com/juju35/ha-dockhand-card
+ * Docker Card for Home Assistant
+ * https://github.com/juju35/ha-docker-card
  *
- * Lovelace cards for the Dockhand integration (https://github.com/raetha/ha-dockhand).
- * Entities are resolved through the entity and device registries (platform, translation_key,
+ * Lovelace cards for the Dockhand integration (https://github.com/raetha/ha-dockhand) and
+ * Monitor Docker (https://github.com/ualex73/monitor_docker).
+ * Dockhand entities are resolved through the entity and device registries (platform, translation_key,
  * device model and hierarchy), so they work whatever the Home Assistant language or entity ids.
+ * Monitor Docker entities are not registered: they are found by their entity id pattern.
  */
 
 const VERSION = "__VERSION__";
 const DOCKHAND_SITE = "https://dockhand.pro";
+const MONITOR_DOCKER_SITE = "https://github.com/ualex73/monitor_docker";
 
 const ICONS = {
   docker:
@@ -68,8 +71,8 @@ const STRINGS = {
     confirm_restart: "Restart {name}?",
     confirm_stop: "Stop {name}?",
     all_ok: "Nothing to report",
-    no_env: "No Dockhand environment found. Is the Dockhand integration installed?",
-    unknown_env: "Dockhand environment not found",
+    no_env: "No Dockhand environment or Monitor Docker instance found. Is the Dockhand or Monitor Docker integration installed?",
+    unknown_env: "Environment not found",
     no_registry: "This card needs Home Assistant 2024.8 or later.",
     state_running: "Running",
     state_exited: "Stopped",
@@ -84,9 +87,9 @@ const STRINGS = {
     zoom_in: "Show the full card",
     zoom_out: "Back to the compact view",
     // Editor
-    environment: "Dockhand environment",
+    environment: "Environment",
     title: "Title (optional, defaults to the environment name)",
-    dockhand_url: "Dockhand URL opened by the logo (optional, detected from the integration)",
+    url: "URL opened by the logo (optional, detected from the integration)",
     show_stats: "Show CPU, memory and containers",
     show_counts: "Show counts (stacks, images…)",
     show_stacks: "Show stacks",
@@ -134,8 +137,8 @@ const STRINGS = {
     confirm_restart: "Redémarrer {name} ?",
     confirm_stop: "Arrêter {name} ?",
     all_ok: "Rien à signaler",
-    no_env: "Aucun environnement Dockhand trouvé. L'intégration Dockhand est-elle installée ?",
-    unknown_env: "Environnement Dockhand introuvable",
+    no_env: "Aucun environnement Dockhand ni instance Monitor Docker trouvé. L'intégration Dockhand ou Monitor Docker est-elle installée ?",
+    unknown_env: "Environnement introuvable",
     no_registry: "Cette carte nécessite Home Assistant 2024.8 ou plus récent.",
     state_running: "Actif",
     state_exited: "Arrêté",
@@ -149,9 +152,9 @@ const STRINGS = {
     state_unknown: "Inconnu",
     zoom_in: "Afficher la carte complète",
     zoom_out: "Revenir à la vue compacte",
-    environment: "Environnement Dockhand",
+    environment: "Environnement",
     title: "Titre (facultatif, nom de l'environnement par défaut)",
-    dockhand_url: "URL de Dockhand ouverte par le logo (facultatif, détectée depuis l'intégration)",
+    url: "URL ouverte par le logo (facultatif, détectée depuis l'intégration)",
     show_stats: "Afficher CPU, mémoire et conteneurs",
     show_counts: "Afficher les compteurs (stacks, images…)",
     show_stacks: "Afficher les stacks",
@@ -199,8 +202,8 @@ const STRINGS = {
     confirm_restart: "{name} neu starten?",
     confirm_stop: "{name} stoppen?",
     all_ok: "Keine Auffälligkeiten",
-    no_env: "Keine Dockhand-Umgebung gefunden. Ist die Dockhand-Integration installiert?",
-    unknown_env: "Dockhand-Umgebung nicht gefunden",
+    no_env: "Keine Dockhand-Umgebung und keine Monitor-Docker-Instanz gefunden. Ist die Dockhand- oder Monitor-Docker-Integration installiert?",
+    unknown_env: "Umgebung nicht gefunden",
     no_registry: "Diese Karte benötigt Home Assistant 2024.8 oder neuer.",
     state_running: "Aktiv",
     state_exited: "Gestoppt",
@@ -214,9 +217,9 @@ const STRINGS = {
     state_unknown: "Unbekannt",
     zoom_in: "Vollständige Karte anzeigen",
     zoom_out: "Zurück zur kompakten Ansicht",
-    environment: "Dockhand-Umgebung",
+    environment: "Umgebung",
     title: "Titel (optional, standardmäßig der Name der Umgebung)",
-    dockhand_url: "Vom Logo geöffnete Dockhand-URL (optional, wird aus der Integration ermittelt)",
+    url: "Vom Logo geöffnete URL (optional, wird aus der Integration ermittelt)",
     show_stats: "CPU, Speicher und Container anzeigen",
     show_counts: "Zähler anzeigen (Stacks, Images…)",
     show_stacks: "Stacks anzeigen",
@@ -264,8 +267,8 @@ const STRINGS = {
     confirm_restart: "¿Reiniciar {name}?",
     confirm_stop: "¿Detener {name}?",
     all_ok: "Sin incidencias",
-    no_env: "No se encontró ningún entorno de Dockhand. ¿Está instalada la integración Dockhand?",
-    unknown_env: "Entorno de Dockhand no encontrado",
+    no_env: "No se encontró ningún entorno de Dockhand ni instancia de Monitor Docker. ¿Está instalada la integración Dockhand o Monitor Docker?",
+    unknown_env: "Entorno no encontrado",
     no_registry: "Esta tarjeta requiere Home Assistant 2024.8 o posterior.",
     state_running: "En ejecución",
     state_exited: "Detenido",
@@ -279,9 +282,9 @@ const STRINGS = {
     state_unknown: "Desconocido",
     zoom_in: "Mostrar la tarjeta completa",
     zoom_out: "Volver a la vista compacta",
-    environment: "Entorno de Dockhand",
+    environment: "Entorno",
     title: "Título (opcional, por defecto el nombre del entorno)",
-    dockhand_url: "URL de Dockhand abierta por el logo (opcional, detectada desde la integración)",
+    url: "URL abierta por el logo (opcional, detectada desde la integración)",
     show_stats: "Mostrar CPU, memoria y contenedores",
     show_counts: "Mostrar contadores (stacks, imágenes…)",
     show_stacks: "Mostrar los stacks",
@@ -334,8 +337,8 @@ const STRINGS = {
     confirm_restart: "Поново покренути {name}?",
     confirm_stop: "Зауставити {name}?",
     all_ok: "Све је у реду",
-    no_env: "Није пронађено ниједно Dockhand окружење. Да ли је интеграција Dockhand инсталирана?",
-    unknown_env: "Dockhand окружење није пронађено",
+    no_env: "Није пронађено ниједно Dockhand окружење ни Monitor Docker инстанца. Да ли је интеграција Dockhand или Monitor Docker инсталирана?",
+    unknown_env: "Окружење није пронађено",
     no_registry: "Ова картица захтева Home Assistant 2024.8 или новији.",
     state_running: "Покренуто",
     state_exited: "Заустављено",
@@ -349,9 +352,9 @@ const STRINGS = {
     state_unknown: "Непознато",
     zoom_in: "Прикажи целу картицу",
     zoom_out: "Назад на компактни приказ",
-    environment: "Dockhand окружење",
+    environment: "Окружење",
     title: "Наслов (опционо, подразумевано је назив окружења)",
-    dockhand_url: "Dockhand URL који отвара лого (опционо, преузима се из интеграције)",
+    url: "URL који отвара лого (опционо, преузима се из интеграције)",
     show_stats: "Прикажи CPU, меморију и контејнере",
     show_counts: "Прикажи бројаче (стекови, слике…)",
     show_stacks: "Прикажи стекове",
@@ -404,8 +407,8 @@ const STRINGS = {
     confirm_restart: "Ponovo pokrenuti {name}?",
     confirm_stop: "Zaustaviti {name}?",
     all_ok: "Sve je u redu",
-    no_env: "Nije pronađeno nijedno Dockhand okruženje. Da li je integracija Dockhand instalirana?",
-    unknown_env: "Dockhand okruženje nije pronađeno",
+    no_env: "Nije pronađeno nijedno Dockhand okruženje ni Monitor Docker instanca. Da li je integracija Dockhand ili Monitor Docker instalirana?",
+    unknown_env: "Okruženje nije pronađeno",
     no_registry: "Ova kartica zahteva Home Assistant 2024.8 ili noviji.",
     state_running: "Pokrenuto",
     state_exited: "Zaustavljeno",
@@ -419,9 +422,9 @@ const STRINGS = {
     state_unknown: "Nepoznato",
     zoom_in: "Prikaži celu karticu",
     zoom_out: "Nazad na kompaktni prikaz",
-    environment: "Dockhand okruženje",
+    environment: "Okruženje",
     title: "Naslov (opciono, podrazumevano je naziv okruženja)",
-    dockhand_url: "Dockhand URL koji otvara logo (opciono, preuzima se iz integracije)",
+    url: "URL koji otvara logo (opciono, preuzima se iz integracije)",
     show_stats: "Prikaži CPU, memoriju i kontejnere",
     show_counts: "Prikaži brojače (stekovi, slike…)",
     show_stacks: "Prikaži stekove",
@@ -469,8 +472,8 @@ const STRINGS = {
     confirm_restart: "Riavviare {name}?",
     confirm_stop: "Arrestare {name}?",
     all_ok: "Nulla da segnalare",
-    no_env: "Nessun ambiente Dockhand trovato. L'integrazione Dockhand è installata?",
-    unknown_env: "Ambiente Dockhand non trovato",
+    no_env: "Nessun ambiente Dockhand né istanza Monitor Docker trovati. L'integrazione Dockhand o Monitor Docker è installata?",
+    unknown_env: "Ambiente non trovato",
     no_registry: "Questa scheda richiede Home Assistant 2024.8 o successivo.",
     state_running: "In esecuzione",
     state_exited: "Arrestato",
@@ -484,9 +487,9 @@ const STRINGS = {
     state_unknown: "Sconosciuto",
     zoom_in: "Mostra la scheda completa",
     zoom_out: "Torna alla vista compatta",
-    environment: "Ambiente Dockhand",
+    environment: "Ambiente",
     title: "Titolo (facoltativo, predefinito: nome dell'ambiente)",
-    dockhand_url: "URL di Dockhand aperto dal logo (facoltativo, rilevato dall'integrazione)",
+    url: "URL aperto dal logo (facoltativo, rilevato dall'integrazione)",
     show_stats: "Mostra CPU, memoria e container",
     show_counts: "Mostra i contatori (stack, immagini…)",
     show_stacks: "Mostra gli stack",
@@ -534,8 +537,8 @@ const STRINGS = {
     confirm_restart: "{name} herstarten?",
     confirm_stop: "{name} stoppen?",
     all_ok: "Niets te melden",
-    no_env: "Geen Dockhand-omgeving gevonden. Is de Dockhand-integratie geïnstalleerd?",
-    unknown_env: "Dockhand-omgeving niet gevonden",
+    no_env: "Geen Dockhand-omgeving of Monitor Docker-instantie gevonden. Is de Dockhand- of Monitor Docker-integratie geïnstalleerd?",
+    unknown_env: "Omgeving niet gevonden",
     no_registry: "Deze kaart vereist Home Assistant 2024.8 of nieuwer.",
     state_running: "Actief",
     state_exited: "Gestopt",
@@ -549,9 +552,9 @@ const STRINGS = {
     state_unknown: "Onbekend",
     zoom_in: "Volledige kaart tonen",
     zoom_out: "Terug naar de compacte weergave",
-    environment: "Dockhand-omgeving",
+    environment: "Omgeving",
     title: "Titel (optioneel, standaard de naam van de omgeving)",
-    dockhand_url: "Dockhand-URL die het logo opent (optioneel, gedetecteerd via de integratie)",
+    url: "URL die het logo opent (optioneel, gedetecteerd via de integratie)",
     show_stats: "CPU, geheugen en containers tonen",
     show_counts: "Tellers tonen (stacks, images…)",
     show_stacks: "Stacks tonen",
@@ -599,8 +602,8 @@ const STRINGS = {
     confirm_restart: "Reiniciar {name}?",
     confirm_stop: "Parar {name}?",
     all_ok: "Nada a assinalar",
-    no_env: "Nenhum ambiente Dockhand encontrado. A integração Dockhand está instalada?",
-    unknown_env: "Ambiente Dockhand não encontrado",
+    no_env: "Nenhum ambiente Dockhand nem instância Monitor Docker encontrados. A integração Dockhand ou Monitor Docker está instalada?",
+    unknown_env: "Ambiente não encontrado",
     no_registry: "Este cartão requer o Home Assistant 2024.8 ou posterior.",
     state_running: "Em execução",
     state_exited: "Parado",
@@ -614,9 +617,9 @@ const STRINGS = {
     state_unknown: "Desconhecido",
     zoom_in: "Mostrar o cartão completo",
     zoom_out: "Voltar à vista compacta",
-    environment: "Ambiente Dockhand",
+    environment: "Ambiente",
     title: "Título (opcional, por predefinição o nome do ambiente)",
-    dockhand_url: "URL do Dockhand aberto pelo logótipo (opcional, detetado a partir da integração)",
+    url: "URL aberto pelo logótipo (opcional, detetado a partir da integração)",
     show_stats: "Mostrar CPU, memória e contentores",
     show_counts: "Mostrar contadores (stacks, imagens…)",
     show_stacks: "Mostrar os stacks",
@@ -675,8 +678,8 @@ const STRINGS = {
     confirm_restart: "Uruchomić ponownie {name}?",
     confirm_stop: "Zatrzymać {name}?",
     all_ok: "Wszystko w porządku",
-    no_env: "Nie znaleziono środowiska Dockhand. Czy integracja Dockhand jest zainstalowana?",
-    unknown_env: "Nie znaleziono środowiska Dockhand",
+    no_env: "Nie znaleziono środowiska Dockhand ani instancji Monitor Docker. Czy integracja Dockhand lub Monitor Docker jest zainstalowana?",
+    unknown_env: "Nie znaleziono środowiska",
     no_registry: "Ta karta wymaga Home Assistant 2024.8 lub nowszego.",
     state_running: "Uruchomiony",
     state_exited: "Zatrzymany",
@@ -690,9 +693,9 @@ const STRINGS = {
     state_unknown: "Nieznany",
     zoom_in: "Pokaż pełną kartę",
     zoom_out: "Wróć do widoku kompaktowego",
-    environment: "Środowisko Dockhand",
+    environment: "Środowisko",
     title: "Tytuł (opcjonalnie, domyślnie nazwa środowiska)",
-    dockhand_url: "URL Dockhand otwierany przez logo (opcjonalnie, wykrywany z integracji)",
+    url: "URL otwierany przez logo (opcjonalnie, wykrywany z integracji)",
     show_stats: "Pokaż CPU, pamięć i kontenery",
     show_counts: "Pokaż liczniki (stosy, obrazy…)",
     show_stacks: "Pokaż stosy",
@@ -864,14 +867,30 @@ const svgIcon = (path, cls = "") => `<svg class="icon ${cls}" viewBox="0 0 24 24
 // ---------------------------------------------------------------------------
 
 const _cache = new WeakMap();
+const _mdCache = new WeakMap();
 
 /**
- * Build the Dockhand model from hass.entities / hass.devices:
- * { envs: [{ id, name, entities, stacks: [...], containers: [...] }] }
+ * Model shared by both sources:
+ * { envs: [{ id, name, source, entities, stacks: [...], containers: [...] }] }
+ * Dockhand environments come from the registries, Monitor Docker instances from the states.
+ */
+const resolve = (hass) => {
+  const dockhand = resolveDockhand(hass);
+  if (!dockhand || !hass.states) return dockhand;
+  const cached = _mdCache.get(hass.states);
+  if (cached && cached.dockhand === dockhand && cached.entities === hass.entities) return cached.model;
+  const md = resolveMonitorDocker(hass.states, hass.entities);
+  const model = md.length ? { envs: [...dockhand.envs, ...md] } : dockhand;
+  _mdCache.set(hass.states, { dockhand, entities: hass.entities, model });
+  return model;
+};
+
+/**
+ * Dockhand environments from hass.entities / hass.devices.
  * Entities are keyed by translation_key; primary entities without one (running switch,
  * container update) are keyed "_<domain>".
  */
-const resolve = (hass) => {
+const resolveDockhand = (hass) => {
   if (!hass.entities || !hass.devices) return null;
   const cached = _cache.get(hass.entities);
   if (cached && cached.devices === hass.devices) return cached.model;
@@ -899,7 +918,7 @@ const resolve = (hass) => {
   for (const id of byDevice.keys()) {
     const d = hass.devices[id];
     if (d && d.model === "Environment")
-      envs.set(id, { id, name: devName(d), entities: byDevice.get(id), stacks: [], containers: [] });
+      envs.set(id, { id, name: devName(d), source: "dockhand", entities: byDevice.get(id), stacks: [], containers: [] });
   }
   for (const [id, entities] of byDevice) {
     const d = hass.devices[id];
@@ -919,9 +938,109 @@ const resolve = (hass) => {
   return model;
 };
 
+// Monitor Docker (https://github.com/ualex73/monitor_docker) is configured in YAML and its entities
+// have no unique_id: they are not in the entity registry and are found by their entity id instead,
+// "<prefix>_<condition>" for the host and "<prefix>_<container>_<condition>" for each container.
+const MD_HOST = {
+  cpu_usage: ["1cpu", "cpu"],
+  memory_usage: ["memory_percent"],
+  _memory: ["memory"],
+  containers: ["containers_total"],
+  _running: ["containers_running"],
+  image_count: ["images"],
+  host_docker_version: ["version"],
+};
+const MD_HOST_SUFFIXES = new Set([...Object.values(MD_HOST).flat(), "containers_paused", "containers_stopped"]);
+const MD_CT_KEYS = { state: "state", status: "_status", health: "health", image: "_image" };
+const MD_CT_RE =
+  /^(.+)_(state|status|health|up_time|image_hash|image|1cpu|cpu|memory_percent|memory|network_speed_up|network_speed_down|network_total_up|network_total_down)$/;
+const MD_ALLINONE_ATTRS = ["status", "image", "health", "uptime"];
+
+const resolveMonitorDocker = (states, registry = {}) => {
+  const free = Object.keys(states).filter((id) => !registry[id]);
+  // Instances: host sensors only Monitor Docker creates (mdi:docker counters, version with host details).
+  const prefixes = new Set();
+  for (const id of free) {
+    const m = /^sensor\.(.+)_(containers_total|containers_running|images|version)$/.exec(id);
+    if (!m) continue;
+    const a = states[id].attributes || {};
+    if (m[2] === "version" ? "Online_CPUs" in a || "Memory_limit" in a : a.icon === "mdi:docker") prefixes.add(m[1]);
+  }
+  if (!prefixes.size) return [];
+  // Longest first: "docker_nas" wins over "docker" for sensor.docker_nas_web_state.
+  const sorted = [...prefixes].sort((a, b) => b.length - a.length);
+  const envs = new Map(
+    sorted.map((p) => {
+      const entities = {};
+      for (const [key, suffixes] of Object.entries(MD_HOST)) {
+        const id = suffixes.map((s) => `sensor.${p}_${s}`).find((i) => states[i] && !registry[i]);
+        if (id) entities[key] = id;
+      }
+      const name = p.replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase());
+      return [p, { id: `monitor_docker.${p}`, name, source: "monitor_docker", entities, stacks: [], containers: new Map() }];
+    })
+  );
+
+  for (const id of free) {
+    const [domain, obj] = id.split(".");
+    if (domain !== "sensor" && domain !== "switch" && domain !== "button") continue;
+    const p = sorted.find((x) => obj.startsWith(`${x}_`));
+    if (!p) continue;
+    const rest = obj.slice(p.length + 1);
+    const s = states[id];
+    const a = s.attributes || {};
+    let cname;
+    let key;
+    if (domain === "switch") {
+      if (a.icon !== "mdi:docker") continue;
+      [cname, key] = [rest, "_switch"];
+    } else if (domain === "button") {
+      if (a.icon !== "mdi:docker" || !rest.endsWith("_restart")) continue;
+      [cname, key] = [rest.slice(0, -8), "restart"];
+    } else if (MD_HOST_SUFFIXES.has(rest)) {
+      continue;
+    } else {
+      const m = MD_CT_RE.exec(rest);
+      if (m) {
+        if (!(m[2] in MD_CT_KEYS)) continue;
+        [cname, key] = [m[1], MD_CT_KEYS[m[2]]];
+      } else if (MD_ALLINONE_ATTRS.some((k) => k in a)) {
+        // "allinone": one sensor per container, its state is the container state, the rest attributes.
+        [cname, key] = [rest, "state"];
+      } else continue;
+    }
+    const list = envs.get(p).containers;
+    const ct = list.get(cname) || { id: `monitor_docker.${p}.${cname}`, slug: cname, entities: {} };
+    if (!(key in ct.entities)) ct.entities[key] = id;
+    list.set(cname, ct);
+  }
+
+  const byName = (a, b) => a.name.localeCompare(b.name);
+  const fname = (id, suffix) => {
+    const n = id && states[id]?.attributes?.friendly_name;
+    return n && suffix ? n.replace(new RegExp(`\\s*${suffix}$`, "i"), "") : n;
+  };
+  return [...envs.values()]
+    .map((env) => {
+      const containers = [...env.containers.values()]
+        // A container is listed from its state, its status or its switch: a lone restart button is not one.
+        .filter((ct) => ct.entities.state || ct.entities._status || ct.entities._switch)
+        .map((ct) => {
+          const e = ct.entities;
+          const name = (fname(e._switch) || fname(e.state, "state") || fname(e._status, "status") || "").trim();
+          return { id: ct.id, name: name || ct.slug, entities: e };
+        })
+        .sort(byName);
+      // Every entity id the environment is built from: a container appearing or disappearing changes it.
+      const key = [...Object.values(env.entities), ...containers.flatMap((ct) => Object.values(ct.entities))].join(",");
+      return { ...env, containers, key };
+    })
+    .sort(byName);
+};
+
 const listEnvs = (hass) => {
   const m = hass && resolve(hass);
-  return m ? m.envs.map((e) => ({ value: e.id, label: e.name })) : [];
+  return m ? m.envs.map((e) => ({ value: e.id, label: e.source === "monitor_docker" ? `${e.name} (Monitor Docker)` : e.name })) : [];
 };
 
 const findEnv = (hass, config) => {
@@ -960,7 +1079,7 @@ const BASE_STYLE = `
   .bar { height: 4px; border-radius: 3px; background: var(--divider-color, rgba(127,127,127,.25)); overflow: hidden; }
   .bar > div { height: 100%; border-radius: 3px; background: var(--c, var(--dh-orange)); transition: width .6s ease; }
   .header { display: flex; align-items: center; gap: 10px; padding: 12px 12px 8px; }
-  /* Tinted round icon, in the status colour like the chip; it opens Dockhand. */
+  /* Tinted round icon, in the status colour like the chip; it opens Dockhand (or the url option). */
   .logo { height: 40px; width: 40px; flex: none; border-radius: 50%; display: grid; place-items: center;
           color: var(--c, var(--dh-ok)); background: color-mix(in srgb, var(--c, var(--dh-ok)) 16%, transparent); }
   .logo .icon { width: 24px; height: 24px; fill: currentColor; }
@@ -1026,7 +1145,7 @@ const CONFIRM_GUARD_MS = 400;
 // A click inside a dialog (more-info opened from the card, say) is not a click outside the card.
 const inDialog = (ev) => ev.composedPath().some((n) => ["ha-more-info-dialog", "ha-dialog", "dialog"].includes(n.localName));
 
-class DockhandBase extends HTMLElement {
+class DockerBase extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
@@ -1121,6 +1240,7 @@ class DockhandBase extends HTMLElement {
     const sig = [h.entities, h.devices, h.language, h.locale?.language];
     const { env } = findEnv(h, this._config);
     if (!env) return sig;
+    if (env.key !== undefined) sig.push(env.key);
     for (const group of [env, ...env.stacks, ...env.containers]) for (const id of Object.values(group.entities)) sig.push(h.states[id]);
     return sig;
   }
@@ -1141,7 +1261,7 @@ class DockhandBase extends HTMLElement {
   _call(domain, service, data) {
     return Promise.resolve()
       .then(() => this._hass.callService(domain, service, data))
-      .catch((err) => console.error(`dockhand-card: ${domain}.${service} failed`, err));
+      .catch((err) => console.error(`docker-card: ${domain}.${service} failed`, err));
   }
 
   _onClick(ev) {
@@ -1240,11 +1360,14 @@ class DockhandBase extends HTMLElement {
     </div>`;
   }
 
-  // Logo target: dockhand_url option, else the Dockhand web UI advertised by the integration
-  // (environment device configuration_url, minus its settings deep link), else the project website.
-  _dockhandUrl(env) {
+  // Logo target: url option (dockhand_url before 2.0), else the Dockhand web UI advertised by the integration
+  // (environment device configuration_url, minus its settings deep link), else the project website
+  // (Monitor Docker's for a Monitor Docker instance).
+  _logoUrl(env) {
     // Only http(s) addresses: any other scheme (javascript:…) would run on a click on the logo.
-    if (/^https?:\/\//i.test(this._config.dockhand_url || "")) return this._config.dockhand_url;
+    const url = this._config.url ?? this._config.dockhand_url;
+    if (/^https?:\/\//i.test(url || "")) return url;
+    if (env.source === "monitor_docker") return MONITOR_DOCKER_SITE;
     const conf = this._hass.devices?.[env.id]?.configuration_url;
     if (conf) return conf.replace(/\/settings(?:[/?#].*)?$/, "") || conf;
     return DOCKHAND_SITE;
@@ -1258,12 +1381,18 @@ class DockhandBase extends HTMLElement {
       online?.state === "on" ? ["ok", "online"] : online?.state === "off" ? ["crit", "offline"] : ["idle", `state_${online?.state === "unknown" ? "unknown" : "unavailable"}`];
     const chipText = esc(this._t(chipKey));
     const docker = this._s(env.entities.host_docker_version)?.state;
-    const platform = this._s(env.entities.host_platform)?.state;
+    // Monitor Docker has no platform sensor: its version sensor carries the host OS and architecture.
+    const va = env.source === "monitor_docker" ? this._s(env.entities.host_docker_version)?.attributes : null;
+    const platform = va ? [va.OS, va.Architecture].filter(Boolean).join(" ") : this._s(env.entities.host_platform)?.state;
     const conn = this._s(env.entities.connection_type)?.state;
+    const srcName = env.source === "monitor_docker" ? "Monitor Docker" : "Dockhand";
+    // Without an online sensor (Monitor Docker), the logo is tinted while the containers counter answers.
+    const total = this._s(env.entities.containers)?.state;
+    const logoCls = online ? chipCls : env.source === "monitor_docker" && total !== undefined && total !== "unknown" && total !== "unavailable" ? "ok" : "idle";
     const sub = [docker && docker !== "unknown" && docker !== "unavailable" ? `Docker ${docker}` : null, platform, conn].filter((v) => v && v !== "unknown" && v !== "unavailable");
     return `
       <div class="header">
-        <a class="logo-link logo ${online ? chipCls : "idle"}" href="${esc(this._dockhandUrl(env))}" target="_blank" rel="noopener noreferrer" title="Dockhand" aria-label="Dockhand">${svgIcon(ICONS.docker)}</a>
+        <a class="logo-link logo ${logoCls}" href="${esc(this._logoUrl(env))}" target="_blank" rel="noopener noreferrer" title="${esc(srcName)}" aria-label="${esc(srcName)}">${svgIcon(ICONS.docker)}</a>
         <div class="titles">
           <div class="name">${esc(c.title || env.name)}</div>
           ${sub.length ? `<div class="sub">${esc(sub.join(" · "))}</div>` : ""}
@@ -1289,6 +1418,7 @@ class DockhandBase extends HTMLElement {
   }
 
   _containerStats(env) {
+    if (env.source === "monitor_docker") return this._mdContainerStats(env);
     const s = this._s(env.entities.containers);
     const total = num(s);
     const a = s?.attributes || {};
@@ -1301,6 +1431,23 @@ class DockhandBase extends HTMLElement {
       unhealthy: a.unhealthy ?? 0,
       updates: known ? (a.pending_updates_total ?? a.pending_updates ?? 0) : null,
     };
+  }
+
+  // Monitor Docker: running and total come from their own sensors, unhealthy from the containers'
+  // health; it does not track image updates (`updates` undefined: no updates tile nor footer).
+  _mdContainerStats(env) {
+    const unhealthy = env.containers.filter((ct) => this._health(ct.entities) === "unhealthy").length;
+    return { entity: env.entities.containers, total: num(this._s(env.entities.containers)), running: num(this._s(env.entities._running)), unhealthy, updates: undefined };
+  }
+
+  // Health sensor, else the attribute of a Monitor Docker "allinone" sensor.
+  _health(e) {
+    return this._s(e.health)?.state ?? this._s(e.state)?.attributes?.health;
+  }
+
+  // Containers list shown: an explicit show_containers, else only for Monitor Docker, which has no stacks.
+  _showContainers(env) {
+    return this._config.show_containers ?? env?.source === "monitor_docker";
   }
 }
 
@@ -1379,9 +1526,9 @@ const FULL_STYLE = `
   .empty { font-size: 13px; color: var(--secondary-text-color); padding: 4px 0; }
 `;
 
-class DockhandCard extends DockhandBase {
+class DockerCard extends DockerBase {
   static getConfigElement() {
-    return document.createElement("dockhand-card-editor");
+    return document.createElement("docker-card-editor");
   }
 
   static getStubConfig(hass) {
@@ -1398,7 +1545,7 @@ class DockhandCard extends DockhandBase {
     const env = this._hass && this._config ? findEnv(this._hass, c).env : null;
     for (const [key, shown, problem] of [
       ["stacks", c.show_stacks !== false, (st) => this._stackProblem(st)],
-      ["containers", c.show_containers === true, (ct) => this._containerProblem(ct)],
+      ["containers", this._showContainers(env), (ct) => this._containerProblem(ct)],
     ]) {
       const all = env ? env[key].length : 0;
       const n = env && c.only_problems ? Math.max(env[key].filter(problem).length, all ? 1 : 0) : all;
@@ -1419,7 +1566,7 @@ class DockhandCard extends DockhandBase {
     if (c.show_stats !== false) parts.push(this._stats(env));
     if (c.show_counts !== false) parts.push(this._counts(env));
     if (c.show_stacks !== false) parts.push(this._stacks(env));
-    if (c.show_containers === true) parts.push(this._containers(env));
+    if (this._showContainers(env)) parts.push(this._containers(env));
     return `<style>${BASE_STYLE}${DIALOG_STYLE}${FULL_STYLE}${MOTION_STYLE}</style>
       <ha-card>
         ${this._header(env)}
@@ -1439,9 +1586,12 @@ class DockhandCard extends DockhandBase {
     const memS = this._s(env.entities.memory_usage);
     const cpu = num(cpuS);
     const mem = num(memS);
-    const cores = cpuS?.attributes?.cpu_count;
-    const used = memS?.attributes?.memory_used_bytes;
-    const total = memS?.attributes?.memory_total_bytes;
+    // Monitor Docker: cores and host memory on the version sensor, containers memory in MiB.
+    const va = this._s(env.entities.host_docker_version)?.attributes || {};
+    const usedMiB = env.source === "monitor_docker" ? num(this._s(env.entities._memory)) : null;
+    const cores = cpuS?.attributes?.cpu_count ?? (env.source === "monitor_docker" ? va.Online_CPUs : undefined);
+    const used = memS?.attributes?.memory_used_bytes ?? (usedMiB !== null ? usedMiB * 1048576 : undefined);
+    const total = memS?.attributes?.memory_total_bytes ?? (env.source === "monitor_docker" ? va.Memory_limit : undefined);
     const cs = this._containerStats(env);
     const runPct = cs.total ? (100 * (cs.running ?? 0)) / cs.total : null;
     const memLabel = used && total ? `${this._t("memory")}<small>${fmtBytesPair(used, total)}</small>` : this._t("memory");
@@ -1481,7 +1631,7 @@ class DockhandCard extends DockhandBase {
       tile(e.image_count, ICONS.image, this._t("images"), v(e.image_count)),
       tile(e.volume_count, ICONS.volume, this._t("volumes"), v(e.volume_count)),
       tile(e.network_count, ICONS.network, this._t("networks"), v(e.network_count)),
-      tile(cs.entity, ICONS.update, this._t("updates"), cs.updates ?? "—", cs.updates > 0 ? "has-updates" : ""),
+      cs.updates === undefined ? "" : tile(cs.entity, ICONS.update, this._t("updates"), cs.updates ?? "—", cs.updates > 0 ? "has-updates" : ""),
     ].filter(Boolean);
     return tiles.length ? `<div class="counts">${tiles.join("")}</div>` : "";
   }
@@ -1525,7 +1675,7 @@ class DockhandCard extends DockhandBase {
 
   _containerProblem(ct) {
     const e = ct.entities;
-    return stateClass(this._s(e.state)?.state) !== "ok" || this._s(e._update)?.state === "on" || this._s(e.health)?.state === "unhealthy";
+    return stateClass(this._s(e.state)?.state) !== "ok" || this._s(e._update)?.state === "on" || this._health(e) === "unhealthy";
   }
 
   _stacks(env) {
@@ -1574,19 +1724,20 @@ class DockhandCard extends DockhandBase {
     const rows = env.containers.map((ct) => {
       const e = ct.entities;
       const state = this._s(e.state);
-      const health = this._s(e.health);
       const upd = this._s(e._update);
       const hasUpd = upd?.state === "on";
       const cls = stateClass(state?.state);
-      const unhealthy = health?.state === "unhealthy";
+      const unhealthy = this._health(e) === "unhealthy";
       const problem = this._containerProblem(ct);
-      const status = state?.attributes?.status || (state ? this._stateLabel(state.state) : "");
-      const image = state?.attributes?.image;
+      // Dockhand and Monitor Docker "allinone": attributes of the state sensor; Monitor Docker: own sensors.
+      const known = (s) => (s && s.state !== "unknown" && s.state !== "unavailable" ? s.state : null);
+      const status = state?.attributes?.status || known(this._s(e._status)) || (state ? this._stateLabel(state.state) : "");
+      const image = state?.attributes?.image || known(this._s(e._image));
       return {
         problem,
         html: `<div class="item" data-key="${esc(ct.id)}">
           <span class="dot ${unhealthy ? "crit" : cls}"></span>
-          <div class="main clickable" role="button" tabindex="0" data-entity="${esc(e.state || "")}">
+          <div class="main clickable" role="button" tabindex="0" data-entity="${esc(e.state || e._status || "")}">
             <div class="title"><span>${esc(state?.attributes?.name || ct.name)}</span>
               ${unhealthy ? `<span class="tag alert crit">${esc(this._t("unhealthy"))}</span>` : ""}
             </div>
@@ -1656,13 +1807,13 @@ const MINI_STYLE = `
 
 // The mini card extends the full card: its detail button (top right, `zoom: false` removes it) switches it to the
 // full card's content, same configuration, and back; a click anywhere outside the card brings it back too.
-class DockhandMiniCard extends DockhandCard {
+class DockerMiniCard extends DockerCard {
   static getConfigElement() {
-    return document.createElement("dockhand-mini-card-editor");
+    return document.createElement("docker-mini-card-editor");
   }
 
   static getStubConfig(hass) {
-    return DockhandCard.getStubConfig(hass);
+    return DockerCard.getStubConfig(hass);
   }
 
   constructor() {
@@ -1755,7 +1906,7 @@ class DockhandMiniCard extends DockhandCard {
     const images = this._s(e.image_count);
     if (images)
       foot.push(`<span class="clickable" role="button" tabindex="0" data-key="${esc(e.image_count)}" data-entity="${esc(e.image_count)}">${svgIcon(ICONS.image)}${esc(countText(images))} ${esc(this._tn("images_lc", images.state))}</span>`);
-    if (this._config.show_updates !== false && cs.entity)
+    if (this._config.show_updates !== false && cs.entity && cs.updates !== undefined)
       foot.push(
         `<span class="clickable ${cs.updates > 0 ? "upd" : ""}" role="button" tabindex="0" data-key="${esc(cs.entity)}" data-entity="${esc(cs.entity)}">${svgIcon(ICONS.update)}${esc(cs.updates ?? "—")} ${esc(
           this._tn("updates_lc", cs.updates)
@@ -1776,14 +1927,16 @@ class DockhandMiniCard extends DockhandCard {
 // Visual editors (ha-form)
 // ---------------------------------------------------------------------------
 
-class DockhandEditorBase extends HTMLElement {
+class DockerEditorBase extends HTMLElement {
   // [name, default]
   static get toggles() {
     return [];
   }
 
   setConfig(config) {
-    this._config = { ...config };
+    // dockhand_url (before 2.0) is edited as url: the next change saves it under its new name.
+    const { dockhand_url, ...rest } = config;
+    this._config = dockhand_url && !rest.url ? { ...rest, url: dockhand_url } : rest;
     this._render();
   }
 
@@ -1797,7 +1950,7 @@ class DockhandEditorBase extends HTMLElement {
     return [
       { name: "environment", selector: { select: { mode: "dropdown", options: envs } } },
       { name: "title", selector: { text: {} } },
-      { name: "dockhand_url", selector: { text: { type: "url" } } },
+      { name: "url", selector: { text: { type: "url" } } },
       {
         type: "grid",
         name: "",
@@ -1827,9 +1980,16 @@ class DockhandEditorBase extends HTMLElement {
     ];
   }
 
+  // [name, default] for the selected environment (`environment` id, else the first one listed).
+  _toggles(_environment) {
+    return [...this.constructor.toggles];
+  }
+
   _render() {
     if (!this._hass || !this._config) return;
-    const toggles = [...this.constructor.toggles];
+    const envs = listEnvs(this._hass);
+    const envOf = (config) => config.environment || envs[0]?.value;
+    const toggles = this._toggles(envOf(this._config));
     if (!this._form) {
       this._form = document.createElement("ha-form");
       this._form.computeLabel = (s) => t(this._hass, this._config, s.name);
@@ -1837,7 +1997,7 @@ class DockhandEditorBase extends HTMLElement {
       this._form.addEventListener("value-changed", (ev) => {
         ev.stopPropagation();
         const config = { ...ev.detail.value };
-        const defaults = Object.fromEntries(toggles);
+        const defaults = Object.fromEntries(this._toggles(envOf(config)));
         for (const [k, v] of Object.entries(config)) {
           // Keep the YAML minimal: drop empty values and toggles left at their default.
           if (v === "" || v === undefined || v === null || (k in defaults && v === defaults[k])) delete config[k];
@@ -1849,7 +2009,6 @@ class DockhandEditorBase extends HTMLElement {
     }
     const data = { ...this._config };
     for (const [name, def] of toggles) if (data[name] === undefined) data[name] = def;
-    const envs = listEnvs(this._hass);
     if (!data.environment) data.environment = envs[0]?.value;
     this._form.hass = this._hass;
     // hass is pushed on every state change of Home Assistant while the editor is open: reassign data and
@@ -1868,7 +2027,7 @@ class DockhandEditorBase extends HTMLElement {
   }
 }
 
-class DockhandCardEditor extends DockhandEditorBase {
+class DockerCardEditor extends DockerEditorBase {
   static get toggles() {
     return [
       ["show_stats", true],
@@ -1881,9 +2040,15 @@ class DockhandCardEditor extends DockhandEditorBase {
       ["expand_containers", false],
     ];
   }
+
+  // Monitor Docker has no stacks: its containers list is shown by default.
+  _toggles(environment) {
+    const md = String(environment || "").startsWith("monitor_docker.");
+    return super._toggles(environment).map(([name, def]) => [name, name === "show_containers" ? md : def]);
+  }
 }
 
-class DockhandMiniCardEditor extends DockhandEditorBase {
+class DockerMiniCardEditor extends DockerEditorBase {
   static get toggles() {
     return [
       ["show_updates", true],
@@ -1899,30 +2064,33 @@ class DockhandMiniCardEditor extends DockhandEditorBase {
 const define = (name, cls) => {
   if (!customElements.get(name)) customElements.define(name, cls);
 };
-define("dockhand-card", DockhandCard);
-define("dockhand-mini-card", DockhandMiniCard);
-define("dockhand-card-editor", DockhandCardEditor);
-define("dockhand-mini-card-editor", DockhandMiniCardEditor);
+define("docker-card", DockerCard);
+define("docker-mini-card", DockerMiniCard);
+define("docker-card-editor", DockerCardEditor);
+define("docker-mini-card-editor", DockerMiniCardEditor);
+// Card types before 2.0: same cards, kept working (subclasses, an element class is defined only once).
+define("dockhand-card", class extends DockerCard {});
+define("dockhand-mini-card", class extends DockerMiniCard {});
 
 window.customCards = window.customCards || [];
 for (const card of [
   {
-    type: "dockhand-card",
-    name: "Dockhand Card",
-    description: "Monitor and control a Dockhand Docker environment: CPU, memory, containers, stacks and updates.",
+    type: "docker-card",
+    name: "Docker Card",
+    description: "Monitor and control Docker hosts (Dockhand, Monitor Docker): CPU, memory, containers, stacks and updates.",
   },
   {
-    type: "dockhand-mini-card",
-    name: "Dockhand Mini Card",
-    description: "Compact Dockhand environment overview: CPU, memory, containers and updates.",
+    type: "docker-mini-card",
+    name: "Docker Mini Card",
+    description: "Compact Docker host overview (Dockhand, Monitor Docker): CPU, memory, containers and updates.",
   },
 ]) {
   if (!window.customCards.some((c) => c.type === card.type))
-    window.customCards.push({ ...card, preview: true, documentationURL: "https://github.com/juju35/ha-dockhand-card" });
+    window.customCards.push({ ...card, preview: true, documentationURL: "https://github.com/juju35/ha-docker-card" });
 }
 
 console.info(
-  `%c DOCKHAND-CARD %c v${VERSION} `,
+  `%c DOCKER-CARD %c v${VERSION} `,
   "color: white; background: #f26b21; font-weight: 700;",
   "color: #f26b21; background: white; font-weight: 700;"
 );

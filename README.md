@@ -38,6 +38,16 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 - Light and dark mode; English, French, German, Spanish, Serbian (Cyrillic and Latin), Italian, Dutch, European Portuguese and Polish
 - Single file, no external dependency
 
+## Supported integrations
+
+| Integration | What the cards show |
+|---|---|
+| [Dockhand](https://github.com/raetha/ha-dockhand) (HACS) | Everything: CPU, memory and containers gauges, Docker version, stacks with Git badge, sync errors and updates, images, volumes, networks, containers, start / stop and restart |
+| [Monitor Docker](https://github.com/ualex73/monitor_docker) (HACS, YAML) | CPU, memory and containers gauges, Docker version, OS and architecture, images, containers with start / stop and restart; no stacks, volumes, networks nor image updates. Details in [Monitor Docker](#monitor-docker) |
+| [Portainer](https://www.home-assistant.io/integrations/portainer/) (built in, 2025.10 and later) | Status, Docker version, OS and architecture, CPU, memory and containers gauges, images and updates, stacks and containers with start / stop and restart. Details in [Portainer](#portainer) |
+
+Several environments, instances and endpoints are supported, and the sources can be mixed: each one shows in the editor's environment list.
+
 ## Prerequisites
 
 Home Assistant 2024.8 or later, and one of:

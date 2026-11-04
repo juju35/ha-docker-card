@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.2 - 2026-11-04
+
+### Added
+- Added Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Slovak, Czech, Slovenian, Latvian and Greek translations: `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv` and `el`, all selectable in the editor and picked automatically from the Home Assistant language. Counted nouns use each language's plural forms (1 стек, 2 стека, 5 стеков; 20 de containere; 21 konteiners…).
+
 ## 3.0.1 - 2026-11-02
 
 ### Fixed

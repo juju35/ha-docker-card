@@ -88,7 +88,7 @@ const measure = async (cards) => {
 };
 
 const WIDTHS = [156, 175, 200, 246, 300, 460];
-const LANGS = ["en", "pl", "sr", "sr-Latn"];
+const LANGS = ["en", "pl", "sr", "sr-Latn", "el", "ru", "bg"];
 const cards = [];
 for (const width of WIDTHS)
   for (const language of LANGS)
@@ -187,7 +187,7 @@ test("header chip: its whole label shows from 245 to 500 px, the title keeps a f
   if (skip) return t.skip(skip);
   for (const m of await render({
     widths: [245, 280, 320, 364, 400, 500],
-    langs: ["en", "pl", "sr-Latn"],
+    langs: ["en", "pl", "sr-Latn", "el", "ru", "bg"],
     states: { normal: states, unavailable },
   })) {
     t.diagnostic(`${m.at}: title ${m.title}px, chip "${m.label}"`);

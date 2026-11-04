@@ -10,7 +10,7 @@ const PLURAL = /_(zero|one|two|few|many|other)$/;
 
 test("I18N parity: every language has exactly the keys of en", () => {
   const ref = Object.keys(STRINGS.en).filter((k) => !PLURAL.test(k)).sort();
-  for (const code of ["en", "fr", "de", "es", "sr", "sr-Latn", "it", "nl", "pt", "pl"]) {
+  for (const code of ["en", "fr", "de", "es", "sr", "sr-Latn", "it", "nl", "pt", "pl", "ro", "da", "sv", "bg", "ru", "uk", "hu", "ga", "sk", "cs", "sl", "mt", "lv", "el"]) {
     assert.ok(STRINGS[code], `missing language ${code}`);
     const keys = Object.keys(STRINGS[code]);
     assert.deepEqual(keys.filter((k) => !PLURAL.test(k)).sort(), ref, `key mismatch in ${code}`);
@@ -69,6 +69,19 @@ test("I18N resolution: Italian, Dutch, Portuguese and Polish", () => {
   assert.equal(lang(hass("ja")), "en");
 });
 
+test("I18N resolution: Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Irish, Slovak, Czech, Slovenian, Maltese, Latvian and Greek", () => {
+  const hass = (language) => ({ locale: { language } });
+  for (const code of ["ro", "da", "sv", "bg", "ru", "uk", "hu", "ga", "sk", "cs", "sl", "mt", "lv", "el"]) {
+    assert.equal(lang(hass(code)), code);
+  }
+  assert.equal(lang(hass("ro-RO")), "ro");
+  assert.equal(lang(hass("sv-FI")), "sv");
+  assert.equal(lang(hass("ru-RU")), "ru");
+  assert.equal(lang(hass("cs-CZ")), "cs");
+  assert.equal(lang(hass("el-GR")), "el");
+  assert.equal(lang(hass("ja")), "en");
+});
+
 test("Editor: the language list offers every translation, plus automatic", () => {
   const editor = new DockerCardEditor();
   editor._config = {};
@@ -81,6 +94,23 @@ test("Editor: the language list offers every translation, plus automatic", () =>
   assert.equal(labels.nl, "Nederlands");
   assert.equal(labels.pt, "Português (Portugal)");
   assert.equal(labels.pl, "Polski");
+  const natives = {
+    ro: "Română",
+    da: "Dansk",
+    sv: "Svenska",
+    bg: "Български",
+    ru: "Русский",
+    uk: "Українська",
+    hu: "Magyar",
+    ga: "Gaeilge",
+    sk: "Slovenčina",
+    cs: "Čeština",
+    sl: "Slovenščina",
+    mt: "Malti",
+    lv: "Latviešu",
+    el: "Ελληνικά",
+  };
+  for (const [code, name] of Object.entries(natives)) assert.equal(labels[code], name, code);
 });
 
 test("I18N plurals: Polish counted nouns follow Intl.PluralRules, other languages keep their forms", () => {
@@ -122,6 +152,20 @@ test("I18N plurals: 1 is singular in every language", () => {
     pl: "1 stos, 1 obraz, 1 aktualizacja, 1 rdzeń, 1 kontener",
     sr: "1 стек, 1 слика, 1 ажурирање, 1 језгро, 1 контејнер",
     "sr-Latn": "1 stek, 1 slika, 1 ažuriranje, 1 jezgro, 1 kontejner",
+    ro: "1 stivă, 1 imagine, 1 actualizare, 1 nucleu, 1 container",
+    da: "1 stak, 1 image, 1 opdatering, 1 kerne, 1 container",
+    sv: "1 stack, 1 avbildning, 1 uppdatering, 1 kärna, 1 container",
+    bg: "1 стек, 1 образ, 1 актуализация, 1 ядро, 1 контейнер",
+    ru: "1 стек, 1 образ, 1 обновление, 1 ядро, 1 контейнер",
+    uk: "1 стек, 1 образ, 1 оновлення, 1 ядро, 1 контейнер",
+    hu: "1 stack, 1 lemezkép, 1 frissítés, 1 mag, 1 konténer",
+    ga: "1 cruach, 1 íomhá, 1 nuashonrú, 1 croí, 1 coimeádán",
+    sk: "1 zásobník, 1 obraz, 1 aktualizácia, 1 jadro, 1 kontajner",
+    cs: "1 zásobník, 1 obraz, 1 aktualizace, 1 jádro, 1 kontejner",
+    sl: "1 sklad, 1 slika, 1 posodobitev, 1 jedro, 1 vsebnik",
+    mt: "1 stack, 1 immaġni, 1 aġġornament, 1 core, 1 kontenitur",
+    lv: "1 steks, 1 attēls, 1 atjauninājums, 1 kodols, 1 konteiners",
+    el: "1 στοίβα, 1 εικόνα, 1 ενημέρωση, 1 πυρήνας, 1 κοντέινερ",
   };
   assert.deepEqual(Object.keys(one).sort(), Object.keys(STRINGS).sort());
   for (const [code, text] of Object.entries(one)) assert.equal(counted(code, 1), text, code);
@@ -167,6 +211,47 @@ test("I18N plurals: Polish 1, 2, 5, 21, 22", () => {
   assert.equal(counted("pl", 22), "22 stosy, 22 obrazy, 22 aktualizacje, 22 rdzenie, 22 kontenery");
 });
 
+test("I18N plurals: Russian and Ukrainian one / few / many forms for 1, 2, 5, 11, 21, 22", () => {
+  const ru = {
+    1: "1 стек, 1 образ, 1 обновление, 1 ядро, 1 контейнер",
+    2: "2 стека, 2 образа, 2 обновления, 2 ядра, 2 контейнера",
+    5: "5 стеков, 5 образов, 5 обновлений, 5 ядер, 5 контейнеров",
+    11: "11 стеков, 11 образов, 11 обновлений, 11 ядер, 11 контейнеров",
+    21: "21 стек, 21 образ, 21 обновление, 21 ядро, 21 контейнер",
+    22: "22 стека, 22 образа, 22 обновления, 22 ядра, 22 контейнера",
+  };
+  const uk = {
+    1: "1 стек, 1 образ, 1 оновлення, 1 ядро, 1 контейнер",
+    2: "2 стеки, 2 образи, 2 оновлення, 2 ядра, 2 контейнери",
+    5: "5 стеків, 5 образів, 5 оновлень, 5 ядер, 5 контейнерів",
+    11: "11 стеків, 11 образів, 11 оновлень, 11 ядер, 11 контейнерів",
+    21: "21 стек, 21 образ, 21 оновлення, 21 ядро, 21 контейнер",
+    22: "22 стеки, 22 образи, 22 оновлення, 22 ядра, 22 контейнери",
+  };
+  for (const [n, text] of Object.entries(ru)) assert.equal(counted("ru", Number(n)), text, `ru ${n}`);
+  for (const [n, text] of Object.entries(uk)) assert.equal(counted("uk", Number(n)), text, `uk ${n}`);
+});
+
+test("I18N plurals: Czech, Slovak and Slovenian forms for 2, 3 and 5", () => {
+  assert.equal(counted("cs", 2), "2 zásobníky, 2 obrazy, 2 aktualizace, 2 jádra, 2 kontejnery");
+  assert.equal(counted("cs", 5), "5 zásobníků, 5 obrazů, 5 aktualizací, 5 jader, 5 kontejnerů");
+  assert.equal(counted("sk", 2), "2 zásobníky, 2 obrazy, 2 aktualizácie, 2 jadrá, 2 kontajnery");
+  assert.equal(counted("sk", 5), "5 zásobníkov, 5 obrazov, 5 aktualizácií, 5 jadier, 5 kontajnerov");
+  assert.equal(counted("sl", 2), "2 sklada, 2 sliki, 2 posodobitvi, 2 jedri, 2 vsebnika");
+  assert.equal(counted("sl", 3), "3 skladi, 3 slike, 3 posodobitve, 3 jedra, 3 vsebniki");
+  assert.equal(counted("sl", 5), "5 skladov, 5 slik, 5 posodobitev, 5 jeder, 5 vsebnikov");
+});
+
+test("I18N plurals: Romanian, Maltese and Latvian", () => {
+  assert.equal(counted("ro", 2), "2 stive, 2 imagini, 2 actualizări, 2 nuclee, 2 containere");
+  assert.equal(counted("ro", 20), "20 de stive, 20 de imagini, 20 de actualizări, 20 de nuclee, 20 de containere");
+  assert.equal(counted("mt", 5), "5 stacks, 5 immaġnijiet, 5 aġġornamenti, 5 core, 5 kontenituri");
+  assert.equal(counted("mt", 20), "20 stack, 20 immaġni, 20 aġġornament, 20 core, 20 kontenitur");
+  assert.equal(counted("lv", 2), "2 steki, 2 attēli, 2 atjauninājumi, 2 kodoli, 2 konteineri");
+  assert.equal(counted("lv", 21), "21 steks, 21 attēls, 21 atjauninājums, 21 kodols, 21 konteiners");
+  assert.equal(counted("lv", 10), "10 steki, 10 attēli, 10 atjauninājumi, 10 kodoli, 10 konteineri");
+});
+
 test("I18N plurals: a count that is not a number (dash, unavailable) keeps the base form", () => {
   for (const code of Object.keys(STRINGS)) {
     for (const [key] of COUNTED) {
@@ -180,7 +265,9 @@ test("README: the features list names every language the cards ship", () => {
   const readme = readFileSync(new URL("../README.md", import.meta.url), "utf8");
   const line = readme.split("\n").find((l) => /^- Light and dark mode/.test(l));
   assert.ok(line, "no language line in the features list");
-  for (const name of ["English", "French", "German", "Spanish", "Serbian", "Italian", "Dutch", "Portuguese", "Polish"]) {
+  for (const name of ["English", "French", "German", "Spanish", "Serbian", "Italian", "Dutch", "Portuguese", "Polish",
+    "Romanian", "Danish", "Swedish", "Bulgarian", "Russian", "Ukrainian", "Hungarian", "Irish", "Slovak", "Czech",
+    "Slovenian", "Maltese", "Latvian", "Greek"]) {
     assert.match(line, new RegExp(name), `${name} missing from: ${line}`);
   }
   // The translations table lists every code.

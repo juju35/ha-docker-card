@@ -5,7 +5,7 @@
 [![Validate](https://github.com/juju35/ha-docker-card/actions/workflows/validate.yml/badge.svg)](https://github.com/juju35/ha-docker-card/actions/workflows/validate.yml)
 [![Lint](https://github.com/juju35/ha-docker-card/actions/workflows/lint.yml/badge.svg)](https://github.com/juju35/ha-docker-card/actions/workflows/lint.yml)
 [![Release](https://img.shields.io/github/v/release/juju35/ha-docker-card)](https://github.com/juju35/ha-docker-card/releases/latest)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/juju35/ha-docker-card/blob/main/LICENSE)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/julienstep9)
 
 Lovelace cards for Home Assistant to monitor and control Docker hosts: CPU, memory, containers, stacks and pending updates at a glance.
@@ -187,8 +187,8 @@ Monitor Docker has no stacks, volumes, networks nor image updates: those section
 
 | Light | Dark |
 |---|---|
-| ![card with Monitor Docker](screenshots/card-monitor-docker.png) | ![card with Monitor Docker dark](screenshots/card-monitor-docker-dark.png) |
-| ![mini card with Monitor Docker](screenshots/mini-card-monitor-docker.png) | ![mini card with Monitor Docker dark](screenshots/mini-card-monitor-docker-dark.png) |
+| ![card with Monitor Docker](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-monitor-docker.png) | ![card with Monitor Docker dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-monitor-docker-dark.png) |
+| ![mini card with Monitor Docker](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-monitor-docker.png) | ![mini card with Monitor Docker dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-monitor-docker-dark.png) |
 
 ## Portainer
 
@@ -216,36 +216,36 @@ Portainer has no host usage sensor: enable the **Total CPU** sensor of the endpo
 
 | Light | Dark |
 |---|---|
-| ![card with Portainer](screenshots/card-portainer.png) | ![card with Portainer dark](screenshots/card-portainer-dark.png) |
-| ![mini card with Portainer](screenshots/mini-card-portainer.png) | ![mini card with Portainer dark](screenshots/mini-card-portainer-dark.png) |
+| ![card with Portainer](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-portainer.png) | ![card with Portainer dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-portainer-dark.png) |
+| ![mini card with Portainer](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-portainer.png) | ![mini card with Portainer dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-portainer-dark.png) |
 
 ## Screenshots
 
 | Light | Dark |
 |---|---|
-| ![card](screenshots/card.png) | ![card dark](screenshots/card-dark.png) |
-| ![mini card](screenshots/mini-card.png) | ![mini card dark](screenshots/mini-card-dark.png) |
-| ![mini card zoomed in](screenshots/mini-card-zoom.png) | ![mini card zoomed in dark](screenshots/mini-card-zoom-dark.png) |
+| ![card](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card.png) | ![card dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-dark.png) |
+| ![mini card](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card.png) | ![mini card dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-dark.png) |
+| ![mini card zoomed in](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom.png) | ![mini card zoomed in dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom-dark.png) |
 
 Only items needing attention (`only_problems: true`, containers list shown, both lists expanded):
 
 | Light | Dark |
 |---|---|
-| ![only items needing attention](screenshots/card-problems.png) | ![only items needing attention dark](screenshots/card-problems-dark.png) |
+| ![only items needing attention](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-problems.png) | ![only items needing attention dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-problems-dark.png) |
 
 Containers list:
 
 | Light | Dark |
 |---|---|
-| ![containers](screenshots/card-containers.png) | ![containers dark](screenshots/card-containers-dark.png) |
+| ![containers](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-containers.png) | ![containers dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-containers-dark.png) |
 
 ### Animations
 
 | Animation | Light | Dark |
 |---|---|---|
-| Folding sections | ![sections folding and unfolding](screenshots/card-sections.gif) | ![sections folding and unfolding dark](screenshots/card-sections-dark.gif) |
-| Live gauges | ![gauges animating on a state change](screenshots/card-gauges.gif) | ![gauges animating on a state change dark](screenshots/card-gauges-dark.gif) |
-| Mini card detail button | ![mini card switching to the full card and back](screenshots/mini-card-zoom.gif) | ![mini card switching to the full card and back dark](screenshots/mini-card-zoom-dark.gif) |
+| Folding sections | ![sections folding and unfolding](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-sections.gif) | ![sections folding and unfolding dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-sections-dark.gif) |
+| Live gauges | ![gauges animating on a state change](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-gauges.gif) | ![gauges animating on a state change dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-gauges-dark.gif) |
+| Mini card detail button | ![mini card switching to the full card and back](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom.gif) | ![mini card switching to the full card and back dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom-dark.gif) |
 
 - `card-sections.gif` / `card-sections-dark.gif` — the stacks list folds and unfolds on a click on its title, with the chevron rotating along (the containers list, when shown, works the same way).
 - `card-gauges.gif` / `card-gauges-dark.gif` — the CPU and memory rings and labels follow every state change with a smooth transition.
@@ -283,7 +283,7 @@ The **Screenshots** workflow re-renders `screenshots/` on every pull request tou
 ### Releasing
 
 1. Bump `version` in `package.json`
-2. Add a `## <version>` section at the top of [CHANGELOG.md](CHANGELOG.md)
+2. Add a `## <version>` section at the top of [CHANGELOG.md](https://github.com/juju35/ha-docker-card/blob/main/CHANGELOG.md)
 3. Push to `main`: the **Release** workflow builds the card, creates the tag and the GitHub release with the changelog section as notes, and attaches `docker-card.js`
 
 ## Translations
@@ -323,7 +323,7 @@ Dockhand is a project by [Finsys](https://github.com/Finsys/dockhand), with its 
 
 ## License
 
-[MIT](LICENSE)
+[MIT](https://github.com/juju35/ha-docker-card/blob/main/LICENSE)
 
 ## Support
 

@@ -31,7 +31,7 @@ test("screenshots: every light capture has a -dark twin with the exact same setu
 });
 
 test("screenshots: the README shows every capture, and every capture it shows is rendered", () => {
-  const referenced = new Set([...readme.matchAll(/\]\((screenshots\/[^)\s]+)\)/g)].map((m) => m[1]));
+  const referenced = new Set([...readme.matchAll(/\]\((?:[^)\s]*\/)?(screenshots\/[^)\s]+)\)/g)].map((m) => m[1]));
   const rendered = new Set(scenes.map((s) => `screenshots/${s.file}.${s.ext}`));
   assert.deepEqual([...referenced].sort(), [...rendered].sort());
 });

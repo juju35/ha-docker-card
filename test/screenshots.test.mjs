@@ -8,7 +8,9 @@ import { fileURLToPath } from "node:url";
 import { gifs, shots } from "../scripts/screenshot-scenes.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
-const readme = readFileSync(`${root}README.md`, "utf8");
+const readme = readFileSync(`${root}README.md`, "utf8")
+  // <img> screenshots (sized for HACS) read as ![](url)
+  .replace(/<img\b[^>]*\bsrc="([^"]+)"[^>]*>/g, "![]($1)");
 const scenes = [...shots.map((s) => ({ ...s, ext: "png" })), ...gifs.map((g) => ({ ...g, ext: "gif" }))];
 
 // Everything but the file name and the theme: a light/dark pair must show exactly the same card state.

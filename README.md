@@ -22,7 +22,7 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 
 | Docker Card | Docker Mini Card |
 |---|---|
-| ![docker-card](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card.png) | ![docker-mini-card](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card.png) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card.png" alt="docker-card" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card.png" alt="docker-mini-card" width="400"> |
 
 ## Features
 
@@ -187,8 +187,8 @@ Monitor Docker has no stacks, volumes, networks nor image updates: those section
 
 | Light | Dark |
 |---|---|
-| ![card with Monitor Docker](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-monitor-docker.png) | ![card with Monitor Docker dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-monitor-docker-dark.png) |
-| ![mini card with Monitor Docker](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-monitor-docker.png) | ![mini card with Monitor Docker dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-monitor-docker-dark.png) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-monitor-docker.png" alt="card with Monitor Docker" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-monitor-docker-dark.png" alt="card with Monitor Docker dark" width="400"> |
+| <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-monitor-docker.png" alt="mini card with Monitor Docker" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-monitor-docker-dark.png" alt="mini card with Monitor Docker dark" width="400"> |
 
 ## Portainer
 
@@ -216,36 +216,36 @@ Portainer has no host usage sensor: enable the **Total CPU** sensor of the endpo
 
 | Light | Dark |
 |---|---|
-| ![card with Portainer](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-portainer.png) | ![card with Portainer dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-portainer-dark.png) |
-| ![mini card with Portainer](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-portainer.png) | ![mini card with Portainer dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-portainer-dark.png) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-portainer.png" alt="card with Portainer" width="348"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-portainer-dark.png" alt="card with Portainer dark" width="348"> |
+| <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-portainer.png" alt="mini card with Portainer" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-portainer-dark.png" alt="mini card with Portainer dark" width="400"> |
 
 ## Screenshots
 
 | Light | Dark |
 |---|---|
-| ![card](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card.png) | ![card dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-dark.png) |
-| ![mini card](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card.png) | ![mini card dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-dark.png) |
-| ![mini card zoomed in](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom.png) | ![mini card zoomed in dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom-dark.png) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card.png" alt="card" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-dark.png" alt="card dark" width="400"> |
+| <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card.png" alt="mini card" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-dark.png" alt="mini card dark" width="400"> |
+| <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom.png" alt="mini card zoomed in" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom-dark.png" alt="mini card zoomed in dark" width="400"> |
 
 Only items needing attention (`only_problems: true`, containers list shown, both lists expanded):
 
 | Light | Dark |
 |---|---|
-| ![only items needing attention](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-problems.png) | ![only items needing attention dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-problems-dark.png) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-problems.png" alt="only items needing attention" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-problems-dark.png" alt="only items needing attention dark" width="400"> |
 
 Containers list:
 
 | Light | Dark |
 |---|---|
-| ![containers](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-containers.png) | ![containers dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-containers-dark.png) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-containers.png" alt="containers" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-containers-dark.png" alt="containers dark" width="400"> |
 
 ### Animations
 
 | Animation | Light | Dark |
 |---|---|---|
-| Folding sections | ![sections folding and unfolding](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-sections.gif) | ![sections folding and unfolding dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-sections-dark.gif) |
-| Live gauges | ![gauges animating on a state change](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-gauges.gif) | ![gauges animating on a state change dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-gauges-dark.gif) |
-| Mini card detail button | ![mini card switching to the full card and back](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom.gif) | ![mini card switching to the full card and back dark](https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom-dark.gif) |
+| Folding sections | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-sections.gif" alt="sections folding and unfolding" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-sections-dark.gif" alt="sections folding and unfolding dark" width="400"> |
+| Live gauges | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-gauges.gif" alt="gauges animating on a state change" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-gauges-dark.gif" alt="gauges animating on a state change dark" width="400"> |
+| Mini card detail button | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom.gif" alt="mini card switching to the full card and back" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom-dark.gif" alt="mini card switching to the full card and back dark" width="400"> |
 
 - `card-sections.gif` / `card-sections-dark.gif` — the stacks list folds and unfolds on a click on its title, with the chevron rotating along (the containers list, when shown, works the same way).
 - `card-gauges.gif` / `card-gauges-dark.gif` — the CPU and memory rings and labels follow every state change with a smooth transition.

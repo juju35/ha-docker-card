@@ -8,6 +8,7 @@
 ### Fixes
 - Portainer: no more 24 h curves of the core count and total memory, drawn as if they were usage.
 - Mini card: the header icon keeps its 40 px on a narrow card too.
+- Mini card: its height follows its content in a Sections view (`rows: auto`), compact or showing the full card.
 - Numbers (CPU percentages, memory sizes) use the card's language decimal separator, such as `4,2%` in French.
 
 ### Performance

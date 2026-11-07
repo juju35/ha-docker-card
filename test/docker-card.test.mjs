@@ -133,11 +133,12 @@ test("the mini card detail button switches to the full card content and back", (
   assert.equal(el.html.replace(/<button type="button" class="zoom"[\s\S]*?<\/button>/, ""), full._render());
   assert.match(el.html, /<button type="button" class="zoom" title="Back to the compact view">/);
   assert.equal(el.getCardSize(), full.getCardSize());
-  assert.deepEqual({ ...el.getGridOptions() }, { ...full.getGridOptions() });
+  assert.deepEqual({ ...el.getGridOptions() }, { ...full.getGridOptions(), rows: "auto" });
   el._zoomClick(zoomButton());
   assert.equal(el._zoomed, false);
   assert.match(el.html, /class="metric/);
   assert.equal(el.getCardSize(), 3);
+  assert.deepEqual({ ...el.getGridOptions() }, { columns: 6, min_columns: 6, rows: "auto" });
 });
 
 test("a click outside the mini card collapses it, a click inside or in a dialog does not", () => {

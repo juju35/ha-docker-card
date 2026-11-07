@@ -3229,8 +3229,9 @@ class DockerMiniCard extends DockerCard {
     return this._zoomed ? super.getCardSize() : 3;
   }
 
+  // rows: "auto" in both views: the Sections grid sizes the card to its content (compact rows, or the full card).
   getGridOptions() {
-    return this._zoomed ? super.getGridOptions() : { columns: 6, min_columns: 6 };
+    return { ...(this._zoomed ? super.getGridOptions() : { columns: 6, min_columns: 6 }), rows: "auto" };
   }
 
   _setZoom(zoomed) {

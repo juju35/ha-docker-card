@@ -1,6 +1,6 @@
 # ha-docker-card
 
-[![HACS](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
+[![Marketplace](https://img.shields.io/badge/Marketplace-Custom-41BDF5.svg)](https://www.home-assistant.io/integrations/marketplace/)
 [![HACS Validation](https://github.com/juju35/ha-docker-card/actions/workflows/hacs.yml/badge.svg)](https://github.com/juju35/ha-docker-card/actions/workflows/hacs.yml)
 [![Validate](https://github.com/juju35/ha-docker-card/actions/workflows/validate.yml/badge.svg)](https://github.com/juju35/ha-docker-card/actions/workflows/validate.yml)
 [![Lint](https://github.com/juju35/ha-docker-card/actions/workflows/lint.yml/badge.svg)](https://github.com/juju35/ha-docker-card/actions/workflows/lint.yml)
@@ -18,7 +18,7 @@ Supported integrations:
 
 Entities are **discovered automatically**, you don't have to pick them one by one, and it works whatever your Home Assistant language.
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=juju35&repository=ha-docker-card&category=plugin)
+[![Open your Home Assistant instance and open a repository inside the Marketplace.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=juju35&repository=ha-docker-card&category=plugin)
 
 | Docker Card | Docker Mini Card |
 |---|---|
@@ -44,8 +44,8 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 
 | Integration | What the cards show |
 |---|---|
-| [Dockhand](https://github.com/raetha/ha-dockhand) (HACS) | Everything: CPU, memory and containers gauges, Docker version, stacks with Git badge, sync errors and updates, images, volumes, networks, containers, start / stop and restart |
-| [Monitor Docker](https://github.com/ualex73/monitor_docker) (HACS, YAML) | CPU, memory and containers gauges, Docker version, OS and architecture, images, containers with start / stop and restart; no stacks, volumes, networks nor image updates. Details in [Monitor Docker](#monitor-docker) |
+| [Dockhand](https://github.com/raetha/ha-dockhand) (Marketplace) | Everything: CPU, memory and containers gauges, Docker version, stacks with Git badge, sync errors and updates, images, volumes, networks, containers, start / stop and restart |
+| [Monitor Docker](https://github.com/ualex73/monitor_docker) (Marketplace, YAML) | CPU, memory and containers gauges, Docker version, OS and architecture, images, containers with start / stop and restart; no stacks, volumes, networks nor image updates. Details in [Monitor Docker](#monitor-docker) |
 | [Portainer](https://www.home-assistant.io/integrations/portainer/) (built in, 2025.10 and later) | Status, Docker version, OS and architecture, CPU, memory and containers gauges, images and updates, stacks and containers with start / stop and restart. Details in [Portainer](#portainer) |
 
 Several environments, instances and endpoints are supported, and the sources can be mixed: each one shows in the editor's environment list.
@@ -54,25 +54,25 @@ Several environments, instances and endpoints are supported, and the sources can
 
 Home Assistant 2024.8 or later, and one of:
 
-- the [Dockhand integration](https://github.com/raetha/ha-dockhand) (available in HACS), installed and configured;
-- the [Monitor Docker integration](https://github.com/ualex73/monitor_docker) (available in HACS), configured in YAML — see [Monitor Docker](#monitor-docker) below;
+- the [Dockhand integration](https://github.com/raetha/ha-dockhand) (available in the Marketplace), installed and configured;
+- the [Monitor Docker integration](https://github.com/ualex73/monitor_docker) (available in the Marketplace), configured in YAML — see [Monitor Docker](#monitor-docker) below;
 - the [Portainer integration](https://www.home-assistant.io/integrations/portainer/) (built into Home Assistant 2025.10 and later) — see [Portainer](#portainer) below.
 
 ## Installation
 
-### Via HACS (recommended)
+### Via the Marketplace (recommended)
 
 Click the button below to add the repository directly:
 
-[![Add to HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=juju35&repository=ha-docker-card&category=plugin)
+[![Add to the Marketplace](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=juju35&repository=ha-docker-card&category=plugin)
 
-Then click **Download**, and reload your browser when HACS asks you to.
+Then click **Install**, and reload your browser when the Marketplace asks you to.
 
 Or manually:
 
-1. Open HACS → **⋮** (top right) → **Custom repositories**
+1. Open **Settings → Marketplace → Add from link** (top right; this needs a GitHub account connected)
 2. Add `https://github.com/juju35/ha-docker-card` — Type: **Dashboard**
-3. Search for **Docker Card** and click **Download**
+3. Open **Docker Card** and click **Install**
 4. Clear your browser cache and refresh
 
 ### Manual
@@ -153,7 +153,7 @@ Before 2.0, this repository was `ha-dockhand-card` and the cards were `custom:do
 
 - The old card types keep working: no dashboard to edit. New cards are `custom:docker-card` / `custom:docker-mini-card`.
 - `dockhand_url` is now `url`; the old name is still read, and the visual editor saves it under its new name.
-- The file is now `docker-card.js`: with HACS, redownload the card (the dashboard resource follows); with a manual install, update the resource URL to `/local/docker-card.js`.
+- The file is now `docker-card.js`: with the Marketplace, reinstall the card (the dashboard resource follows); with a manual install, update the resource URL to `/local/docker-card.js`.
 
 ## Monitor Docker
 
@@ -278,7 +278,7 @@ npm run screenshots  # renders the cards with mock data (scripts/mock-states*.mj
 
 The **Screenshots** workflow re-renders `screenshots/` on every pull request touching `src/`, `scripts/`, `images/` or `package-lock.json` (a Playwright/Chromium bump changes the rendering) and commits the refreshed captures onto the pull request's branch, so the README always matches the code.
 
-`dist/` is not committed: `npm run build` creates it locally, CI builds it on every push, and the release workflow attaches the built file to the release, which is where HACS downloads it from.
+`dist/` is not committed: `npm run build` creates it locally, CI builds it on every push, and the release workflow attaches the built file to the release, which is where the Marketplace installs it from.
 
 ### Releasing
 

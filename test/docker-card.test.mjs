@@ -475,3 +475,39 @@ test("the card types before 2.0 still render the cards", () => {
     assert.ok(Old.prototype instanceof customElements.get(cur), `${old} is not a ${cur}`);
   }
 });
+
+test("CPU and memory 24 h history from the recorder statistics, refreshed every 5 minutes, off with show_history: false", async () => {
+  const calls = [];
+  const el = new DockerCard();
+  el._config = {};
+  el._hass = {
+    states: baseStates(),
+    entities,
+    devices,
+    language: "en",
+    callWS: async (msg) => {
+      calls.push(msg);
+      return Object.fromEntries(msg.statistic_ids.map((id) => [id, [{ mean: 10 }, { mean: 40 }, { mean: 20 }]]));
+    },
+  };
+  el._update = () => {
+    el.html = el._render();
+  };
+  el._update();
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].type, "recorder/statistics_during_period");
+  assert.ok(calls[0].statistic_ids.length >= 1);
+  assert.doesNotMatch(el.html, /class="hist"/);
+  await new Promise((r) => setTimeout(r, 0));
+  assert.match(el.html, /class="hist"/);
+  assert.match(el.html, /Last 24 <span class="unit">h<\/span>/);
+  assert.match(el.html, /max 40%/);
+  el._update();
+  assert.equal(calls.length, 1, "no new query within 5 minutes");
+
+  const off = new DockerCard();
+  off._config = { show_history: false };
+  off._hass = el._hass;
+  assert.doesNotMatch(off._render(), /class="hist"/);
+  assert.equal(calls.length, 1);
+});

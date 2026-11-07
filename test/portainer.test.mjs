@@ -103,6 +103,21 @@ test("full card: host from the containers' usage, stacks, containers and updates
   assert.ok(html.includes('title="Portainer"'));
 });
 
+test("no 24 h CPU / memory history: Portainer's host entities are the core count and the total memory", async () => {
+  const calls = [];
+  for (const Cls of [DockerCard, DockerMiniCard]) {
+    const el = make(Cls, { environment: "ep" });
+    el._hass.callWS = async (msg) => {
+      calls.push(msg);
+      return {};
+    };
+    const html = el._render();
+    assert.doesNotMatch(html, /class="hist"|class="spark"/);
+  }
+  await new Promise((r) => setTimeout(r, 0));
+  assert.deepEqual(calls, []);
+});
+
 test("updates are counted on the containers' update entities", () => {
   const html = make(DockerMiniCard, { environment: "ep" })._render();
   assert.ok(html.includes("1 update"));

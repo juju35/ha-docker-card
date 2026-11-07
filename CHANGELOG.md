@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.3.0 - 2026-11-07
+
+### Features
+- Mini card: the 24 h CPU and memory curves are drawn behind the CPU and memory rows (`show_history`, also in its visual editor).
+
+### Fixes
+- Portainer: no more 24 h curves of the core count and total memory, drawn as if they were usage.
+- Mini card: the header icon keeps its 40 px on a narrow card too.
+- Numbers (CPU percentages, memory sizes) use the card's language decimal separator, such as `4,2%` in French.
+
+### Performance
+- Monitor Docker instances and containers are discovered again only when an entity appears or disappears, not on every state change.
+
 ## 3.2.0 - 2026-11-07
 
 ### Features

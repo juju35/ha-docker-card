@@ -128,3 +128,22 @@ test("a new Monitor Docker container changes the render signature", () => {
   const unrelated = { ...states, "light.kitchen": { ...states["light.kitchen"], state: "on" } };
   assert.ok(sameSig(before, make(DockerCard, unrelated)._signature()));
 });
+
+test("Monitor Docker discovery is reused until an entity id appears or disappears", () => {
+  const states = baseStates();
+  const first = resolve({ states, entities, devices }).envs[0];
+  // A state change (new states object, same entity ids): no rescan, same environment.
+  const changed = { ...states, "sensor.docker_cpu": { ...states["sensor.docker_cpu"], state: "55" } };
+  assert.equal(resolve({ states: changed, entities, devices }).envs[0], first);
+  // A new container: found.
+  const added = { ...changed, ...Object.fromEntries([st("sensor.docker_new_state", "running", {})]) };
+  const env = resolve({ states: added, entities, devices }).envs[0];
+  assert.notEqual(env, first);
+  assert.ok(env.containers.some((c) => c.name === "new"));
+  // An id replaced by another (same count): found again too.
+  const renamed = { ...added };
+  delete renamed["sensor.docker_new_state"];
+  Object.assign(renamed, Object.fromEntries([st("sensor.docker_other_state", "running", {})]));
+  const names = resolve({ states: renamed, entities, devices }).envs[0].containers.map((c) => c.name);
+  assert.ok(names.includes("other") && !names.includes("new"));
+});

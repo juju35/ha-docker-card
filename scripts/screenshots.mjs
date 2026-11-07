@@ -62,16 +62,20 @@ const openCard = async (browser, s) => {
     ({ type, config, states, entities, devices, zoom }) => {
       const el = document.createElement(type);
       el.setConfig({ type: `custom:${type}`, ...config });
-      // Recorder statistics: a plausible 24 h usage curve for CPU and memory (builds at night, busy evening).
-      const callWS = async (msg) =>
-        Object.fromEntries(
+      // Recorder statistics: a plausible 24 h usage curve for CPU and memory (builds at night, busy evening), 5-minute
+      // periods with a 2-hour hole in the afternoon (Home Assistant restarted), drawn as a gap.
+      const callWS = async (msg) => {
+        const t0 = Date.parse(msg.start_time);
+        return Object.fromEntries(
           (msg.statistic_ids || []).map((id, k) => [
             id,
             Array.from({ length: 288 }, (_, i) => ({
+              start: t0 + i * 300000,
               mean: k ? 38 + 6 * Math.exp(-((i - 220) ** 2) / 1500) + 2 * Math.sin(i * 0.05) : 6 + 30 * Math.exp(-((i - 36) ** 2) / 60) + 14 * Math.exp(-((i - 230) ** 2) / 700) + 3 * Math.sin(i * 0.15) ** 2,
-            })),
+            })).filter((_, i) => i < 160 || i >= 184),
           ])
         );
+      };
       el.hass = { states, entities, devices, language: "en", locale: { language: "en" }, callService: () => {}, callWS };
       document.getElementById("root").appendChild(el);
       window.__card = el;

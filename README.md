@@ -29,10 +29,11 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 - Two cards: a full **Docker Card** and a compact **Docker Mini Card**
 - Automatic discovery of the Dockhand environments, Monitor Docker instances and Portainer endpoints (several of each supported)
 - CPU, memory and running containers gauges, Docker version and connection type
-- CPU and memory over the last 24 hours, with their peak (recorder statistics)
+- CPU and memory over the last 24 hours, with their peak (recorder statistics), on a real time axis: missing data shows as a gap
 - Stacks, images, volumes, networks and pending updates counters
 - Stacks list with status, Git badge, sync errors and available updates
-- Optional containers list with state, health, image and available updates
+- Optional containers list with state, health, image and available updates, a search field (filters by name) and a sort by name, CPU or memory
+- Image update button on containers with an update available (Dockhand, Portainer): it asks for confirmation, then installs the update (`update.install`)
 - Start / stop and restart buttons for stacks and containers (with confirmation)
 - "Only items needing attention" mode: stopped, unhealthy or outdated first
 - Click any value to open its Home Assistant history (more-info dialog)
@@ -137,11 +138,11 @@ language: fr
 | `title` | both | Environment name | Card title |
 | `url` | both | Detected | Address opened in a new tab when clicking the header icon. Defaults to the Dockhand web UI known by the integration, or [dockhand.pro](https://dockhand.pro) if none ([Monitor Docker](https://github.com/ualex73/monitor_docker) for a Monitor Docker instance). Portainer: the endpoint dashboard in Portainer |
 | `show_stats` | full | `true` | CPU, memory and running containers gauges |
-| `show_history` | full | `true` | CPU and memory curves of the last 24 hours under the gauges, from the recorder's 5-minute statistics (shown once the statistics exist; needs `show_stats`) |
+| `show_history` | full | `true` | CPU and memory curves of the last 24 hours under the gauges, from the recorder's 5-minute statistics, placed on a 24 h time axis with a gap where data is missing (shown once the statistics exist; needs `show_stats`) |
 | `show_counts` | full | `true` | Stacks, images, volumes, networks and updates counters |
 | `show_stacks` | full | `true` | Stacks list |
 | `show_containers` | full | `false` (`true` for Monitor Docker) | Containers list |
-| `show_controls` | full | `true` | Start / stop and restart buttons |
+| `show_controls` | full | `true` | Start / stop, restart and image update buttons (`false`: the update icon only opens the update entity) |
 | `only_problems` | full | `false` | Only list stacks and containers that are stopped, unhealthy, out of sync or have an update |
 | `expand_stacks` | full | `false` | Stacks list expanded when the card loads (click the section title to fold / unfold) |
 | `expand_containers` | full | `false` | Containers list expanded when the card loads (click the section title to fold / unfold) |
@@ -259,7 +260,9 @@ For Dockhand, the cards read the Home Assistant entity and device registries ins
 
 Some sensors of the integration are disabled by default (Docker version, host platform…). Enable them in Home Assistant to show them in the header.
 
-The start / stop button uses the stack or container switch, and the restart button presses the integration's **Restart** button. Stopping and restarting ask for confirmation.
+The start / stop button uses the stack or container switch, and the restart button presses the integration's **Restart** button. The image update button of a container calls `update.install` on its update entity; it is shown when the entity has an update available and can install it, and is disabled while the update is in progress. Stopping, restarting and updating ask for confirmation.
+
+The containers list has a search field, which filters it by name as you type, and a sort menu: by name (items needing attention first) or, when the integration provides them, by CPU or memory use, highest first, the value leading each row's detail line. CPU and memory come from Dockhand's container CPU / memory usage sensors (diagnostic), Portainer's container usage sensors or Monitor Docker's `cpu` and `memory` conditions. The search and the sort are not saved in the configuration.
 
 Thresholds:
 

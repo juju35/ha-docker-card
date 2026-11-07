@@ -121,3 +121,41 @@ test("without the host totals (disabled by default) CPU is unknown and memory fa
   assert.equal(host.mem, 50);
   delete entities[limit.entity_id];
 });
+
+test("containers list: search filters by name, sort by CPU or memory puts the highest first", () => {
+  // web gets a high CPU and a low memory use: CPU and memory sorts give opposite orders.
+  const ents = { ...entities };
+  const st = { ...states };
+  for (const [id, key, v] of [["sensor.web_cpu", "cpu_usage_total", 80], ["sensor.web_memory", "memory_usage", 100]]) {
+    ents[id] = { entity_id: id, device_id: "web", platform: "portainer", translation_key: key };
+    st[id] = { entity_id: id, state: String(v), attributes: { unit_of_measurement: key === "memory_usage" ? "MB" : "%" } };
+  }
+  const el = make(DockerCard, { environment: "ep", show_containers: true, expand_containers: true }, st);
+  el._hass.entities = ents;
+  const names = (html) => [...html.matchAll(/<div class="title"><span>([^<]+)<\/span>/g)].map((m) => m[1]).filter((n) => n === "web" || n === "grafana");
+  let html = el._render();
+  assert.match(html, /<input type="search" data-ctl="search" placeholder="Search containers"/);
+  assert.match(html, /<select class="ct-sort" data-ctl="sort"[^>]*><option value="name" selected>Name<\/option><option value="cpu">CPU<\/option><option value="memory">Memory<\/option><\/select>/);
+  same(names(html), ["grafana", "web"]);
+  el._ctSort = "cpu";
+  html = el._render();
+  same(names(html), ["web", "grafana"]);
+  assert.match(html, /<option value="cpu" selected>/);
+  assert.match(html, /<div class="detail">80% · /);
+  el._ctSort = "memory";
+  html = el._render();
+  same(names(html), ["grafana", "web"]);
+  assert.match(html, /<div class="detail">1\.86 GB · /);
+  el._ctQuery = "GRAF";
+  html = el._render();
+  same(names(html), ["grafana"]);
+  assert.match(html, /<span class="count">1\/2<\/span>/);
+  el._ctQuery = "nothing";
+  assert.match(el._render(), /<div class="empty">No matching container<\/div>/);
+});
+
+test("containers list: no sort menu without CPU or memory data", () => {
+  const html = make(DockerCard, { environment: "ep", show_containers: true, expand_containers: true }, Object.fromEntries(Object.entries(states).filter(([id]) => !/_(cpu|memory)$/.test(id))))._render();
+  assert.match(html, /data-ctl="search"/);
+  assert.doesNotMatch(html, /data-ctl="sort"/);
+});

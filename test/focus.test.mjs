@@ -122,3 +122,44 @@ test("mini card detail button: the focus is put back without scrolling", async (
   assert.deepEqual(r.calls, [{ preventScroll: true }]);
   assert.equal(r.scrollY, 0);
 });
+
+// Containers search: typing filters the list on each key, and the field keeps the focus and its text.
+test("containers search: typing filters the list and keeps the focus in the field", async (t) => {
+  if (skip) return t.skip(skip);
+  const page = await browser.newPage();
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.setContent("<!doctype html><body><div id=root></div></body>");
+  await page.addScriptTag({
+    content: `customElements.define("ha-card", class extends HTMLElement { constructor() { super(); this.attachShadow({ mode: "open" }).innerHTML = "<slot></slot>"; } });`,
+  });
+  await page.addScriptTag({ content: src });
+  await page.evaluate(
+    ({ states, entities, devices }) => {
+      const el = document.createElement("docker-card");
+      el.setConfig({ type: "custom:docker-card", show_stats: false, show_counts: false, show_stacks: false, show_containers: true, expand_containers: true });
+      el.hass = { states, entities, devices, language: "en", callService: () => {} };
+      document.getElementById("root").appendChild(el);
+      window.__card = el;
+      el.shadowRoot.querySelector('input[data-ctl="search"]').focus();
+    },
+    { states, entities, devices }
+  );
+  await page.keyboard.type("auth");
+  const r = await page.evaluate(() => {
+    const root = window.__card.shadowRoot;
+    return {
+      names: [...root.querySelectorAll(".item .title > span:first-child")].map((n) => n.textContent),
+      focused: root.activeElement?.dataset?.ctl ?? null,
+      value: root.querySelector('input[data-ctl="search"]').value,
+    };
+  });
+  await page.keyboard.type("zzz");
+  const none = await page.evaluate(() => window.__card.shadowRoot.querySelector(".list").textContent.trim());
+  await page.close();
+  assert.deepEqual(errors, []);
+  assert.deepEqual(r.names.sort(), ["auth-cache", "auth-db", "auth-server", "auth-worker"]);
+  assert.equal(r.focused, "search");
+  assert.equal(r.value, "auth");
+  assert.equal(none, "No matching container");
+});

@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.2.0 - 2026-11-07
+
+### Features
+- Containers with an image update available get an update button: it asks for confirmation at the top of the card, then installs the update (`update.install`).
+- Containers list: a search field filters it by name, and a menu sorts it by name, CPU or memory.
+- 24 h CPU and memory curves: points sit on a real time axis and missing data shows as a gap instead of being joined.
+
 ## 3.1.0 - 2026-11-07
 
 ### Features

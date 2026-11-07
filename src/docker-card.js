@@ -31,10 +31,15 @@ const ICONS = {
   volume: "M12,3C7.58,3 4,4.79 4,7C4,9.21 7.58,11 12,11C16.42,11 20,9.21 20,7C20,4.79 16.42,3 12,3M4,9V12C4,14.21 7.58,16 12,16C16.42,16 20,14.21 20,12V9C20,11.21 16.42,13 12,13C7.58,13 4,11.21 4,9M4,14V17C4,19.21 7.58,21 12,21C16.42,21 20,19.21 20,17V14C20,16.21 16.42,18 12,18C7.58,18 4,16.21 4,14Z",
   network: "M10,2C8.89,2 8,2.89 8,4V7C8,8.11 8.89,9 10,9H11V11H2V13H6V15H5C3.89,15 3,15.89 3,17V20C3,21.11 3.89,22 5,22H9C10.11,22 11,21.11 11,20V17C11,15.89 10.11,15 9,15H8V13H16V15H15C13.89,15 13,15.89 13,17V20C13,21.11 13.89,22 15,22H19C20.11,22 21,21.11 21,20V17C21,15.89 20.11,15 19,15H18V13H22V11H13V9H14C15.11,9 16,8.11 16,7V4C16,2.89 15.11,2 14,2H10M10,4H14V7H10V4M5,17H9V20H5V17M15,17H19V20H15V17Z",
   update: "M12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22M12,7L7,12H10V16H14V12H17L12,7Z",
+  // mdi:arrow-up-circle-outline, the image update button (an outline: an action, not the filled status badge).
+  install:
+    "M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22M13,12V16H11V12H8L12,8L16,12H13Z",
   restart: "M12,4C14.1,4 16.1,4.8 17.6,6.3C20.7,9.4 20.7,14.5 17.6,17.6C15.8,19.5 13.3,20.2 10.9,19.9L11.4,17.9C13.1,18.1 14.9,17.5 16.2,16.2C18.5,13.9 18.5,10.1 16.2,7.7C15.1,6.6 13.5,6 12,6V10.6L7,5.6L12,0.6V4M6.3,17.6C3.7,15 3.3,11 5.1,7.9L6.6,9.4C5.5,11.6 5.9,14.4 7.8,16.2C8.3,16.7 8.9,17.1 9.6,17.4L9,19.4C8,19 7.1,18.4 6.3,17.6Z",
   power: "M16.56,5.44L15.11,6.89C16.84,7.94 18,9.83 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12C6,9.83 7.16,7.94 8.88,6.88L7.44,5.44C5.36,6.88 4,9.28 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12C20,9.28 18.64,6.88 16.56,5.44M13,3H11V13H13",
   git: "M2.6,10.59L8.38,4.8L10.07,6.5C9.83,7.35 10.22,8.28 11,8.73V14.27C10.4,14.61 10,15.26 10,16A2,2 0 0,0 12,18A2,2 0 0,0 14,16C14,15.26 13.6,14.61 13,14.27V9.41L15.07,11.5C15,11.65 15,11.82 15,12A2,2 0 0,0 17,14A2,2 0 0,0 19,12A2,2 0 0,0 17,10C16.82,10 16.65,10 16.5,10.07L13.93,7.5C14.19,6.57 13.71,5.55 12.78,5.16C12.35,5 11.9,4.96 11.5,5.07L9.8,3.38L10.59,2.6C11.37,1.81 12.63,1.81 13.41,2.6L21.4,10.59C22.19,11.37 22.19,12.63 21.4,13.41L13.41,21.4C12.63,22.19 11.37,22.19 10.59,21.4L2.6,13.41C1.81,12.63 1.81,11.37 2.6,10.59Z",
   alert: "M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z",
+  search:
+    "M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z",
   // mdi:arrow-expand and mdi:arrow-collapse, the mini card's detail button.
   expand: "M10,21V19H6.41L10.91,14.5L9.5,13.09L5,17.59V14H3V21H10M14.5,10.91L19,6.41V10H21V3H14V5H17.59L13.09,9.5L14.5,10.91Z",
   collapse: "M19.5,3.09L15,7.59V4H13V11H20V9H16.41L20.91,4.5L19.5,3.09M4,13V15H7.59L3.09,19.5L4.5,20.91L9,16.41V20H11V13H4Z",
@@ -76,6 +81,8 @@ const STRINGS = {
     start_stop: "Start / stop",
     confirm_restart: "Restart {name}?",
     confirm_stop: "Stop {name}?",
+    install: "Update",
+    confirm_install: "Update {name} to the latest image?",
     all_ok: "Nothing to report",
     no_env: "No Docker environment found. Is the Dockhand, Monitor Docker or Portainer integration installed?",
     unknown_env: "Environment not found",
@@ -107,6 +114,10 @@ const STRINGS = {
     only_problems: "Only list stacks and containers needing attention",
     expand_stacks: "Stacks list expanded by default",
     expand_containers: "Containers list expanded by default",
+    search: "Search containers",
+    sort_by: "Sort by",
+    sort_name: "Name",
+    no_match: "No matching container",
     show_updates: "Show pending updates",
     zoom: "Detail button",
     zoom_helper: "Switches the mini card to the full card and back",
@@ -145,6 +156,8 @@ const STRINGS = {
     start_stop: "Démarrer / arrêter",
     confirm_restart: "Redémarrer {name} ?",
     confirm_stop: "Arrêter {name} ?",
+    install: "Mettre à jour",
+    confirm_install: "Mettre à jour l’image de {name} ?",
     all_ok: "Rien à signaler",
     no_env: "Aucun environnement Docker trouvé. L'intégration Dockhand, Monitor Docker ou Portainer est-elle installée ?",
     unknown_env: "Environnement introuvable",
@@ -175,6 +188,10 @@ const STRINGS = {
     only_problems: "Lister uniquement les stacks et conteneurs à surveiller",
     expand_stacks: "Liste des stacks dépliée par défaut",
     expand_containers: "Liste des conteneurs dépliée par défaut",
+    search: "Rechercher un conteneur",
+    sort_by: "Trier par",
+    sort_name: "Nom",
+    no_match: "Aucun conteneur correspondant",
     show_updates: "Afficher les mises à jour en attente",
     zoom: "Bouton de détail",
     zoom_helper: "Bascule la mini-carte en carte complète, et inversement",
@@ -213,6 +230,8 @@ const STRINGS = {
     start_stop: "Starten / stoppen",
     confirm_restart: "{name} neu starten?",
     confirm_stop: "{name} stoppen?",
+    install: "Aktualisieren",
+    confirm_install: "Image von {name} aktualisieren?",
     all_ok: "Keine Auffälligkeiten",
     no_env: "Keine Docker-Umgebung gefunden. Ist die Dockhand-, Monitor-Docker- oder Portainer-Integration installiert?",
     unknown_env: "Umgebung nicht gefunden",
@@ -243,6 +262,10 @@ const STRINGS = {
     only_problems: "Nur Stacks und Container auflisten, die Aufmerksamkeit erfordern",
     expand_stacks: "Stack-Liste standardmäßig aufgeklappt",
     expand_containers: "Container-Liste standardmäßig aufgeklappt",
+    search: "Container suchen",
+    sort_by: "Sortieren nach",
+    sort_name: "Name",
+    no_match: "Kein passender Container",
     show_updates: "Ausstehende Updates anzeigen",
     zoom: "Detail-Schaltfläche",
     zoom_helper: "Wechselt von der Mini-Karte zur vollständigen Karte und zurück",
@@ -281,6 +304,8 @@ const STRINGS = {
     start_stop: "Iniciar / detener",
     confirm_restart: "¿Reiniciar {name}?",
     confirm_stop: "¿Detener {name}?",
+    install: "Actualizar",
+    confirm_install: "¿Actualizar la imagen de {name}?",
     all_ok: "Sin incidencias",
     no_env: "No se encontró ningún entorno de Docker. ¿Está instalada la integración Dockhand, Monitor Docker o Portainer?",
     unknown_env: "Entorno no encontrado",
@@ -311,6 +336,10 @@ const STRINGS = {
     only_problems: "Mostrar solo los stacks y contenedores que requieren atención",
     expand_stacks: "Lista de stacks desplegada por defecto",
     expand_containers: "Lista de contenedores desplegada por defecto",
+    search: "Buscar contenedores",
+    sort_by: "Ordenar por",
+    sort_name: "Nombre",
+    no_match: "Ningún contenedor coincide",
     show_updates: "Mostrar las actualizaciones pendientes",
     zoom: "Botón de detalle",
     zoom_helper: "Cambia la mini tarjeta a la tarjeta completa y viceversa",
@@ -354,6 +383,8 @@ const STRINGS = {
     start_stop: "Покрени / заустави",
     confirm_restart: "Поново покренути {name}?",
     confirm_stop: "Зауставити {name}?",
+    install: "Ажурирај",
+    confirm_install: "Ажурирати слику за {name}?",
     all_ok: "Све је у реду",
     no_env: "Није пронађено ниједно Docker окружење. Да ли је интеграција Dockhand, Monitor Docker или Portainer инсталирана?",
     unknown_env: "Окружење није пронађено",
@@ -384,6 +415,10 @@ const STRINGS = {
     only_problems: "Прикажи само стекове и контејнере којима је потребна пажња",
     expand_stacks: "Листа стекова подразумевано отворена",
     expand_containers: "Листа контејнера подразумевано отворена",
+    search: "Претражи контејнере",
+    sort_by: "Сортирај по",
+    sort_name: "Назив",
+    no_match: "Нема одговарајућег контејнера",
     show_updates: "Прикажи ажурирања на чекању",
     zoom: "Дугме за детаље",
     zoom_helper: "Пребацује мини картицу на пуну картицу и назад",
@@ -427,6 +462,8 @@ const STRINGS = {
     start_stop: "Pokreni / zaustavi",
     confirm_restart: "Ponovo pokrenuti {name}?",
     confirm_stop: "Zaustaviti {name}?",
+    install: "Ažuriraj",
+    confirm_install: "Ažurirati sliku za {name}?",
     all_ok: "Sve je u redu",
     no_env: "Nije pronađeno nijedno Docker okruženje. Da li je integracija Dockhand, Monitor Docker ili Portainer instalirana?",
     unknown_env: "Okruženje nije pronađeno",
@@ -457,6 +494,10 @@ const STRINGS = {
     only_problems: "Prikaži samo stekove i kontejnere kojima je potrebna pažnja",
     expand_stacks: "Lista stekova podrazumevano otvorena",
     expand_containers: "Lista kontejnera podrazumevano otvorena",
+    search: "Pretraži kontejnere",
+    sort_by: "Sortiraj po",
+    sort_name: "Naziv",
+    no_match: "Nema odgovarajućeg kontejnera",
     show_updates: "Prikaži ažuriranja na čekanju",
     zoom: "Dugme za detalje",
     zoom_helper: "Prebacuje mini karticu na punu karticu i nazad",
@@ -495,6 +536,8 @@ const STRINGS = {
     start_stop: "Avvia / arresta",
     confirm_restart: "Riavviare {name}?",
     confirm_stop: "Arrestare {name}?",
+    install: "Aggiorna",
+    confirm_install: "Aggiornare l'immagine di {name}?",
     all_ok: "Nulla da segnalare",
     no_env: "Nessun ambiente Docker trovato. L'integrazione Dockhand, Monitor Docker o Portainer è installata?",
     unknown_env: "Ambiente non trovato",
@@ -525,6 +568,10 @@ const STRINGS = {
     only_problems: "Elenca solo gli stack e i container che richiedono attenzione",
     expand_stacks: "Elenco degli stack espanso per impostazione predefinita",
     expand_containers: "Elenco dei container espanso per impostazione predefinita",
+    search: "Cerca container",
+    sort_by: "Ordina per",
+    sort_name: "Nome",
+    no_match: "Nessun container corrispondente",
     show_updates: "Mostra gli aggiornamenti in sospeso",
     zoom: "Pulsante dettagli",
     zoom_helper: "Passa dalla mini scheda alla scheda completa e viceversa",
@@ -563,6 +610,8 @@ const STRINGS = {
     start_stop: "Starten / stoppen",
     confirm_restart: "{name} herstarten?",
     confirm_stop: "{name} stoppen?",
+    install: "Bijwerken",
+    confirm_install: "Image van {name} bijwerken?",
     all_ok: "Niets te melden",
     no_env: "Geen Docker-omgeving gevonden. Is de Dockhand-, Monitor Docker- of Portainer-integratie geïnstalleerd?",
     unknown_env: "Omgeving niet gevonden",
@@ -593,6 +642,10 @@ const STRINGS = {
     only_problems: "Alleen stacks en containers tonen die aandacht nodig hebben",
     expand_stacks: "Lijst met stacks standaard uitgevouwen",
     expand_containers: "Lijst met containers standaard uitgevouwen",
+    search: "Containers zoeken",
+    sort_by: "Sorteren op",
+    sort_name: "Naam",
+    no_match: "Geen overeenkomende container",
     show_updates: "Openstaande updates tonen",
     zoom: "Detailknop",
     zoom_helper: "Schakelt de minikaart om naar de volledige kaart en terug",
@@ -631,6 +684,8 @@ const STRINGS = {
     start_stop: "Iniciar / parar",
     confirm_restart: "Reiniciar {name}?",
     confirm_stop: "Parar {name}?",
+    install: "Atualizar",
+    confirm_install: "Atualizar a imagem de {name}?",
     all_ok: "Nada a assinalar",
     no_env: "Nenhum ambiente Docker encontrado. A integração Dockhand, Monitor Docker ou Portainer está instalada?",
     unknown_env: "Ambiente não encontrado",
@@ -661,6 +716,10 @@ const STRINGS = {
     only_problems: "Listar apenas os stacks e os contentores que requerem atenção",
     expand_stacks: "Lista de stacks expandida por predefinição",
     expand_containers: "Lista de contentores expandida por predefinição",
+    search: "Pesquisar contentores",
+    sort_by: "Ordenar por",
+    sort_name: "Nome",
+    no_match: "Nenhum contentor corresponde",
     show_updates: "Mostrar as atualizações pendentes",
     zoom: "Botão de detalhe",
     zoom_helper: "Alterna entre o mini cartão e o cartão completo",
@@ -710,6 +769,8 @@ const STRINGS = {
     start_stop: "Uruchom / zatrzymaj",
     confirm_restart: "Uruchomić ponownie {name}?",
     confirm_stop: "Zatrzymać {name}?",
+    install: "Aktualizuj",
+    confirm_install: "Zaktualizować obraz {name}?",
     all_ok: "Wszystko w porządku",
     no_env: "Nie znaleziono środowiska Docker. Czy integracja Dockhand, Monitor Docker lub Portainer jest zainstalowana?",
     unknown_env: "Nie znaleziono środowiska",
@@ -740,6 +801,10 @@ const STRINGS = {
     only_problems: "Pokaż tylko stosy i kontenery wymagające uwagi",
     expand_stacks: "Lista stosów domyślnie rozwinięta",
     expand_containers: "Lista kontenerów domyślnie rozwinięta",
+    search: "Szukaj kontenerów",
+    sort_by: "Sortuj według",
+    sort_name: "Nazwa",
+    no_match: "Brak pasujących kontenerów",
     show_updates: "Pokaż oczekujące aktualizacje",
     zoom: "Przycisk szczegółów",
     zoom_helper: "Przełącza mini kartę na pełną kartę i z powrotem",
@@ -790,6 +855,8 @@ const STRINGS = {
     start_stop: "Pornește / oprește",
     confirm_restart: "Reporniți {name}?",
     confirm_stop: "Opriți {name}?",
+    install: "Actualizează",
+    confirm_install: "Actualizați imaginea {name}?",
     all_ok: "Nimic de semnalat",
     no_env: "Nu a fost găsit niciun mediu Docker. Este instalată integrarea Dockhand, Monitor Docker sau Portainer?",
     unknown_env: "Mediul nu a fost găsit",
@@ -820,6 +887,10 @@ const STRINGS = {
     only_problems: "Listează doar stivele și containerele care necesită atenție",
     expand_stacks: "Lista stivelor extinsă implicit",
     expand_containers: "Lista containerelor extinsă implicit",
+    search: "Caută containere",
+    sort_by: "Sortează după",
+    sort_name: "Nume",
+    no_match: "Niciun container găsit",
     show_updates: "Afișează actualizările în așteptare",
     zoom: "Buton de detalii",
     zoom_helper: "Comută mini cardul la cardul complet și înapoi",
@@ -858,6 +929,8 @@ const STRINGS = {
     start_stop: "Start / stop",
     confirm_restart: "Genstart {name}?",
     confirm_stop: "Stop {name}?",
+    install: "Opdater",
+    confirm_install: "Opdater imaget for {name}?",
     all_ok: "Intet at rapportere",
     no_env: "Der blev ikke fundet noget Docker-miljø. Er Dockhand-, Monitor Docker- eller Portainer-integrationen installeret?",
     unknown_env: "Miljøet blev ikke fundet",
@@ -888,6 +961,10 @@ const STRINGS = {
     only_problems: "Vis kun stakke og containere, der kræver opmærksomhed",
     expand_stacks: "Listen over stakke er udvidet som standard",
     expand_containers: "Listen over containere er udvidet som standard",
+    search: "Søg i containere",
+    sort_by: "Sortér efter",
+    sort_name: "Navn",
+    no_match: "Ingen matchende container",
     show_updates: "Vis ventende opdateringer",
     zoom: "Detaljeknap",
     zoom_helper: "Skifter fra minikortet til hele kortet og tilbage",
@@ -926,6 +1003,8 @@ const STRINGS = {
     start_stop: "Starta / stoppa",
     confirm_restart: "Starta om {name}?",
     confirm_stop: "Stoppa {name}?",
+    install: "Uppdatera",
+    confirm_install: "Uppdatera avbildningen för {name}?",
     all_ok: "Inget att rapportera",
     no_env: "Ingen Docker-miljö hittades. Är integrationen Dockhand, Monitor Docker eller Portainer installerad?",
     unknown_env: "Miljön hittades inte",
@@ -956,6 +1035,10 @@ const STRINGS = {
     only_problems: "Lista bara stackar och containrar som behöver uppmärksamhet",
     expand_stacks: "Listan över stackar expanderad som standard",
     expand_containers: "Listan över containrar expanderad som standard",
+    search: "Sök containrar",
+    sort_by: "Sortera efter",
+    sort_name: "Namn",
+    no_match: "Ingen matchande container",
     show_updates: "Visa väntande uppdateringar",
     zoom: "Detaljknapp",
     zoom_helper: "Växlar från minikortet till hela kortet och tillbaka",
@@ -995,6 +1078,8 @@ const STRINGS = {
     start_stop: "Стартирай / спри",
     confirm_restart: "Рестартиране на {name}?",
     confirm_stop: "Спиране на {name}?",
+    install: "Актуализирай",
+    confirm_install: "Актуализиране на образа на {name}?",
     all_ok: "Всичко е наред",
     no_env: "Не е намерена Docker среда. Инсталирана ли е интеграцията Dockhand, Monitor Docker или Portainer?",
     unknown_env: "Средата не е намерена",
@@ -1025,6 +1110,10 @@ const STRINGS = {
     only_problems: "Показвай само стековете и контейнерите, които изискват внимание",
     expand_stacks: "Списъкът със стекове е разгънат по подразбиране",
     expand_containers: "Списъкът с контейнери е разгънат по подразбиране",
+    search: "Търсене на контейнери",
+    sort_by: "Сортиране по",
+    sort_name: "Име",
+    no_match: "Няма съвпадащ контейнер",
     show_updates: "Покажи чакащите актуализации",
     zoom: "Бутон за подробности",
     zoom_helper: "Превключва от мини картата към пълната карта и обратно",
@@ -1074,6 +1163,8 @@ const STRINGS = {
     start_stop: "Запустить / остановить",
     confirm_restart: "Перезапустить {name}?",
     confirm_stop: "Остановить {name}?",
+    install: "Обновить",
+    confirm_install: "Обновить образ {name}?",
     all_ok: "Всё в порядке",
     no_env: "Среда Docker не найдена. Установлена ли интеграция Dockhand, Monitor Docker или Portainer?",
     unknown_env: "Среда не найдена",
@@ -1104,6 +1195,10 @@ const STRINGS = {
     only_problems: "Показывать только стеки и контейнеры, требующие внимания",
     expand_stacks: "Список стеков развёрнут по умолчанию",
     expand_containers: "Список контейнеров развёрнут по умолчанию",
+    search: "Поиск контейнеров",
+    sort_by: "Сортировать по",
+    sort_name: "Имя",
+    no_match: "Нет подходящих контейнеров",
     show_updates: "Показывать ожидающие обновления",
     zoom: "Кнопка подробностей",
     zoom_helper: "Переключает мини-карточку на полную карточку и обратно",
@@ -1153,6 +1248,8 @@ const STRINGS = {
     start_stop: "Запустити / зупинити",
     confirm_restart: "Перезапустити {name}?",
     confirm_stop: "Зупинити {name}?",
+    install: "Оновити",
+    confirm_install: "Оновити образ {name}?",
     all_ok: "Усе гаразд",
     no_env: "Середовище Docker не знайдено. Чи встановлено інтеграцію Dockhand, Monitor Docker або Portainer?",
     unknown_env: "Середовище не знайдено",
@@ -1183,6 +1280,10 @@ const STRINGS = {
     only_problems: "Показувати лише стеки й контейнери, що потребують уваги",
     expand_stacks: "Список стеків розгорнуто за замовчуванням",
     expand_containers: "Список контейнерів розгорнуто за замовчуванням",
+    search: "Пошук контейнерів",
+    sort_by: "Сортувати за",
+    sort_name: "Назва",
+    no_match: "Немає відповідних контейнерів",
     show_updates: "Показувати очікувані оновлення",
     zoom: "Кнопка подробиць",
     zoom_helper: "Перемикає мінікартку на повну картку й назад",
@@ -1217,6 +1318,8 @@ const STRINGS = {
     start_stop: "Indítás / leállítás",
     confirm_restart: "{name} újraindítása?",
     confirm_stop: "{name} leállítása?",
+    install: "Frissítés",
+    confirm_install: "{name} lemezképének frissítése?",
     all_ok: "Nincs jelentenivaló",
     no_env: "Nem található Docker-környezet. Telepítve van a Dockhand, a Monitor Docker vagy a Portainer integráció?",
     unknown_env: "A környezet nem található",
@@ -1247,6 +1350,10 @@ const STRINGS = {
     only_problems: "Csak a figyelmet igénylő stackek és konténerek listázása",
     expand_stacks: "A stackek listája alapértelmezés szerint kibontva",
     expand_containers: "A konténerek listája alapértelmezés szerint kibontva",
+    search: "Konténerek keresése",
+    sort_by: "Rendezés",
+    sort_name: "Név",
+    no_match: "Nincs egyező konténer",
     show_updates: "Függőben lévő frissítések megjelenítése",
     zoom: "Részletek gomb",
     zoom_helper: "Vált a mini kártya és a teljes kártya között",
@@ -1291,6 +1398,8 @@ const STRINGS = {
     start_stop: "Spustiť / zastaviť",
     confirm_restart: "Reštartovať {name}?",
     confirm_stop: "Zastaviť {name}?",
+    install: "Aktualizovať",
+    confirm_install: "Aktualizovať obraz {name}?",
     all_ok: "Všetko v poriadku",
     no_env: "Nenašlo sa žiadne prostredie Docker. Je nainštalovaná integrácia Dockhand, Monitor Docker alebo Portainer?",
     unknown_env: "Prostredie sa nenašlo",
@@ -1321,6 +1430,10 @@ const STRINGS = {
     only_problems: "Zobraziť len zásobníky a kontajnery vyžadujúce pozornosť",
     expand_stacks: "Zoznam zásobníkov predvolene rozbalený",
     expand_containers: "Zoznam kontajnerov predvolene rozbalený",
+    search: "Hľadať kontajnery",
+    sort_by: "Zoradiť podľa",
+    sort_name: "Názov",
+    no_match: "Žiadny zodpovedajúci kontajner",
     show_updates: "Zobraziť čakajúce aktualizácie",
     zoom: "Tlačidlo podrobností",
     zoom_helper: "Prepína mini kartu na celú kartu a späť",
@@ -1365,6 +1478,8 @@ const STRINGS = {
     start_stop: "Spustit / zastavit",
     confirm_restart: "Restartovat {name}?",
     confirm_stop: "Zastavit {name}?",
+    install: "Aktualizovat",
+    confirm_install: "Aktualizovat obraz {name}?",
     all_ok: "Vše v pořádku",
     no_env: "Nebylo nalezeno žádné prostředí Docker. Je nainstalována integrace Dockhand, Monitor Docker nebo Portainer?",
     unknown_env: "Prostředí nebylo nalezeno",
@@ -1395,6 +1510,10 @@ const STRINGS = {
     only_problems: "Zobrazit jen zásobníky a kontejnery vyžadující pozornost",
     expand_stacks: "Seznam zásobníků ve výchozím stavu rozbalený",
     expand_containers: "Seznam kontejnerů ve výchozím stavu rozbalený",
+    search: "Hledat kontejnery",
+    sort_by: "Řadit podle",
+    sort_name: "Název",
+    no_match: "Žádný odpovídající kontejner",
     show_updates: "Zobrazit čekající aktualizace",
     zoom: "Tlačítko podrobností",
     zoom_helper: "Přepíná mini kartu na celou kartu a zpět",
@@ -1444,6 +1563,8 @@ const STRINGS = {
     start_stop: "Zaženi / ustavi",
     confirm_restart: "Želite znova zagnati {name}?",
     confirm_stop: "Želite ustaviti {name}?",
+    install: "Posodobi",
+    confirm_install: "Želite posodobiti sliko {name}?",
     all_ok: "Ni posebnosti",
     no_env: "Ni bilo mogoče najti nobenega okolja Docker. Ali je integracija Dockhand, Monitor Docker ali Portainer nameščena?",
     unknown_env: "Okolja ni bilo mogoče najti",
@@ -1474,6 +1595,10 @@ const STRINGS = {
     only_problems: "Prikaži samo sklade in vsebnike, ki zahtevajo pozornost",
     expand_stacks: "Seznam skladov privzeto razširjen",
     expand_containers: "Seznam vsebnikov privzeto razširjen",
+    search: "Iskanje vsebnikov",
+    sort_by: "Razvrsti po",
+    sort_name: "Ime",
+    no_match: "Ni ustreznega vsebnika",
     show_updates: "Prikaži čakajoče posodobitve",
     zoom: "Gumb za podrobnosti",
     zoom_helper: "Preklopi z mini kartice na celotno kartico in nazaj",
@@ -1519,6 +1644,8 @@ const STRINGS = {
     start_stop: "Startēt / apturēt",
     confirm_restart: "Restartēt {name}?",
     confirm_stop: "Apturēt {name}?",
+    install: "Atjaunināt",
+    confirm_install: "Atjaunināt {name} attēlu?",
     all_ok: "Nav ko ziņot",
     no_env: "Nav atrasta neviena Docker vide. Vai ir instalēta Dockhand, Monitor Docker vai Portainer integrācija?",
     unknown_env: "Vide nav atrasta",
@@ -1549,6 +1676,10 @@ const STRINGS = {
     only_problems: "Rādīt tikai stekus un konteinerus, kam nepieciešama uzmanība",
     expand_stacks: "Steku saraksts pēc noklusējuma izvērsts",
     expand_containers: "Konteineru saraksts pēc noklusējuma izvērsts",
+    search: "Meklēt konteinerus",
+    sort_by: "Kārtot pēc",
+    sort_name: "Nosaukums",
+    no_match: "Nav atbilstošu konteineru",
     show_updates: "Rādīt gaidošos atjauninājumus",
     zoom: "Detaļu poga",
     zoom_helper: "Pārslēdz mini kartīti uz pilno kartīti un atpakaļ",
@@ -1588,6 +1719,8 @@ const STRINGS = {
     // Greek question mark (;).
     confirm_restart: "Επανεκκίνηση του {name};",
     confirm_stop: "Διακοπή του {name};",
+    install: "Ενημέρωση",
+    confirm_install: "Ενημέρωση της εικόνας του {name};",
     all_ok: "Όλα εντάξει",
     no_env: "Δεν βρέθηκε περιβάλλον Docker. Είναι εγκατεστημένη η ενσωμάτωση Dockhand, Monitor Docker ή Portainer;",
     unknown_env: "Το περιβάλλον δεν βρέθηκε",
@@ -1618,6 +1751,10 @@ const STRINGS = {
     only_problems: "Εμφάνιση μόνο των στοιβών και κοντέινερ που χρειάζονται προσοχή",
     expand_stacks: "Λίστα στοιβών ανεπτυγμένη από προεπιλογή",
     expand_containers: "Λίστα κοντέινερ ανεπτυγμένη από προεπιλογή",
+    search: "Αναζήτηση κοντέινερ",
+    sort_by: "Ταξινόμηση κατά",
+    sort_name: "Όνομα",
+    no_match: "Δεν βρέθηκε κοντέινερ",
     show_updates: "Εμφάνιση εκκρεμών ενημερώσεων",
     zoom: "Κουμπί λεπτομερειών",
     zoom_helper: "Εναλλάσσει τη μίνι κάρτα με την πλήρη κάρτα και αντίστροφα",
@@ -1908,7 +2045,7 @@ const MD_HOST = {
   host_docker_version: ["version"],
 };
 const MD_HOST_SUFFIXES = new Set([...Object.values(MD_HOST).flat(), "containers_paused", "containers_stopped"]);
-const MD_CT_KEYS = { state: "state", status: "_status", health: "health", image: "_image" };
+const MD_CT_KEYS = { state: "state", status: "_status", health: "health", image: "_image", cpu: "_cpu", memory: "_memory" };
 const MD_CT_RE =
   /^(.+)_(state|status|health|up_time|image_hash|image|1cpu|cpu|memory_percent|memory|network_speed_up|network_speed_down|network_total_up|network_total_down)$/;
 const MD_ALLINONE_ATTRS = ["status", "image", "health", "uptime"];
@@ -2103,13 +2240,27 @@ const CONFIRM_GUARD_MS = 400;
 // A click inside a dialog (more-info opened from the card, say) is not a click outside the card.
 const inDialog = (ev) => ev.composedPath().some((n) => ["ha-more-info-dialog", "ha-dialog", "dialog"].includes(n.localName));
 
-// Sparkline of a series (24 h of usage), scaled from 0 to its peak; nothing under two points.
-const HIST_REFRESH = 5 * 60000;
-function spark(values) {
-  if (!values || values.length < 2) return "";
-  const peak = Math.max(...values) || 1;
-  const pts = values.map((v, i) => `${((i / (values.length - 1)) * 100).toFixed(2)},${(30 - (Math.max(0, v) / peak) * 28).toFixed(2)}`).join("L");
-  return `<svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><path class="spark-a" d="M0,30L${pts}L100,30Z"/><path class="spark-l" d="M${pts}"/></svg>`;
+// Sparkline of a series of { t, v } points (24 h of usage ending at `end`), scaled from 0 to its peak; nothing
+// under two points. Points sit on a real time axis: x is their time within the 24 h window, so a missing stretch
+// (recorder stopped, sensor unavailable) is a gap — the line and area are broken where two consecutive points
+// are more than two sampling periods apart, instead of being joined across the hole.
+const HIST_PERIOD = 5 * 60000;
+const HIST_REFRESH = HIST_PERIOD;
+const HIST_WINDOW = 864e5;
+function spark(points, end) {
+  if (!points || points.length < 2) return "";
+  const peak = Math.max(...points.map((p) => p.v)) || 1;
+  const x = (t) => Math.max(0, Math.min(100, (100 * (t - (end - HIST_WINDOW))) / HIST_WINDOW)).toFixed(2);
+  const y = (v) => (30 - (Math.max(0, v) / peak) * 28).toFixed(2);
+  const segs = [];
+  for (const [i, p] of points.entries()) {
+    if (!i || p.t - points[i - 1].t > 2 * HIST_PERIOD) segs.push([]);
+    segs.at(-1).push(p);
+  }
+  // A lone point between two gaps gets a short stroke, so it stays visible.
+  const line = segs.map((g) => `M${g.map((p) => `${x(p.t)},${y(p.v)}`).join("L")}${g.length === 1 ? "h0.4" : ""}`).join("");
+  const area = segs.map((g) => `M${x(g[0].t)},30L${g.map((p) => `${x(p.t)},${y(p.v)}`).join("L")}L${x(g.at(-1).t)},30Z`).join("");
+  return `<svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><path class="spark-a" d="${area}"/><path class="spark-l" d="${line}"/></svg>`;
 }
 
 class DockerBase extends HTMLElement {
@@ -2270,6 +2421,18 @@ class DockerBase extends HTMLElement {
         },
         { action, entity }
       );
+    } else if (action === "install") {
+      // Unavailable or already installing: nothing to do (the button is disabled, keyboard included).
+      const s = this._s(entity);
+      if (!s || s.state === "unavailable" || s.attributes?.in_progress) return;
+      this._openConfirm(
+        {
+          text: this._t("confirm_install", { name: label }),
+          ok: this._t("install"),
+          run: () => this._call("update", "install", { entity_id: entity }),
+        },
+        { action, entity }
+      );
     } else if (action === "toggle") {
       const state = this._s(entity)?.state;
       // Unavailable or unknown: nothing to start or stop (the button is disabled, keyboard included).
@@ -2289,7 +2452,7 @@ class DockerBase extends HTMLElement {
     }
   }
 
-  // In-card confirmation before stopping or restarting (see DIALOG_STYLE): Cancel, Escape, the backdrop
+  // In-card confirmation before stopping, restarting or updating (see DIALOG_STYLE): Cancel, Escape, the backdrop
   // and a click outside the card all close it without acting.
   // `from` is the button that opened it: the focus goes back to it when the popup closes.
   _openConfirm(confirm, from) {
@@ -2566,6 +2729,18 @@ const FULL_STYLE = `
   .tag.alert { background: color-mix(in srgb, var(--c) 15%, transparent); color: var(--c); }
   .badge-update { color: var(--dh-orange); }
   .badge-update .icon { width: 18px; height: 18px; }
+  .ctrl.badge-update { color: var(--dh-orange); }
+  .ct-tools { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+  .ct-search { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; padding: 0 8px; height: 30px; box-sizing: border-box;
+               border: 1px solid var(--divider-color, rgba(127,127,127,.25)); border-radius: 8px; color: var(--secondary-text-color); }
+  .ct-search .icon { width: 16px; height: 16px; }
+  .ct-search:focus-within { border-color: var(--primary-color, #03a9f4); }
+  .ct-search input { all: unset; flex: 1; min-width: 0; font-size: 13px; color: var(--primary-text-color); }
+  .ct-search input::placeholder { color: var(--secondary-text-color); }
+  .ct-sort { flex: none; max-width: 45%; height: 30px; padding: 0 6px; font: inherit; font-size: 13px; border-radius: 8px; cursor: pointer;
+             border: 1px solid var(--divider-color, rgba(127,127,127,.25)); background: transparent; color: var(--primary-text-color); }
+  .ct-sort option { background: var(--card-background-color, #fff); color: var(--primary-text-color); }
+  .ct-sort:focus-visible { outline: 2px solid var(--primary-color, #03a9f4); outline-offset: 1px; }
   .ctrl { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; border: none;
           background: transparent; color: var(--secondary-text-color); cursor: pointer; flex: none; padding: 0; }
   .ctrl:hover:not(:disabled) { background: var(--secondary-background-color, rgba(127,127,127,.12)); }
@@ -2576,6 +2751,21 @@ const FULL_STYLE = `
 `;
 
 class DockerCard extends DockerBase {
+  constructor() {
+    super();
+    // Containers list search (filters as you type) and sort, kept while the card lives (not in the config).
+    this.shadowRoot.addEventListener("input", (ev) => {
+      if (ev.target?.dataset?.ctl !== "search") return;
+      this._ctQuery = ev.target.value;
+      this._update();
+    });
+    this.shadowRoot.addEventListener("change", (ev) => {
+      if (ev.target?.dataset?.ctl !== "sort") return;
+      this._ctSort = ev.target.value;
+      this._update();
+    });
+  }
+
   static getConfigElement() {
     return document.createElement("docker-card-editor");
   }
@@ -2662,10 +2852,10 @@ class DockerCard extends DockerBase {
     const { cpuId, memId } = this._host(env);
     const hist = this._history([cpuId, memId].filter(Boolean));
     const tile = (id, cls, label) => {
-      const values = hist?.[id];
-      if (!values || values.length < 2) return "";
-      const peak = Math.max(...values);
-      return `<div class="htile clickable ${cls}" role="button" tabindex="0" data-entity="${esc(id)}">${spark(values)}<span class="k">${label}</span><span class="m">${esc(
+      const points = hist?.[id];
+      if (!points || points.length < 2) return "";
+      const peak = Math.max(...points.map((p) => p.v));
+      return `<div class="htile clickable ${cls}" role="button" tabindex="0" data-entity="${esc(id)}">${spark(points, this._histEnd)}<span class="k">${label}</span><span class="m">${esc(
         this._t("peak", { v: `${peak < 10 ? peak.toFixed(1) : Math.round(peak)}%` })
       )}</span></div>`;
     };
@@ -2673,24 +2863,30 @@ class DockerCard extends DockerBase {
     return tiles ? `<div><div class="section-title">${svgIcon(ICONS.history)}<span>${esc(this._t("last_24h")).replace(/(\d+\s*)(\S+)$/, '$1<span class="unit">$2</span>')}</span></div><div class="hist">${tiles}</div></div>` : "";
   }
 
-  // 24 h of 5-minute means from the recorder's statistics, fetched again every 5 minutes. Returns what is
-  // already there (nothing at first): the card renders again when the answer comes.
+  // 24 h of 5-minute means from the recorder's statistics, fetched again every 5 minutes, as { t, v } points
+  // (t: start of the 5-minute period, in ms; Home Assistant sends a number, older versions an ISO date).
+  // Returns what is already there (nothing at first): the card renders again when the answer comes.
   _history(ids) {
     const key = ids.join(",");
     if (key && this._hass.callWS && (this._histKey !== key || Date.now() - this._histAt > HIST_REFRESH)) {
+      const end = Date.now();
       this._histKey = key;
-      this._histAt = Date.now();
+      this._histAt = end;
       this._hass
         .callWS({
           type: "recorder/statistics_during_period",
-          start_time: new Date(Date.now() - 864e5).toISOString(),
+          start_time: new Date(end - HIST_WINDOW).toISOString(),
           statistic_ids: ids,
           period: "5minute",
           types: ["mean"],
         })
         .then((r) => {
           if (this._histKey !== key) return;
-          this._hist = Object.fromEntries(ids.map((id) => [id, (r?.[id] || []).map((p) => p.mean).filter(Number.isFinite)]));
+          const point = (p) => ({ t: typeof p.start === "number" ? p.start : Date.parse(p.start), v: p.mean });
+          this._hist = Object.fromEntries(
+            ids.map((id) => [id, (r?.[id] || []).map(point).filter((p) => Number.isFinite(p.t) && Number.isFinite(p.v))])
+          );
+          this._histEnd = end;
           this._update();
         })
         // No statistics (sensor without state_class, recorder off): try again in a minute, nothing meanwhile.
@@ -2742,6 +2938,25 @@ class DockerCard extends DockerBase {
     return out.join("");
   }
 
+  // Pending update of a stack or container. An update entity that can install (a container image, Dockhand or
+  // Portainer) is a button asking for confirmation, then calling update.install; disabled while unavailable or
+  // installing. Otherwise (stack updates binary sensor, show_controls: false, no install support) a badge that
+  // opens the more-info dialog.
+  _updateBadge(upd, label) {
+    const id = upd.entity_id;
+    const features = upd.attributes?.supported_features;
+    const canInstall = id.startsWith("update.") && this._config.show_controls !== false && (features === undefined || (features & 1) === 1);
+    if (canInstall) {
+      const off = upd.state === "unavailable" || !!upd.attributes?.in_progress;
+      return `<button type="button" class="ctrl badge-update" title="${esc(this._t("install"))}" aria-label="${esc(this._t("install"))} ${esc(label)}" data-key="update" data-action="install" data-entity="${esc(
+        id
+      )}" data-label="${esc(label)}"${off ? " disabled" : ""}>${svgIcon(ICONS.install)}</button>`;
+    }
+    return `<span class="badge-update clickable" role="button" tabindex="0" title="${esc(this._t("update_available"))}" data-key="update" data-entity="${esc(id)}">${svgIcon(
+      ICONS.update
+    )}</span>`;
+  }
+
   _stateLabel(state) {
     const k = `state_${String(state || "").toLowerCase()}`;
     const l = this._t(k);
@@ -2791,13 +3006,7 @@ class DockerCard extends DockerBase {
             </div>
             <div class="detail">${esc(detail.join(" · "))}</div>
           </div>
-          ${
-            hasUpd
-              ? `<span class="badge-update clickable" role="button" tabindex="0" title="${esc(this._t("update_available"))}" data-key="update" data-entity="${esc(upd.entity_id)}">${svgIcon(
-                  ICONS.update
-                )}</span>`
-              : ""
-          }
+          ${hasUpd ? this._updateBadge(upd, st.name) : ""}
           ${this._controls(e, st.name)}
         </div>`,
       };
@@ -2805,9 +3014,17 @@ class DockerCard extends DockerBase {
     return this._section("stacks", ICONS.stack, this._t("stacks"), rows);
   }
 
+  // CPU (%) and memory (bytes) of a container: Dockhand's diagnostic sensors, Portainer's and Monitor Docker's.
+  _ctUsage(e) {
+    return { cpu: num(this._s(e.container_cpu_percent ?? e._cpu)), mem: bytesOf(this._s(e.container_memory_usage ?? e._memory)) };
+  }
+
   _containers(env) {
+    const sort = this._ctSort ?? "name";
+    const query = (this._ctQuery ?? "").trim().toLowerCase();
     const rows = env.containers.map((ct) => {
       const e = ct.entities;
+      const usage = this._ctUsage(e);
       const state = this._s(e.state);
       const upd = this._s(e._update);
       const hasUpd = upd?.state === "on";
@@ -2818,28 +3035,48 @@ class DockerCard extends DockerBase {
       const known = (s) => (s && s.state !== "unknown" && s.state !== "unavailable" ? s.state : null);
       const status = state?.attributes?.status || known(this._s(e._status)) || (state ? this._stateLabel(state.state) : "");
       const image = state?.attributes?.image || known(this._s(e._image));
+      const name = state?.attributes?.name || ct.name;
+      // Sorted by CPU or memory: that value leads the detail line.
+      const value = sort === "cpu" && usage.cpu !== null ? `${usage.cpu < 10 ? usage.cpu.toFixed(1) : Math.round(usage.cpu)}%` : sort === "memory" && usage.mem !== null ? fmtBytes(usage.mem) : null;
       return {
         problem,
+        usage,
+        match: !query || name.toLowerCase().includes(query) || ct.name.toLowerCase().includes(query),
         html: `<div class="item" data-key="${esc(ct.id)}">
           <span class="dot ${unhealthy ? "crit" : cls}"></span>
           <div class="main clickable" role="button" tabindex="0" data-entity="${esc(e.state || e._status || "")}">
-            <div class="title"><span>${esc(state?.attributes?.name || ct.name)}</span>
+            <div class="title"><span>${esc(name)}</span>
               ${unhealthy ? `<span class="tag alert crit">${esc(this._t("unhealthy"))}</span>` : ""}
             </div>
-            <div class="detail">${esc([status, image].filter(Boolean).join(" · "))}</div>
+            <div class="detail">${esc([value, status, image].filter(Boolean).join(" · "))}</div>
           </div>
-          ${
-            hasUpd
-              ? `<span class="badge-update clickable" role="button" tabindex="0" title="${esc(this._t("update_available"))}" data-key="update" data-entity="${esc(upd.entity_id)}">${svgIcon(
-                  ICONS.update
-                )}</span>`
-              : ""
-          }
+          ${hasUpd ? this._updateBadge(upd, ct.name) : ""}
           ${this._controls(e, ct.name)}
         </div>`,
       };
     });
-    return this._section("containers", ICONS.container, this._t("containers"), rows);
+    // Sort options: by name (items needing attention first, as the stacks), else by CPU or memory, highest first
+    // (containers without the value last); only the measures some container has are offered.
+    const has = { cpu: rows.some((r) => r.usage.cpu !== null), memory: rows.some((r) => r.usage.mem !== null) };
+    const by = has[sort] ? sort : "name";
+    if (by !== "name") {
+      const v = (r) => (by === "cpu" ? r.usage.cpu : r.usage.mem) ?? -1;
+      rows.sort((a, b) => v(b) - v(a));
+    }
+    const opts = [["name", "sort_name"], ["cpu", "cpu"], ["memory", "memory"]].filter(([k]) => k === "name" || has[k]);
+    const tools = `<div class="ct-tools">
+        <label class="ct-search">${svgIcon(ICONS.search)}<input type="search" data-ctl="search" placeholder="${esc(this._t("search"))}" aria-label="${esc(
+          this._t("search")
+        )}" value="${esc(this._ctQuery ?? "")}" autocomplete="off" spellcheck="false"></label>
+        ${
+          opts.length > 1
+            ? `<select class="ct-sort" data-ctl="sort" aria-label="${esc(this._t("sort_by"))}" title="${esc(this._t("sort_by"))}">${opts
+                .map(([k, l]) => `<option value="${k}"${k === by ? " selected" : ""}>${esc(this._t(l))}</option>`)
+                .join("")}</select>`
+            : ""
+        }
+      </div>`;
+    return this._section("containers", ICONS.container, this._t("containers"), rows, { tools, keepOrder: by !== "name", query: !!query });
   }
 
   // Stacks and containers lists are collapsed until clicked, unless expand_<key> is set.
@@ -2847,17 +3084,20 @@ class DockerCard extends DockerBase {
     return this._folds?.[key] ?? this._config[`expand_${key}`] === true;
   }
 
-  _section(key, icon, title, rows) {
+  // `tools`: shown above the open list (containers search and sort); rows with `match: false` are filtered out by
+  // that search; `keepOrder`: the rows are already sorted (by CPU or memory).
+  _section(key, icon, title, rows, { tools = "", keepOrder = false, query = false } = {}) {
     if (!rows.length) return "";
-    const shown = this._config.only_problems ? rows.filter((r) => r.problem) : rows;
+    const shown = rows.filter((r) => r.match !== false && (!this._config.only_problems || r.problem));
     // Items needing attention first.
-    shown.sort((a, b) => Number(b.problem) - Number(a.problem));
+    if (!keepOrder) shown.sort((a, b) => Number(b.problem) - Number(a.problem));
     const open = this._isOpen(key);
+    const empty = query ? this._t("no_match") : `✓ ${this._t("all_ok")}`;
     return `<div>
       <div class="section-title fold ${open ? "" : "closed"}" role="button" tabindex="0" aria-expanded="${open}" data-action="fold" data-section="${key}">${svgIcon(icon)}${esc(
         title
       )}<span class="count">${shown.length}/${rows.length}</span>${svgIcon(ICONS.chevron, "chevron")}</div>
-      ${open ? `<div class="list">${shown.length ? shown.map((r) => r.html).join("") : `<div class="empty">✓ ${esc(this._t("all_ok"))}</div>`}</div>` : ""}
+      ${open ? `${tools}<div class="list">${shown.length ? shown.map((r) => r.html).join("") : `<div class="empty">${esc(empty)}</div>`}</div>` : ""}
     </div>`;
   }
 }

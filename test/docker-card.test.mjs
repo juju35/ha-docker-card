@@ -3,7 +3,8 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { load } from "./load.mjs";
 
-const { DockerCard, DockerMiniCard, resolve, sameSig, fmtBytesPair } = load("docker-card.js", [
+const { DockerCard, DockerMiniCard, resolve, sameSig, fmtBytesPair, spark } = load("docker-card.js", [
+  "spark",
   "DockerCard",
   "DockerMiniCard",
   "resolve",
@@ -487,7 +488,8 @@ test("CPU and memory 24 h history from the recorder statistics, refreshed every 
     language: "en",
     callWS: async (msg) => {
       calls.push(msg);
-      return Object.fromEntries(msg.statistic_ids.map((id) => [id, [{ mean: 10 }, { mean: 40 }, { mean: 20 }]]));
+      const t0 = Date.now() - 3600000;
+      return Object.fromEntries(msg.statistic_ids.map((id) => [id, [10, 40, 20].map((mean, i) => ({ start: t0 + i * 300000, mean }))]));
     },
   };
   el._update = () => {
@@ -510,4 +512,93 @@ test("CPU and memory 24 h history from the recorder statistics, refreshed every 
   off._hass = el._hass;
   assert.doesNotMatch(off._render(), /class="hist"/);
   assert.equal(calls.length, 1);
+});
+
+test("sparklines sit on a real 24 h time axis and break on missing data", () => {
+  const end = Date.UTC(2026, 10, 7, 12);
+  const at = (h, v) => ({ t: end - h * 3600000, v });
+  // Two runs of 5-minute points, 3 hours apart: two segments, each starting with a move.
+  const svg = spark([at(12, 10), at(12 - 5 / 60, 20), at(12 - 10 / 60, 10), at(9, 40), at(9 - 5 / 60, 20)], end);
+  const line = /class="spark-l" d="([^"]+)"/.exec(svg)[1];
+  const area = /class="spark-a" d="([^"]+)"/.exec(svg)[1];
+  assert.equal(line.match(/M/g).length, 2);
+  assert.equal(area.match(/Z/g).length, 2);
+  // x is the time within the window: 12 h before the end is the middle, 9 h before is 62.5 %.
+  assert.match(line, /^M50\.00,/);
+  assert.match(line, /M62\.50,2\.00/, "the peak (40) at the top");
+  // Evenly spaced points with no gap: one segment; nothing under two points.
+  assert.equal(spark([at(1, 1), at(1 - 5 / 60, 2)], end).match(/class="spark-l" d="M[^M"]*"/g).length, 1);
+  assert.equal(spark([at(1, 1)], end), "");
+  // A lone point between two gaps still draws a short stroke.
+  assert.match(spark([at(10, 1), at(5, 2), at(1, 1)], end), /h0\.4/);
+});
+
+test("history points take their time from the statistics start (number or ISO date)", async () => {
+  const el = new DockerCard();
+  el._config = {};
+  const t0 = Date.now() - 7200000;
+  el._hass = {
+    states: baseStates(),
+    entities,
+    devices,
+    language: "en",
+    callWS: async (msg) =>
+      Object.fromEntries(msg.statistic_ids.map((id) => [id, [{ start: t0, mean: 5 }, { start: new Date(t0 + 300000).toISOString(), mean: 6 }, { start: null, mean: 7 }]])),
+  };
+  el._update = () => {};
+  el._history(["sensor.cpu"]);
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(JSON.stringify(el._hist["sensor.cpu"]), JSON.stringify([{ t: t0, v: 5 }, { t: t0 + 300000, v: 6 }]));
+});
+
+// A container with an image update entity, for the install button tests.
+const withUpdate = (attributes = {}, state = "on") => {
+  const ents = { ...entities, "update.web": { entity_id: "update.web", device_id: "ct", platform: "dockhand", translation_key: null } };
+  const states = { ...baseStates(), "update.web": { entity_id: "update.web", state, attributes } };
+  const el = make(DockerCard, states, { show_containers: true, expand_containers: true });
+  el._hass.entities = ents;
+  return el;
+};
+
+test("an available image update is a button that confirms, then calls update.install", async () => {
+  const el = withUpdate();
+  const html = el._render();
+  assert.match(html, /<button type="button" class="ctrl badge-update" title="Update"[^>]*data-action="install" data-entity="update.web" data-label="web">/);
+  const calls = [];
+  el._hass.callService = (d, s, data) => calls.push(`${d}.${s} ${data.entity_id}`);
+  el._update = () => {
+    let h = el._render();
+    if (el._confirm) h = h.replace(/<ha-card>([\s\S]*)<\/ha-card>\s*$/, (_, inner) => `<ha-card class="dialog-open">${inner}${el._confirmHtml()}</ha-card>`);
+    el.html = h;
+  };
+  el._onClick(click([{ dataset: { action: "install", entity: "update.web", label: "web" } }]));
+  await null;
+  assert.ok(el._confirm, "no confirmation opened");
+  assert.deepEqual(calls, []);
+  assert.match(el.html, /Update web to the latest image\?/);
+  el._onClick(click([{ dataset: { action: "confirm_ok" } }]));
+  await null;
+  assert.deepEqual(calls, ["update.install update.web"]);
+  assert.equal(el._confirm, null);
+});
+
+test("no install while unavailable or installing; a badge without install support or with show_controls: false", async () => {
+  for (const [attrs, state] of [[{ in_progress: true }, "on"], [{}, "unavailable"]]) {
+    const el = withUpdate(attrs, state);
+    el._update = () => {};
+    const calls = [];
+    el._hass.callService = (d, s) => calls.push(`${d}.${s}`);
+    if (state === "on") assert.match(el._render(), /data-action="install"[^>]* disabled>/);
+    el._onClick(click([{ dataset: { action: "install", entity: "update.web", label: "web" } }]));
+    await null;
+    assert.equal(el._confirm ?? null, null);
+    assert.deepEqual(calls, []);
+  }
+  // supported_features without INSTALL (1): the more-info badge.
+  const noInstall = withUpdate({ supported_features: 16 })._render();
+  assert.doesNotMatch(noInstall, /data-action="install"/);
+  assert.match(noInstall, /<span class="badge-update clickable"[^>]*data-entity="update.web"/);
+  const noControls = withUpdate();
+  noControls._config.show_controls = false;
+  assert.doesNotMatch(noControls._render(), /data-action="install"/);
 });

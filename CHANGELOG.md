@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.0 - 2026-11-07
+
+### Features
+- Full card: CPU and memory over the last 24 hours, with their peak, under the gauges (recorder 5-minute statistics, refreshed every 5 minutes). `show_history: false` turns it off (also in the visual editor).
+
 ## 3.0.3 - 2026-11-04
 
 ### Documentation

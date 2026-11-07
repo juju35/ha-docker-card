@@ -29,6 +29,7 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 - Two cards: a full **Docker Card** and a compact **Docker Mini Card**
 - Automatic discovery of the Dockhand environments, Monitor Docker instances and Portainer endpoints (several of each supported)
 - CPU, memory and running containers gauges, Docker version and connection type
+- CPU and memory over the last 24 hours, with their peak (recorder statistics)
 - Stacks, images, volumes, networks and pending updates counters
 - Stacks list with status, Git badge, sync errors and available updates
 - Optional containers list with state, health, image and available updates
@@ -136,6 +137,7 @@ language: fr
 | `title` | both | Environment name | Card title |
 | `url` | both | Detected | Address opened in a new tab when clicking the header icon. Defaults to the Dockhand web UI known by the integration, or [dockhand.pro](https://dockhand.pro) if none ([Monitor Docker](https://github.com/ualex73/monitor_docker) for a Monitor Docker instance). Portainer: the endpoint dashboard in Portainer |
 | `show_stats` | full | `true` | CPU, memory and running containers gauges |
+| `show_history` | full | `true` | CPU and memory curves of the last 24 hours under the gauges, from the recorder's 5-minute statistics (shown once the statistics exist; needs `show_stats`) |
 | `show_counts` | full | `true` | Stacks, images, volumes, networks and updates counters |
 | `show_stacks` | full | `true` | Stacks list |
 | `show_containers` | full | `false` (`true` for Monitor Docker) | Containers list |

@@ -19,6 +19,7 @@ const SOURCES = {
 };
 
 const ICONS = {
+  history: "M17.45,15.18L22,7.31V19L22,21H2V3H4V15.54L9.5,6L16,9.78L20.24,2.45L21.97,3.45L16.74,12.5L10.23,8.75L4.31,19H6.57L10.96,11.44L17.45,15.18Z",
   docker:
     "M21.81 10.25C21.75 10.21 21.25 9.82 20.17 9.82C19.89 9.82 19.61 9.85 19.33 9.9C19.12 8.5 17.95 7.79 17.9 7.76L17.61 7.59L17.43 7.86C17.19 8.22 17 8.63 16.92 9.05C16.72 9.85 16.84 10.61 17.25 11.26C16.76 11.54 15.96 11.61 15.79 11.61H2.62C2.28 11.61 2 11.89 2 12.24C2 13.39 2.18 14.54 2.58 15.62C3.03 16.81 3.71 17.69 4.58 18.23C5.56 18.83 7.17 19.17 9 19.17C9.79 19.17 10.61 19.1 11.42 18.95C12.54 18.75 13.62 18.36 14.61 17.79C15.43 17.32 16.16 16.72 16.78 16C17.83 14.83 18.45 13.5 18.9 12.35H19.09C20.23 12.35 20.94 11.89 21.33 11.5C21.59 11.26 21.78 10.97 21.92 10.63L22 10.39L21.81 10.25M3.85 11.24H5.61C5.69 11.24 5.77 11.17 5.77 11.08V9.5C5.77 9.42 5.7 9.34 5.61 9.34H3.85C3.76 9.34 3.69 9.41 3.69 9.5V11.08C3.7 11.17 3.76 11.24 3.85 11.24M6.28 11.24H8.04C8.12 11.24 8.2 11.17 8.2 11.08V9.5C8.2 9.42 8.13 9.34 8.04 9.34H6.28C6.19 9.34 6.12 9.41 6.12 9.5V11.08C6.13 11.17 6.19 11.24 6.28 11.24M8.75 11.24H10.5C10.6 11.24 10.67 11.17 10.67 11.08V9.5C10.67 9.42 10.61 9.34 10.5 9.34H8.75C8.67 9.34 8.6 9.41 8.6 9.5V11.08C8.6 11.17 8.66 11.24 8.75 11.24M11.19 11.24H12.96C13.04 11.24 13.11 11.17 13.11 11.08V9.5C13.11 9.42 13.05 9.34 12.96 9.34H11.19C11.11 9.34 11.04 9.41 11.04 9.5V11.08C11.04 11.17 11.11 11.24 11.19 11.24M6.28 9H8.04C8.12 9 8.2 8.91 8.2 8.82V7.25C8.2 7.16 8.13 7.09 8.04 7.09H6.28C6.19 7.09 6.12 7.15 6.12 7.25V8.82C6.13 8.91 6.19 9 6.28 9M8.75 9H10.5C10.6 9 10.67 8.91 10.67 8.82V7.25C10.67 7.16 10.61 7.09 10.5 7.09H8.75C8.67 7.09 8.6 7.15 8.6 7.25V8.82C8.6 8.91 8.66 9 8.75 9M11.19 9H12.96C13.04 9 13.11 8.91 13.11 8.82V7.25C13.11 7.16 13.04 7.09 12.96 7.09H11.19C11.11 7.09 11.04 7.15 11.04 7.25V8.82C11.04 8.91 11.11 9 11.19 9M11.19 6.72H12.96C13.04 6.72 13.11 6.65 13.11 6.56V5C13.11 4.9 13.04 4.83 12.96 4.83H11.19C11.11 4.83 11.04 4.89 11.04 5V6.56C11.04 6.64 11.11 6.72 11.19 6.72M13.65 11.24H15.41C15.5 11.24 15.57 11.17 15.57 11.08V9.5C15.57 9.42 15.5 9.34 15.41 9.34H13.65C13.57 9.34 13.5 9.41 13.5 9.5V11.08C13.5 11.17 13.57 11.24 13.65 11.24",
   chevron: "M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z",
@@ -96,6 +97,9 @@ const STRINGS = {
     title: "Title (optional, defaults to the environment name)",
     url: "URL opened by the logo (optional, detected from the integration)",
     show_stats: "Show CPU, memory and containers",
+    show_history: "Show the 24 h CPU and memory history",
+    last_24h: "Last 24 h",
+    peak: "max {v}",
     show_counts: "Show counts (stacks, images…)",
     show_stacks: "Show stacks",
     show_containers: "Show containers",
@@ -161,6 +165,9 @@ const STRINGS = {
     title: "Titre (facultatif, nom de l'environnement par défaut)",
     url: "URL ouverte par le logo (facultatif, détectée depuis l'intégration)",
     show_stats: "Afficher CPU, mémoire et conteneurs",
+    show_history: "Afficher l’historique 24 h du CPU et de la mémoire",
+    last_24h: "Dernières 24 h",
+    peak: "max {v}",
     show_counts: "Afficher les compteurs (stacks, images…)",
     show_stacks: "Afficher les stacks",
     show_containers: "Afficher les conteneurs",
@@ -226,6 +233,9 @@ const STRINGS = {
     title: "Titel (optional, standardmäßig der Name der Umgebung)",
     url: "Vom Logo geöffnete URL (optional, wird aus der Integration ermittelt)",
     show_stats: "CPU, Speicher und Container anzeigen",
+    show_history: "24-h-Verlauf von CPU und Speicher anzeigen",
+    last_24h: "Letzte 24 h",
+    peak: "max. {v}",
     show_counts: "Zähler anzeigen (Stacks, Images…)",
     show_stacks: "Stacks anzeigen",
     show_containers: "Container anzeigen",
@@ -291,6 +301,9 @@ const STRINGS = {
     title: "Título (opcional, por defecto el nombre del entorno)",
     url: "URL abierta por el logo (opcional, detectada desde la integración)",
     show_stats: "Mostrar CPU, memoria y contenedores",
+    show_history: "Mostrar el historial de 24 h de CPU y memoria",
+    last_24h: "Últimas 24 h",
+    peak: "máx. {v}",
     show_counts: "Mostrar contadores (stacks, imágenes…)",
     show_stacks: "Mostrar los stacks",
     show_containers: "Mostrar los contenedores",
@@ -361,6 +374,9 @@ const STRINGS = {
     title: "Наслов (опционо, подразумевано је назив окружења)",
     url: "URL који отвара лого (опционо, преузима се из интеграције)",
     show_stats: "Прикажи CPU, меморију и контејнере",
+    show_history: "Прикажи историју процесора и меморије за 24 ч",
+    last_24h: "Последња 24 ч",
+    peak: "макс. {v}",
     show_counts: "Прикажи бројаче (стекови, слике…)",
     show_stacks: "Прикажи стекове",
     show_containers: "Прикажи контејнере",
@@ -431,6 +447,9 @@ const STRINGS = {
     title: "Naslov (opciono, podrazumevano je naziv okruženja)",
     url: "URL koji otvara logo (opciono, preuzima se iz integracije)",
     show_stats: "Prikaži CPU, memoriju i kontejnere",
+    show_history: "Prikaži istoriju procesora i memorije za 24 č",
+    last_24h: "Poslednja 24 h",
+    peak: "maks. {v}",
     show_counts: "Prikaži brojače (stekovi, slike…)",
     show_stacks: "Prikaži stekove",
     show_containers: "Prikaži kontejnere",
@@ -496,6 +515,9 @@ const STRINGS = {
     title: "Titolo (facoltativo, predefinito: nome dell'ambiente)",
     url: "URL aperto dal logo (facoltativo, rilevato dall'integrazione)",
     show_stats: "Mostra CPU, memoria e container",
+    show_history: "Mostra lo storico 24 h di CPU e memoria",
+    last_24h: "Ultime 24 h",
+    peak: "max {v}",
     show_counts: "Mostra i contatori (stack, immagini…)",
     show_stacks: "Mostra gli stack",
     show_containers: "Mostra i container",
@@ -561,6 +583,9 @@ const STRINGS = {
     title: "Titel (optioneel, standaard de naam van de omgeving)",
     url: "URL die het logo opent (optioneel, gedetecteerd via de integratie)",
     show_stats: "CPU, geheugen en containers tonen",
+    show_history: "24-uursgeschiedenis van CPU en geheugen weergeven",
+    last_24h: "Laatste 24 u",
+    peak: "max. {v}",
     show_counts: "Tellers tonen (stacks, images…)",
     show_stacks: "Stacks tonen",
     show_containers: "Containers tonen",
@@ -626,6 +651,9 @@ const STRINGS = {
     title: "Título (opcional, por predefinição o nome do ambiente)",
     url: "URL aberto pelo logótipo (opcional, detetado a partir da integração)",
     show_stats: "Mostrar CPU, memória e contentores",
+    show_history: "Mostrar o histórico de 24 h da CPU e da memória",
+    last_24h: "Últimas 24 h",
+    peak: "máx. {v}",
     show_counts: "Mostrar contadores (stacks, imagens…)",
     show_stacks: "Mostrar os stacks",
     show_containers: "Mostrar os contentores",
@@ -702,6 +730,9 @@ const STRINGS = {
     title: "Tytuł (opcjonalnie, domyślnie nazwa środowiska)",
     url: "URL otwierany przez logo (opcjonalnie, wykrywany z integracji)",
     show_stats: "Pokaż CPU, pamięć i kontenery",
+    show_history: "Pokaż historię CPU i pamięci z 24 h",
+    last_24h: "Ostatnie 24 h",
+    peak: "maks. {v}",
     show_counts: "Pokaż liczniki (stosy, obrazy…)",
     show_stacks: "Pokaż stosy",
     show_containers: "Pokaż kontenery",
@@ -779,6 +810,9 @@ const STRINGS = {
     title: "Titlu (opțional, implicit numele mediului)",
     url: "URL deschis de logo (opțional, detectat din integrare)",
     show_stats: "Afișează CPU, memoria și containerele",
+    show_history: "Afișează istoricul pe 24 h al CPU și memoriei",
+    last_24h: "Ultimele 24 h",
+    peak: "max. {v}",
     show_counts: "Afișează contoarele (stive, imagini…)",
     show_stacks: "Afișează stivele",
     show_containers: "Afișează containerele",
@@ -844,6 +878,9 @@ const STRINGS = {
     title: "Titel (valgfri, som standard miljøets navn)",
     url: "URL, der åbnes af logoet (valgfri, hentes fra integrationen)",
     show_stats: "Vis CPU, hukommelse og containere",
+    show_history: "Vis 24-timers historik for CPU og hukommelse",
+    last_24h: "Seneste 24 t",
+    peak: "maks. {v}",
     show_counts: "Vis tællere (stakke, images…)",
     show_stacks: "Vis stakke",
     show_containers: "Vis containere",
@@ -909,6 +946,9 @@ const STRINGS = {
     title: "Titel (valfri, standard är miljöns namn)",
     url: "URL som öppnas av logotypen (valfri, hämtas från integrationen)",
     show_stats: "Visa CPU, minne och containrar",
+    show_history: "Visa 24 h-historik för CPU och minne",
+    last_24h: "Senaste 24 h",
+    peak: "max {v}",
     show_counts: "Visa räknare (stackar, avbildningar…)",
     show_stacks: "Visa stackar",
     show_containers: "Visa containrar",
@@ -975,6 +1015,9 @@ const STRINGS = {
     title: "Заглавие (по избор, по подразбиране името на средата)",
     url: "URL, отварян от логото (по избор, взема се от интеграцията)",
     show_stats: "Покажи CPU, памет и контейнери",
+    show_history: "Показване на 24-часовата история на CPU и паметта",
+    last_24h: "Последните 24 h",
+    peak: "макс. {v}",
     show_counts: "Покажи броячите (стекове, образи…)",
     show_stacks: "Покажи стековете",
     show_containers: "Покажи контейнерите",
@@ -1051,6 +1094,9 @@ const STRINGS = {
     title: "Заголовок (необязательно, по умолчанию имя среды)",
     url: "URL, открываемый логотипом (необязательно, определяется из интеграции)",
     show_stats: "Показывать CPU, память и контейнеры",
+    show_history: "Показать историю CPU и памяти за 24 ч",
+    last_24h: "Последние 24 h",
+    peak: "макс. {v}",
     show_counts: "Показывать счётчики (стеки, образы…)",
     show_stacks: "Показывать стеки",
     show_containers: "Показывать контейнеры",
@@ -1127,6 +1173,9 @@ const STRINGS = {
     title: "Заголовок (необов'язково, за замовчуванням назва середовища)",
     url: "URL, який відкриває логотип (необов'язково, визначається з інтеграції)",
     show_stats: "Показувати CPU, пам'ять і контейнери",
+    show_history: "Показати історію CPU і пам’яті за 24 год",
+    last_24h: "Останні 24 h",
+    peak: "макс. {v}",
     show_counts: "Показувати лічильники (стеки, образи…)",
     show_stacks: "Показувати стеки",
     show_containers: "Показувати контейнери",
@@ -1188,6 +1237,9 @@ const STRINGS = {
     title: "Cím (nem kötelező, alapértelmezés szerint a környezet neve)",
     url: "A logó által megnyitott URL (nem kötelező, az integrációból észlelve)",
     show_stats: "CPU, memória és konténerek megjelenítése",
+    show_history: "CPU és memória 24 órás előzményeinek megjelenítése",
+    last_24h: "Elmúlt 24 h",
+    peak: "max. {v}",
     show_counts: "Számlálók megjelenítése (stackek, lemezképek…)",
     show_stacks: "Stackek megjelenítése",
     show_containers: "Konténerek megjelenítése",
@@ -1259,6 +1311,9 @@ const STRINGS = {
     title: "Názov (voliteľné, predvolene názov prostredia)",
     url: "URL otváraná logom (voliteľné, zistí sa z integrácie)",
     show_stats: "Zobraziť CPU, pamäť a kontajnery",
+    show_history: "Zobraziť 24 h históriu CPU a pamäte",
+    last_24h: "Posledných 24 h",
+    peak: "max. {v}",
     show_counts: "Zobraziť počítadlá (zásobníky, obrazy…)",
     show_stacks: "Zobraziť zásobníky",
     show_containers: "Zobraziť kontajnery",
@@ -1330,6 +1385,9 @@ const STRINGS = {
     title: "Název (volitelné, výchozí je název prostředí)",
     url: "URL otevíraná logem (volitelné, zjistí se z integrace)",
     show_stats: "Zobrazit CPU, paměť a kontejnery",
+    show_history: "Zobrazit 24h historii CPU a paměti",
+    last_24h: "Posledních 24 h",
+    peak: "max. {v}",
     show_counts: "Zobrazit počítadla (zásobníky, obrazy…)",
     show_stacks: "Zobrazit zásobníky",
     show_containers: "Zobrazit kontejnery",
@@ -1406,6 +1464,9 @@ const STRINGS = {
     title: "Naslov (neobvezno, privzeto ime okolja)",
     url: "URL, ki ga odpre logotip (neobvezno, pridobljen iz integracije)",
     show_stats: "Prikaži CPU, pomnilnik in vsebnike",
+    show_history: "Prikaži 24-urno zgodovino CPE in pomnilnika",
+    last_24h: "Zadnjih 24 h",
+    peak: "maks. {v}",
     show_counts: "Prikaži števce (skladi, slike…)",
     show_stacks: "Prikaži sklade",
     show_containers: "Prikaži vsebnike",
@@ -1478,6 +1539,9 @@ const STRINGS = {
     title: "Virsraksts (neobligāts, pēc noklusējuma vides nosaukums)",
     url: "URL, ko atver logotips (neobligāts, iegūts no integrācijas)",
     show_stats: "Rādīt CPU, atmiņu un konteinerus",
+    show_history: "Rādīt CPU un atmiņas 24 h vēsturi",
+    last_24h: "Pēdējās 24 h",
+    peak: "maks. {v}",
     show_counts: "Rādīt skaitītājus (steki, attēli…)",
     show_stacks: "Rādīt stekus",
     show_containers: "Rādīt konteinerus",
@@ -1544,6 +1608,9 @@ const STRINGS = {
     title: "Τίτλος (προαιρετικό, από προεπιλογή το όνομα του περιβάλλοντος)",
     url: "URL που ανοίγει το λογότυπο (προαιρετικό, εντοπίζεται από την ενσωμάτωση)",
     show_stats: "Εμφάνιση CPU, μνήμης και κοντέινερ",
+    show_history: "Εμφάνιση ιστορικού 24 ωρών CPU και μνήμης",
+    last_24h: "Τελευταίες 24 h",
+    peak: "μέγ. {v}",
     show_counts: "Εμφάνιση μετρητών (στοίβες, εικόνες…)",
     show_stacks: "Εμφάνιση στοιβών",
     show_containers: "Εμφάνιση κοντέινερ",
@@ -2036,6 +2103,15 @@ const CONFIRM_GUARD_MS = 400;
 // A click inside a dialog (more-info opened from the card, say) is not a click outside the card.
 const inDialog = (ev) => ev.composedPath().some((n) => ["ha-more-info-dialog", "ha-dialog", "dialog"].includes(n.localName));
 
+// Sparkline of a series (24 h of usage), scaled from 0 to its peak; nothing under two points.
+const HIST_REFRESH = 5 * 60000;
+function spark(values) {
+  if (!values || values.length < 2) return "";
+  const peak = Math.max(...values) || 1;
+  const pts = values.map((v, i) => `${((i / (values.length - 1)) * 100).toFixed(2)},${(30 - (Math.max(0, v) / peak) * 28).toFixed(2)}`).join("L");
+  return `<svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><path class="spark-a" d="M0,30L${pts}L100,30Z"/><path class="spark-l" d="M${pts}"/></svg>`;
+}
+
 class DockerBase extends HTMLElement {
   constructor() {
     super();
@@ -2438,6 +2514,17 @@ const FULL_STYLE = `
   .section-title.closed { margin-bottom: 0; }
   .section-title.closed .chevron { transform: rotate(-90deg); }
   .gauges { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .section-title .unit { text-transform: none; }
+  .hist { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 6px; }
+  .htile { position: relative; overflow: hidden; display: flex; align-items: baseline; gap: 6px; padding: 6px 10px 22px; border-radius: 10px; min-width: 0;
+           background: var(--secondary-background-color, rgba(127,127,127,.08)); }
+  .htile > :not(.spark) { position: relative; }
+  .htile.cpu { --c: var(--dh-orange); } .htile.mem { --c: var(--info-color, #039be5); }
+  .htile .k { font-size: 12px; font-weight: 500; }
+  .htile .m { margin-left: auto; font-size: 11px; color: var(--secondary-text-color); white-space: nowrap; }
+  .htile .spark { position: absolute; left: 0; bottom: 0; width: 100%; height: 60%; pointer-events: none; }
+  .spark-a { fill: color-mix(in srgb, var(--c) 14%, transparent); }
+  .spark-l { fill: none; stroke: color-mix(in srgb, var(--c) 60%, transparent); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
   .gauge { display: flex; flex-direction: column; align-items: center; min-width: 0; }
   /* Ring of 60 px, smaller when the column is narrower (6 columns of a small Sections view). */
   .gauge .gw { position: relative; width: min(60px, 100%); aspect-ratio: 1; }
@@ -2525,7 +2612,7 @@ class DockerCard extends DockerBase {
     if (error) return this._error(error);
     const c = this._config;
     const parts = [];
-    if (c.show_stats !== false) parts.push(this._stats(env));
+    if (c.show_stats !== false) parts.push(this._stats(env), this._usageHistory(env));
     if (c.show_counts !== false) parts.push(this._counts(env));
     if (c.show_stacks !== false) parts.push(this._stacks(env));
     if (this._showContainers(env)) parts.push(this._containers(env));
@@ -2567,6 +2654,51 @@ class DockerCard extends DockerBase {
         cs.unhealthy > 0 || (runPct !== null && runPct < 100) ? "warn" : "ok"
       )}
     </div>`;
+  }
+
+  // CPU and memory over the last 24 hours, one tile each, from the recorder's 5-minute statistics.
+  _usageHistory(env) {
+    if (this._config.show_history === false) return "";
+    const { cpuId, memId } = this._host(env);
+    const hist = this._history([cpuId, memId].filter(Boolean));
+    const tile = (id, cls, label) => {
+      const values = hist?.[id];
+      if (!values || values.length < 2) return "";
+      const peak = Math.max(...values);
+      return `<div class="htile clickable ${cls}" role="button" tabindex="0" data-entity="${esc(id)}">${spark(values)}<span class="k">${label}</span><span class="m">${esc(
+        this._t("peak", { v: `${peak < 10 ? peak.toFixed(1) : Math.round(peak)}%` })
+      )}</span></div>`;
+    };
+    const tiles = tile(cpuId, "cpu", this._t("cpu")) + tile(memId, "mem", this._t("memory"));
+    return tiles ? `<div><div class="section-title">${svgIcon(ICONS.history)}<span>${esc(this._t("last_24h")).replace(/(\d+\s*)(\S+)$/, '$1<span class="unit">$2</span>')}</span></div><div class="hist">${tiles}</div></div>` : "";
+  }
+
+  // 24 h of 5-minute means from the recorder's statistics, fetched again every 5 minutes. Returns what is
+  // already there (nothing at first): the card renders again when the answer comes.
+  _history(ids) {
+    const key = ids.join(",");
+    if (key && this._hass.callWS && (this._histKey !== key || Date.now() - this._histAt > HIST_REFRESH)) {
+      this._histKey = key;
+      this._histAt = Date.now();
+      this._hass
+        .callWS({
+          type: "recorder/statistics_during_period",
+          start_time: new Date(Date.now() - 864e5).toISOString(),
+          statistic_ids: ids,
+          period: "5minute",
+          types: ["mean"],
+        })
+        .then((r) => {
+          if (this._histKey !== key) return;
+          this._hist = Object.fromEntries(ids.map((id) => [id, (r?.[id] || []).map((p) => p.mean).filter(Number.isFinite)]));
+          this._update();
+        })
+        // No statistics (sensor without state_class, recorder off): try again in a minute, nothing meanwhile.
+        .catch(() => {
+          this._histAt = Date.now() - HIST_REFRESH + 60000;
+        });
+    }
+    return this._histKey === key ? this._hist : null;
   }
 
   _counts(env) {
@@ -2993,6 +3125,7 @@ class DockerCardEditor extends DockerEditorBase {
   static get toggles() {
     return [
       ["show_stats", true],
+      ["show_history", true],
       ["show_counts", true],
       ["show_stacks", true],
       ["show_containers", false],

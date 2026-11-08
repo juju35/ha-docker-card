@@ -105,6 +105,8 @@ const STRINGS = {
     url: "URL opened by the logo (optional, detected from the integration)",
     show_stats: "Show CPU, memory and containers",
     show_history: "Show the 24 h CPU and memory history",
+    threshold_warning: "orange from",
+    threshold_critical: "red from",
     last_24h: "Last 24 h",
     peak: "max {v}",
     show_counts: "Show counts (stacks, images…)",
@@ -179,6 +181,8 @@ const STRINGS = {
     url: "URL ouverte par le logo (facultatif, détectée depuis l'intégration)",
     show_stats: "Afficher CPU, mémoire et conteneurs",
     show_history: "Afficher l’historique 24 h du CPU et de la mémoire",
+    threshold_warning: "orange dès",
+    threshold_critical: "rouge dès",
     last_24h: "Dernières 24 h",
     peak: "max {v}",
     show_counts: "Afficher les compteurs (stacks, images…)",
@@ -253,6 +257,8 @@ const STRINGS = {
     url: "Vom Logo geöffnete URL (optional, wird aus der Integration ermittelt)",
     show_stats: "CPU, Speicher und Container anzeigen",
     show_history: "24-h-Verlauf von CPU und Speicher anzeigen",
+    threshold_warning: "orange ab",
+    threshold_critical: "rot ab",
     last_24h: "Letzte 24 h",
     peak: "max. {v}",
     show_counts: "Zähler anzeigen (Stacks, Images…)",
@@ -327,6 +333,8 @@ const STRINGS = {
     url: "URL abierta por el logo (opcional, detectada desde la integración)",
     show_stats: "Mostrar CPU, memoria y contenedores",
     show_history: "Mostrar el historial de 24 h de CPU y memoria",
+    threshold_warning: "naranja desde",
+    threshold_critical: "rojo desde",
     last_24h: "Últimas 24 h",
     peak: "máx. {v}",
     show_counts: "Mostrar contadores (stacks, imágenes…)",
@@ -406,6 +414,8 @@ const STRINGS = {
     url: "URL који отвара лого (опционо, преузима се из интеграције)",
     show_stats: "Прикажи CPU, меморију и контејнере",
     show_history: "Прикажи историју процесора и меморије за 24 ч",
+    threshold_warning: "наранџасто од",
+    threshold_critical: "црвено од",
     last_24h: "Последња 24 ч",
     peak: "макс. {v}",
     show_counts: "Прикажи бројаче (стекови, слике…)",
@@ -485,6 +495,8 @@ const STRINGS = {
     url: "URL koji otvara logo (opciono, preuzima se iz integracije)",
     show_stats: "Prikaži CPU, memoriju i kontejnere",
     show_history: "Prikaži istoriju procesora i memorije za 24 č",
+    threshold_warning: "narandžasto od",
+    threshold_critical: "crveno od",
     last_24h: "Poslednja 24 h",
     peak: "maks. {v}",
     show_counts: "Prikaži brojače (stekovi, slike…)",
@@ -559,6 +571,8 @@ const STRINGS = {
     url: "URL aperto dal logo (facoltativo, rilevato dall'integrazione)",
     show_stats: "Mostra CPU, memoria e container",
     show_history: "Mostra lo storico 24 h di CPU e memoria",
+    threshold_warning: "arancione da",
+    threshold_critical: "rosso da",
     last_24h: "Ultime 24 h",
     peak: "max {v}",
     show_counts: "Mostra i contatori (stack, immagini…)",
@@ -633,6 +647,8 @@ const STRINGS = {
     url: "URL die het logo opent (optioneel, gedetecteerd via de integratie)",
     show_stats: "CPU, geheugen en containers tonen",
     show_history: "24-uursgeschiedenis van CPU en geheugen weergeven",
+    threshold_warning: "oranje vanaf",
+    threshold_critical: "rood vanaf",
     last_24h: "Laatste 24 u",
     peak: "max. {v}",
     show_counts: "Tellers tonen (stacks, images…)",
@@ -707,6 +723,8 @@ const STRINGS = {
     url: "URL aberto pelo logótipo (opcional, detetado a partir da integração)",
     show_stats: "Mostrar CPU, memória e contentores",
     show_history: "Mostrar o histórico de 24 h da CPU e da memória",
+    threshold_warning: "laranja a partir de",
+    threshold_critical: "vermelho a partir de",
     last_24h: "Últimas 24 h",
     peak: "máx. {v}",
     show_counts: "Mostrar contadores (stacks, imagens…)",
@@ -792,6 +810,8 @@ const STRINGS = {
     url: "URL otwierany przez logo (opcjonalnie, wykrywany z integracji)",
     show_stats: "Pokaż CPU, pamięć i kontenery",
     show_history: "Pokaż historię CPU i pamięci z 24 h",
+    threshold_warning: "pomarańczowy od",
+    threshold_critical: "czerwony od",
     last_24h: "Ostatnie 24 h",
     peak: "maks. {v}",
     show_counts: "Pokaż liczniki (stosy, obrazy…)",
@@ -878,6 +898,8 @@ const STRINGS = {
     url: "URL deschis de logo (opțional, detectat din integrare)",
     show_stats: "Afișează CPU, memoria și containerele",
     show_history: "Afișează istoricul pe 24 h al CPU și memoriei",
+    threshold_warning: "portocaliu de la",
+    threshold_critical: "roșu de la",
     last_24h: "Ultimele 24 h",
     peak: "max. {v}",
     show_counts: "Afișează contoarele (stive, imagini…)",
@@ -952,6 +974,8 @@ const STRINGS = {
     url: "URL, der åbnes af logoet (valgfri, hentes fra integrationen)",
     show_stats: "Vis CPU, hukommelse og containere",
     show_history: "Vis 24-timers historik for CPU og hukommelse",
+    threshold_warning: "orange fra",
+    threshold_critical: "rød fra",
     last_24h: "Seneste 24 t",
     peak: "maks. {v}",
     show_counts: "Vis tællere (stakke, images…)",
@@ -1026,6 +1050,8 @@ const STRINGS = {
     url: "URL som öppnas av logotypen (valfri, hämtas från integrationen)",
     show_stats: "Visa CPU, minne och containrar",
     show_history: "Visa 24 h-historik för CPU och minne",
+    threshold_warning: "orange från",
+    threshold_critical: "röd från",
     last_24h: "Senaste 24 h",
     peak: "max {v}",
     show_counts: "Visa räknare (stackar, avbildningar…)",
@@ -1101,6 +1127,8 @@ const STRINGS = {
     url: "URL, отварян от логото (по избор, взема се от интеграцията)",
     show_stats: "Покажи CPU, памет и контейнери",
     show_history: "Показване на 24-часовата история на CPU и паметта",
+    threshold_warning: "оранжево от",
+    threshold_critical: "червено от",
     last_24h: "Последните 24 h",
     peak: "макс. {v}",
     show_counts: "Покажи броячите (стекове, образи…)",
@@ -1186,6 +1214,8 @@ const STRINGS = {
     url: "URL, открываемый логотипом (необязательно, определяется из интеграции)",
     show_stats: "Показывать CPU, память и контейнеры",
     show_history: "Показать историю CPU и памяти за 24 ч",
+    threshold_warning: "оранжевый от",
+    threshold_critical: "красный от",
     last_24h: "Последние 24 h",
     peak: "макс. {v}",
     show_counts: "Показывать счётчики (стеки, образы…)",
@@ -1271,6 +1301,8 @@ const STRINGS = {
     url: "URL, який відкриває логотип (необов'язково, визначається з інтеграції)",
     show_stats: "Показувати CPU, пам'ять і контейнери",
     show_history: "Показати історію CPU і пам’яті за 24 год",
+    threshold_warning: "помаранчевий від",
+    threshold_critical: "червоний від",
     last_24h: "Останні 24 h",
     peak: "макс. {v}",
     show_counts: "Показувати лічильники (стеки, образи…)",
@@ -1341,6 +1373,8 @@ const STRINGS = {
     url: "A logó által megnyitott URL (nem kötelező, az integrációból észlelve)",
     show_stats: "CPU, memória és konténerek megjelenítése",
     show_history: "CPU és memória 24 órás előzményeinek megjelenítése",
+    threshold_warning: "narancs ettől",
+    threshold_critical: "piros ettől",
     last_24h: "Elmúlt 24 h",
     peak: "max. {v}",
     show_counts: "Számlálók megjelenítése (stackek, lemezképek…)",
@@ -1421,6 +1455,8 @@ const STRINGS = {
     url: "URL otváraná logom (voliteľné, zistí sa z integrácie)",
     show_stats: "Zobraziť CPU, pamäť a kontajnery",
     show_history: "Zobraziť 24 h históriu CPU a pamäte",
+    threshold_warning: "oranžová od",
+    threshold_critical: "červená od",
     last_24h: "Posledných 24 h",
     peak: "max. {v}",
     show_counts: "Zobraziť počítadlá (zásobníky, obrazy…)",
@@ -1501,6 +1537,8 @@ const STRINGS = {
     url: "URL otevíraná logem (volitelné, zjistí se z integrace)",
     show_stats: "Zobrazit CPU, paměť a kontejnery",
     show_history: "Zobrazit 24h historii CPU a paměti",
+    threshold_warning: "oranžová od",
+    threshold_critical: "červená od",
     last_24h: "Posledních 24 h",
     peak: "max. {v}",
     show_counts: "Zobrazit počítadla (zásobníky, obrazy…)",
@@ -1586,6 +1624,8 @@ const STRINGS = {
     url: "URL, ki ga odpre logotip (neobvezno, pridobljen iz integracije)",
     show_stats: "Prikaži CPU, pomnilnik in vsebnike",
     show_history: "Prikaži 24-urno zgodovino CPE in pomnilnika",
+    threshold_warning: "oranžna od",
+    threshold_critical: "rdeča od",
     last_24h: "Zadnjih 24 h",
     peak: "maks. {v}",
     show_counts: "Prikaži števce (skladi, slike…)",
@@ -1667,6 +1707,8 @@ const STRINGS = {
     url: "URL, ko atver logotips (neobligāts, iegūts no integrācijas)",
     show_stats: "Rādīt CPU, atmiņu un konteinerus",
     show_history: "Rādīt CPU un atmiņas 24 h vēsturi",
+    threshold_warning: "oranžs no",
+    threshold_critical: "sarkans no",
     last_24h: "Pēdējās 24 h",
     peak: "maks. {v}",
     show_counts: "Rādīt skaitītājus (steki, attēli…)",
@@ -1742,6 +1784,8 @@ const STRINGS = {
     url: "URL που ανοίγει το λογότυπο (προαιρετικό, εντοπίζεται από την ενσωμάτωση)",
     show_stats: "Εμφάνιση CPU, μνήμης και κοντέινερ",
     show_history: "Εμφάνιση ιστορικού 24 ωρών CPU και μνήμης",
+    threshold_warning: "πορτοκαλί από",
+    threshold_critical: "κόκκινο από",
     last_24h: "Τελευταίες 24 h",
     peak: "μέγ. {v}",
     show_counts: "Εμφάνιση μετρητών (στοίβες, εικόνες…)",
@@ -1777,6 +1821,16 @@ const lang = (hass, config) => {
 
 const t = (hass, config, key, vars = {}) =>
   String(STRINGS[lang(hass, config)][key] ?? STRINGS.en[key] ?? key).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? "");
+
+// Locale of the numbers: Home Assistant's own language when its base matches the card's language
+// (keeps the region, e.g. de-CH or fr-CA), otherwise the card's language. Home Assistant's "pt" is
+// European Portuguese, which Intl would format as Brazilian, so bare "pt" becomes "pt-PT".
+const fmtLang = (hass, config) => {
+  const l = lang(hass, config);
+  const ha = hass && (hass.locale?.language || hass.language);
+  const loc = ha && ha.split("-")[0] === l ? ha : l;
+  return loc === "pt" ? "pt-PT" : loc;
+};
 
 // Plural rules of a dictionary: pt is European Portuguese, where 0 takes the plural (Intl's "pt" is Brazilian).
 const pluralLocale = (code) => (code === "pt" ? "pt-PT" : code);
@@ -1851,6 +1905,17 @@ const bytesOf = (s) => {
 };
 
 const level = (v, warn, crit) => (v === null ? "" : v >= crit ? "crit" : v >= warn ? "warn" : "ok");
+
+// Default orange (warning) and red (critical) levels of the CPU and memory usage, in %.
+const THRESHOLDS = { cpu_warning: 70, cpu_critical: 90, memory_warning: 80, memory_critical: 95 };
+
+// [warning, critical] of a metric ("cpu" or "memory"): the configured values, else the defaults.
+const thresholds = (config, metric) =>
+  ["warning", "critical"].map((lvl) => {
+    const key = `${metric}_${lvl}`;
+    const v = config?.[key];
+    return v !== undefined && v !== null && v !== "" && Number.isFinite(Number(v)) ? Number(v) : THRESHOLDS[key];
+  });
 
 // Status → color class for containers and stacks.
 const stateClass = (state) => {
@@ -2381,9 +2446,14 @@ class DockerBase extends HTMLElement {
     return tn(this._hass, this._config, key, n, oneKey);
   }
 
-  // Locale of the numbers: the card's language.
+  // Locale of the numbers: the card's language, with Home Assistant's region when it matches.
   _loc() {
-    return pluralLocale(lang(this._hass, this._config));
+    return fmtLang(this._hass, this._config);
+  }
+
+  // Class of a CPU or memory usage against its thresholds (configured or default): ok, warn or crit.
+  _level(metric, v) {
+    return level(v, ...thresholds(this._config, metric));
   }
 
   _s(id) {
@@ -2871,9 +2941,9 @@ class DockerCard extends DockerBase {
         ICONS.cpu,
         cpu,
         cpu === null ? "—" : fmtPct(cpu, this._loc()),
-        level(cpu, 70, 90)
+        this._level("cpu", cpu)
       )}
-      ${this._gauge(memId, memLabel, ICONS.ram, mem, mem === null ? "—" : `${Math.round(mem)}%`, level(mem, 80, 95))}
+      ${this._gauge(memId, memLabel, ICONS.ram, mem, mem === null ? "—" : `${Math.round(mem)}%`, this._level("memory", mem))}
       ${this._gauge(
         cs.entity,
         `${this._t("containers")}<small>${this._t("running")}</small>`,
@@ -3273,8 +3343,8 @@ class DockerMiniCard extends DockerCard {
     const cs = this._containerStats(env);
     const runPct = cs.total ? (100 * (cs.running ?? 0)) / cs.total : null;
     const rows = [
-      this._metric(cpuId, ICONS.cpu, this._t("cpu"), cpu, cpu === null ? "—" : fmtPct(cpu, this._loc()), level(cpu, 70, 90), hist?.[cpuId]),
-      this._metric(memId, ICONS.ram, this._t("memory"), mem, mem === null ? "—" : `${Math.round(mem)}%`, level(mem, 80, 95), hist?.[memId]),
+      this._metric(cpuId, ICONS.cpu, this._t("cpu"), cpu, cpu === null ? "—" : fmtPct(cpu, this._loc()), this._level("cpu", cpu), hist?.[cpuId]),
+      this._metric(memId, ICONS.ram, this._t("memory"), mem, mem === null ? "—" : `${Math.round(mem)}%`, this._level("memory", mem), hist?.[memId]),
       this._metric(
         cs.entity,
         ICONS.container,
@@ -3341,6 +3411,14 @@ class DockerEditorBase extends HTMLElement {
         schema: [...this.constructor.toggles].map(([name]) => ({ name, selector: { boolean: {} } })),
       },
       {
+        type: "grid",
+        name: "",
+        schema: Object.keys(THRESHOLDS).map((name) => ({
+          name,
+          selector: { number: { min: 0, max: 100, step: 1, mode: "box", unit_of_measurement: "%" } },
+        })),
+      },
+      {
         name: "language",
         selector: {
           select: {
@@ -3388,12 +3466,17 @@ class DockerEditorBase extends HTMLElement {
     const toggles = this._toggles(envOf(this._config));
     if (!this._form) {
       this._form = document.createElement("ha-form");
-      this._form.computeLabel = (s) => t(this._hass, this._config, s.name);
+      this._form.computeLabel = (s) => {
+        // Threshold fields: "CPU: orange from", "Memory: red from".
+        const m = /^(cpu|memory)_(warning|critical)$/.exec(s.name);
+        const tr = (k) => t(this._hass, this._config, k);
+        return m ? `${tr(m[1])}: ${tr(`threshold_${m[2]}`)}` : tr(s.name);
+      };
       this._form.computeHelper = (s) => STRINGS[lang(this._hass, this._config)][`${s.name}_helper`];
       this._form.addEventListener("value-changed", (ev) => {
         ev.stopPropagation();
         const config = { ...ev.detail.value };
-        const defaults = Object.fromEntries(this._toggles(envOf(config)));
+        const defaults = { ...Object.fromEntries(this._toggles(envOf(config))), ...THRESHOLDS };
         for (const [k, v] of Object.entries(config)) {
           // Keep the YAML minimal: drop empty values and toggles left at their default.
           if (v === "" || v === undefined || v === null || (k in defaults && v === defaults[k])) delete config[k];
@@ -3404,7 +3487,7 @@ class DockerEditorBase extends HTMLElement {
       this.appendChild(this._form);
     }
     const data = { ...this._config };
-    for (const [name, def] of toggles) if (data[name] === undefined) data[name] = def;
+    for (const [name, def] of [...toggles, ...Object.entries(THRESHOLDS)]) if (data[name] === undefined) data[name] = def;
     if (!data.environment) data.environment = envs[0]?.value;
     this._form.hass = this._hass;
     // hass is pushed on every state change of Home Assistant while the editor is open: reassign data and

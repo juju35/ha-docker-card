@@ -30,6 +30,7 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 - Automatic discovery of the Dockhand environments, Monitor Docker instances and Portainer endpoints (several of each supported)
 - CPU, memory and running containers gauges, Docker version and connection type
 - CPU and memory over the last 24 hours, with their peak (recorder statistics), on a real time axis: missing data shows as a gap; the mini card draws them behind its CPU and memory rows
+- Configurable CPU and memory alert thresholds (orange / red)
 - Stacks, images, volumes, networks and pending updates counters
 - Stacks list with status, Git badge, sync errors and available updates
 - Optional containers list with state, health, image and available updates, a search field (filters by name) and a sort by name, CPU or memory
@@ -117,6 +118,10 @@ show_controls: true
 only_problems: false
 expand_stacks: false
 expand_containers: false
+cpu_warning: 70
+cpu_critical: 90
+memory_warning: 80
+memory_critical: 95
 language: fr
 ```
 
@@ -148,6 +153,8 @@ language: fr
 | `expand_stacks` | full | `false` | Stacks list expanded when the card loads (click the section title to fold / unfold) |
 | `expand_containers` | full | `false` | Containers list expanded when the card loads (click the section title to fold / unfold) |
 | `show_updates` | mini | `true` | Pending updates in the footer |
+| `cpu_warning` / `cpu_critical` | both | `70` / `90` | CPU usage (%) from which the CPU gauge or row turns orange / red |
+| `memory_warning` / `memory_critical` | both | `80` / `95` | Memory usage (%) from which the memory gauge or row turns orange / red |
 | `zoom` | mini | `true` | Detail button at the top right: switches to the full card and back (`false` removes it) |
 | `language` | both | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt`, `pl`, `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv` or `el` (auto-detects from HA settings) |
 

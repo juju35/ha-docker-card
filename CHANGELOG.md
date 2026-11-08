@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.4.0 - 2026-11-08
+
+### Features
+- CPU and memory alert thresholds are configurable (`cpu_warning`, `cpu_critical`, `memory_warning`, `memory_critical`, defaults 70/90 and 80/95 %), in both cards and their visual editors.
+
+### Fixes
+- Numbers keep Home Assistant's regional format when it matches the card's language (for example `de-CH` or `fr-CA`).
+
 ## 3.3.0 - 2026-11-07
 
 ### Features

@@ -3,8 +3,12 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { load } from "./load.mjs";
 
-const { DockerCard, DockerMiniCard, resolve, sameSig, fmtBytesPair, fmtBytes, fmtPct, spark } = load("docker-card.js", [
+const { DockerCard, DockerMiniCard, DockerCardEditor, DockerMiniCardEditor, resolve, sameSig, fmtBytesPair, fmtBytes, fmtPct, fmtLang, spark, thresholds } = load("docker-card.js", [
   "spark",
+  "fmtLang",
+  "thresholds",
+  "DockerCardEditor",
+  "DockerMiniCardEditor",
   "fmtBytes",
   "fmtPct",
   "DockerCard",
@@ -661,4 +665,43 @@ test("no install while unavailable or installing; a badge without install suppor
   const noControls = withUpdate();
   noControls._config.show_controls = false;
   assert.doesNotMatch(noControls._render(), /data-action="install"/);
+});
+
+test("number locale keeps Home Assistant's region when its language matches the card's", () => {
+  const hass = (language) => ({ locale: { language } });
+  assert.equal(fmtLang(hass("de-CH")), "de-CH");
+  assert.equal(fmtLang(hass("fr-CA"), { language: "fr" }), "fr-CA");
+  assert.equal(fmtLang(hass("fr-CA"), { language: "de" }), "de", "another card language drops the region");
+  assert.equal(fmtLang(hass("pt")), "pt-PT");
+  assert.equal(fmtLang(hass("pt-BR")), "pt-BR");
+  assert.equal(fmtLang(hass("sr-Latn")), "sr-Latn");
+  assert.equal(fmtLang(hass("ja")), "en");
+  const el = make(DockerCard, baseStates());
+  el._hass = { ...el._hass, locale: { language: "de-CH" } };
+  assert.equal(el._loc(), "de-CH");
+});
+
+test("CPU and memory thresholds: defaults 70/90 and 80/95, overridable in the config", () => {
+  assert.deepEqual([...thresholds({}, "cpu")], [70, 90]);
+  assert.deepEqual([...thresholds(undefined, "memory")], [80, 95]);
+  assert.deepEqual([...thresholds({ memory_warning: 60, memory_critical: "85" }, "memory")], [60, 85]);
+  assert.deepEqual([...thresholds({ cpu_warning: "", cpu_critical: "x" }, "cpu")], [70, 90], "invalid values keep the defaults");
+  const cls = (Cls, config) => {
+    const html = make(Cls, baseStates(), config)._render(); // CPU at 12 %
+    return (Cls === DockerCard ? /class="gauge clickable (\w*)" role="button" tabindex="0" data-entity="sensor\.cpu"/ : /class="metric clickable (\w*)" role="button" tabindex="0" data-entity="sensor\.cpu"/).exec(html)[1];
+  };
+  for (const Cls of [DockerCard, DockerMiniCard]) {
+    assert.equal(cls(Cls, {}), "ok");
+    assert.equal(cls(Cls, { cpu_warning: 10 }), "warn");
+    assert.equal(cls(Cls, { cpu_warning: 10, cpu_critical: 12 }), "crit");
+  }
+});
+
+test("Editors: CPU and memory threshold fields in the full and mini card editors", () => {
+  for (const Editor of [DockerCardEditor, DockerMiniCardEditor]) {
+    const editor = new Editor();
+    editor._config = {};
+    const names = editor._schema([]).flatMap((s) => (s.schema ? [...s.schema] : [s])).map((s) => s.name);
+    for (const n of ["cpu_warning", "cpu_critical", "memory_warning", "memory_critical"]) assert.ok(names.includes(n), `${Editor.name} ${n}`);
+  }
 });

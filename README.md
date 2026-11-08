@@ -29,7 +29,7 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 - Two cards: a full **Docker Card** and a compact **Docker Mini Card**
 - Automatic discovery of the Dockhand environments, Monitor Docker instances and Portainer endpoints (several of each supported)
 - CPU, memory and running containers gauges, Docker version and connection type
-- CPU and memory over the last 24 hours, with their peak (recorder statistics), on a real time axis: missing data shows as a gap; the mini card draws them behind its CPU and memory rows
+- CPU and RAM over the last 24 hours (recorder statistics), drawn behind the CPU and RAM gauges and, on the mini card, behind the CPU and RAM rows, on a real time axis: missing data shows as a gap
 - Configurable CPU and memory alert thresholds (orange / red)
 - Stacks, images, volumes, networks and pending updates counters
 - Stacks list with status, Git badge, sync errors and available updates
@@ -110,7 +110,7 @@ type: custom:docker-card
 environment: Docker host
 title: Docker
 url: http://192.168.1.10:3000
-show_stats: true
+show_system: true
 show_counts: true
 show_stacks: true
 show_containers: true
@@ -120,8 +120,8 @@ expand_stacks: false
 expand_containers: false
 cpu_warning: 70
 cpu_critical: 90
-memory_warning: 80
-memory_critical: 95
+ram_warning: 80
+ram_critical: 95
 language: fr
 ```
 
@@ -143,8 +143,8 @@ language: fr
 | `environment` | both | First environment | Environment to display. Dockhand: its name (as shown in Dockhand) or its Home Assistant device id (set by the visual editor). Monitor Docker: `monitor_docker.<prefix>` (`monitor_docker.docker` for `name: Docker`). Portainer: the endpoint name or its device id |
 | `title` | both | Environment name | Card title |
 | `url` | both | Detected | Address opened in a new tab when clicking the header icon. Defaults to the Dockhand web UI known by the integration, or [dockhand.pro](https://dockhand.pro) if none ([Monitor Docker](https://github.com/ualex73/monitor_docker) for a Monitor Docker instance). Portainer: the endpoint dashboard in Portainer |
-| `show_stats` | full | `true` | CPU, memory and running containers gauges |
-| `show_history` | both | `true` | CPU and memory curves of the last 24 hours, from the recorder's 5-minute statistics, placed on a 24 h time axis with a gap where data is missing (shown once the statistics exist). Full card: under the gauges (needs `show_stats`); mini card: behind the CPU and memory rows. Not for Portainer, which has no host usage sensor |
+| `show_system` | full | `true` | CPU, RAM and running containers gauges (`show_stats` before 3.5.0, still read) |
+| `show_history` | both | `true` | CPU and RAM curves of the last 24 hours (0-100 % scale), from the recorder's 5-minute statistics, placed on a 24 h time axis with a gap where data is missing (shown once the statistics exist). Full card: behind the CPU and RAM gauges (needs `show_system`); mini card: behind the CPU and RAM rows. Not for Portainer, which has no host usage sensor |
 | `show_counts` | full | `true` | Stacks, images, volumes, networks and updates counters |
 | `show_stacks` | full | `true` | Stacks list |
 | `show_containers` | full | `false` (`true` for Monitor Docker) | Containers list |
@@ -154,7 +154,7 @@ language: fr
 | `expand_containers` | full | `false` | Containers list expanded when the card loads (click the section title to fold / unfold) |
 | `show_updates` | mini | `true` | Pending updates in the footer |
 | `cpu_warning` / `cpu_critical` | both | `70` / `90` | CPU usage (%) from which the CPU gauge or row turns orange / red |
-| `memory_warning` / `memory_critical` | both | `80` / `95` | Memory usage (%) from which the memory gauge or row turns orange / red |
+| `ram_warning` / `ram_critical` | both | `80` / `95` | RAM usage (%) from which the RAM gauge or row turns orange / red (`memory_warning` / `memory_critical` before 3.5.0, still read) |
 | `zoom` | mini | `true` | Detail button at the top right: switches to the full card and back (`false` removes it) |
 | `language` | both | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt`, `pl`, `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv` or `el` (auto-detects from HA settings) |
 
@@ -277,7 +277,7 @@ Thresholds:
 | Value | Orange | Red |
 |---|---|---|
 | CPU usage | 70 % | 90 % |
-| Memory usage | 80 % | 95 % |
+| RAM usage | 80 % | 95 % |
 | Containers | some are not running or unhealthy | — |
 
 ## Development

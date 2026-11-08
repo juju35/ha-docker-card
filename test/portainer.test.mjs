@@ -150,7 +150,7 @@ test("containers list: search filters by name, sort by CPU or memory puts the hi
   const names = (html) => [...html.matchAll(/<div class="title"><span>([^<]+)<\/span>/g)].map((m) => m[1]).filter((n) => n === "web" || n === "grafana");
   let html = el._render();
   assert.match(html, /<input type="search" data-ctl="search" placeholder="Search containers"/);
-  assert.match(html, /<select class="ct-sort" data-ctl="sort"[^>]*><option value="name" selected>Name<\/option><option value="cpu">CPU<\/option><option value="memory">Memory<\/option><\/select>/);
+  assert.match(html, /<select class="ct-sort" data-ctl="sort"[^>]*><option value="name" selected>Name<\/option><option value="cpu">CPU<\/option><option value="memory">RAM<\/option><\/select>/);
   same(names(html), ["grafana", "web"]);
   el._ctSort = "cpu";
   html = el._render();
@@ -160,7 +160,7 @@ test("containers list: search filters by name, sort by CPU or memory puts the hi
   el._ctSort = "memory";
   html = el._render();
   same(names(html), ["grafana", "web"]);
-  assert.match(html, /<div class="detail">1\.86 GB · /);
+  assert.match(html, /<div class="detail">1\.86 GiB · /);
   el._ctQuery = "GRAF";
   html = el._render();
   same(names(html), ["grafana"]);

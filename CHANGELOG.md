@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.5.0 - 2026-11-08
+
+### Changes
+- Display aligned with the other cards (system-monitor, internet-box, switch): the memory gauge and row are labelled **RAM**, sizes use binary units (`GiB`, `MiB`), the host CPU shows a whole percentage like the RAM.
+- Full card: the 24 h CPU and RAM curves are drawn behind their gauges on a 0-100 % scale, as on system-monitor-card; the separate "Last 24 h" section and its peak values are gone.
+- Mini card: the curves use the same opacity as the other cards.
+- Options renamed: `show_stats` → `show_system`, `memory_warning` / `memory_critical` → `ram_warning` / `ram_critical`; the old names are still read.
+
 ## 3.4.0 - 2026-11-08
 
 ### Features

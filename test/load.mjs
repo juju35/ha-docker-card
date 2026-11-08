@@ -11,6 +11,9 @@ export const load = (file, names) => {
       return this.shadowRoot;
     }
     dispatchEvent() {}
+    setAttribute(name, value) {
+      (this.attributes ??= {})[name] = String(value);
+    }
   }
   const registry = new Map();
   const context = {

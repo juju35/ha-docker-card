@@ -29,7 +29,7 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 - Two cards: a full **Docker Card** and a compact **Docker Mini Card**
 - Automatic discovery of the Dockhand environments, Monitor Docker instances and Portainer endpoints (several of each supported)
 - CPU, memory and running containers gauges, Docker version and connection type
-- CPU and memory over the last 24 hours, with their peak (recorder statistics), on a real time axis: missing data shows as a gap
+- CPU and memory over the last 24 hours, with their peak (recorder statistics), on a real time axis: missing data shows as a gap; the mini card draws them behind its CPU and memory rows
 - Stacks, images, volumes, networks and pending updates counters
 - Stacks list with status, Git badge, sync errors and available updates
 - Optional containers list with state, health, image and available updates, a search field (filters by name) and a sort by name, CPU or memory
@@ -125,6 +125,7 @@ type: custom:docker-mini-card
 environment: Docker host
 title: Docker
 url: http://192.168.1.10:3000
+show_history: true
 show_updates: true
 zoom: true
 language: fr
@@ -138,7 +139,7 @@ language: fr
 | `title` | both | Environment name | Card title |
 | `url` | both | Detected | Address opened in a new tab when clicking the header icon. Defaults to the Dockhand web UI known by the integration, or [dockhand.pro](https://dockhand.pro) if none ([Monitor Docker](https://github.com/ualex73/monitor_docker) for a Monitor Docker instance). Portainer: the endpoint dashboard in Portainer |
 | `show_stats` | full | `true` | CPU, memory and running containers gauges |
-| `show_history` | full | `true` | CPU and memory curves of the last 24 hours under the gauges, from the recorder's 5-minute statistics, placed on a 24 h time axis with a gap where data is missing (shown once the statistics exist; needs `show_stats`) |
+| `show_history` | both | `true` | CPU and memory curves of the last 24 hours, from the recorder's 5-minute statistics, placed on a 24 h time axis with a gap where data is missing (shown once the statistics exist). Full card: under the gauges (needs `show_stats`); mini card: behind the CPU and memory rows. Not for Portainer, which has no host usage sensor |
 | `show_counts` | full | `true` | Stacks, images, volumes, networks and updates counters |
 | `show_stacks` | full | `true` | Stacks list |
 | `show_containers` | full | `false` (`true` for Monitor Docker) | Containers list |
@@ -215,7 +216,7 @@ Like for Dockhand, its entities are found through the Home Assistant registries 
 | Stacks list | Status, container count and start / stop switch |
 | Containers list | State, health, image, image update, start / stop switch and restart button |
 
-Portainer has no host usage sensor: enable the **Total CPU** sensor of the endpoint (disabled by default) for the CPU gauge, and **Total memory** for an exact memory gauge. **Docker version**, **Operating system** and **Architecture** (also disabled by default) fill the header. The CPU and memory usage sensors of the containers are diagnostic entities, enabled by default.
+Portainer has no host usage sensor: enable the **Total CPU** sensor of the endpoint (disabled by default) for the CPU gauge, and **Total memory** for an exact memory gauge. **Docker version**, **Operating system** and **Architecture** (also disabled by default) fill the header. With no host usage sensor, there are no 24 h CPU and memory curves either. The CPU and memory usage sensors of the containers are diagnostic entities, enabled by default.
 
 | Light | Dark |
 |---|---|

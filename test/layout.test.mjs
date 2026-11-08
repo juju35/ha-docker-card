@@ -72,6 +72,7 @@ const measure = async (cards) => {
           titleCenter: center(name),
           chipCenter: center(chip),
           hasSub: !!r.querySelector(".header .sub"),
+          logo: Math.round(rect(r.querySelector(".header .logo")).width),
           outside,
           bars: [...r.querySelectorAll(".metric .bar")].map((n) => Math.round(rect(n).width)),
           clipped: [...r.querySelectorAll(".metric .v, .gauge .val b")].filter((n) => n.scrollWidth > n.clientWidth + 0.5).map((n) => n.textContent),
@@ -109,6 +110,9 @@ test("narrow widths: title kept, nothing out of the card, bars and values visibl
     for (const b of m.bars) assert.ok(b >= 20, `${at}: bar only ${b}px wide`);
     assert.deepEqual(m.clipped, [], `${at}: clipped values`);
     assert.equal(m.gaugeOverflow, 0, `${at}: gauge content wider than its column`);
+    // The mini card's header icon keeps its 40 px at every width, compact or detailed; only the full card's shrinks.
+    if (m.type !== "docker-card") assert.equal(m.logo, 40, `${at}: header icon ${m.logo}px`);
+    else assert.equal(m.logo, m.width < 240 ? 32 : 40, `${at}: header icon ${m.logo}px`);
   }
 });
 

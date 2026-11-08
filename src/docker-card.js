@@ -1804,8 +1804,24 @@ const num = (s) => {
 // Counter value as shown: a dash while the sensor is unknown or unavailable.
 const countText = (s) => (!s || s.state === "unknown" || s.state === "unavailable" ? "—" : s.state);
 
-const fmtBytes = (b) => {
-  if (b === null || b === undefined || !Number.isFinite(Number(b))) return "—";
+// Number in the card's language ("1,5" in French): at most `max` decimals, exactly `max` when `fixed`.
+const _numFormats = new Map();
+const fmtNum = (v, locale, max, fixed = false) => {
+  const key = `${locale}|${max}|${fixed}`;
+  let f = _numFormats.get(key);
+  if (!f) {
+    f = new Intl.NumberFormat(locale, { maximumFractionDigits: max, minimumFractionDigits: fixed ? max : 0 });
+    _numFormats.set(key, f);
+  }
+  return f.format(v);
+};
+
+// Usage percentage: one decimal under 10 % ("4.2%", "4,2%" in French), whole numbers above.
+const fmtPct = (v, locale = "en") => `${v < 10 ? fmtNum(v, locale, 1, true) : fmtNum(Math.round(v), locale, 0)}%`;
+
+// Data size as [value, unit]: 2 decimals under 10, 1 under 100, none above (trailing zeros dropped).
+const bytesParts = (b, locale = "en") => {
+  if (b === null || b === undefined || !Number.isFinite(Number(b))) return null;
   b = Number(b);
   const units = ["B", "KB", "MB", "GB", "TB"];
   let i = 0;
@@ -1813,15 +1829,17 @@ const fmtBytes = (b) => {
     b /= 1024;
     i++;
   }
-  const v = b >= 100 || i === 0 ? b.toFixed(0) : b.toFixed(b >= 10 ? 1 : 2);
-  return `${v.includes(".") ? v.replace(/\.?0+$/, "") : v} ${units[i]}`;
+  return [fmtNum(b, locale, b >= 100 || i === 0 ? 0 : b >= 10 ? 1 : 2), units[i]];
 };
 
+const fmtBytes = (b, locale) => bytesParts(b, locale)?.join(" ") ?? "—";
+
 // "used / total" label: the unit of used is dropped only when it matches the total's.
-const fmtBytesPair = (used, total) => {
-  const u = fmtBytes(used);
-  const t = fmtBytes(total);
-  return `${u.split(" ")[1] === t.split(" ")[1] ? u.split(" ")[0] : u} / ${t}`;
+const fmtBytesPair = (used, total, locale) => {
+  const u = bytesParts(used, locale);
+  const t = bytesParts(total, locale);
+  if (!u || !t) return `${fmtBytes(used, locale)} / ${fmtBytes(total, locale)}`;
+  return `${u[1] === t[1] ? u[0] : u.join(" ")} / ${t.join(" ")}`;
 };
 
 // A data size state in bytes, whatever unit Home Assistant displays it in (Portainer suggests MB).
@@ -1927,6 +1945,8 @@ const svgIcon = (path, cls = "") => `<svg class="icon ${cls}" viewBox="0 0 24 24
 
 const _cache = new WeakMap();
 const _mdCache = new WeakMap();
+// Last Monitor Docker discovery (see monitorDockerEnvs).
+let _mdIds = null;
 
 /**
  * Model shared by every source:
@@ -1938,10 +1958,23 @@ const resolve = (hass) => {
   if (!registry || !hass.states) return registry;
   const cached = _mdCache.get(hass.states);
   if (cached && cached.registry === registry && cached.entities === hass.entities) return cached.model;
-  const md = resolveMonitorDocker(hass.states, hass.entities);
-  const model = md.length ? { envs: [...registry.envs, ...md] } : registry;
+  const md = monitorDockerEnvs(hass.states, hass.entities);
+  if (md.envs.length && md.registry !== registry) md.model = { envs: [...registry.envs, ...md.envs] };
+  md.registry = registry;
+  const model = md.envs.length ? md.model : registry;
   _mdCache.set(hass.states, { registry, entities: hass.entities, model });
   return model;
+};
+
+// Monitor Docker environments, found again only when an entity id appears or disappears (or the registry
+// changes): its instances and containers are known by their entity ids, set when Monitor Docker starts, so a
+// state change (every few seconds) no longer rescans and regex-matches every state of Home Assistant.
+const monitorDockerEnvs = (states, entities) => {
+  const ids = Object.keys(states);
+  const hit = _mdIds;
+  if (hit && hit.entities === entities && hit.ids.length === ids.length && hit.ids.every((id) => id in states)) return hit;
+  _mdIds = { ids, entities, envs: resolveMonitorDocker(states, entities) };
+  return _mdIds;
 };
 
 // Portainer (core integration, 2025.10+): its translation keys mapped to the ones the cards read (Dockhand's),
@@ -2192,8 +2225,9 @@ const BASE_STYLE = `
   .header:has(.sub) .chip { align-self: flex-start; margin-top: 1px; }
   @container (max-width: 239px) {
     .header { gap: 6px; }
-    .header .logo { height: 32px; width: 32px; }
-    .header .logo .icon { width: 18px; height: 18px; }
+    /* The full card's icon draws smaller; the mini card's keeps its 40 px, compact or detailed view. */
+    :host(:not([mini])) .header .logo { height: 32px; width: 32px; }
+    :host(:not([mini])) .header .logo .icon { width: 18px; height: 18px; }
     /* Only the coloured dot, in an 18 px chip that no longer shrinks: its text stays in title and aria-label. */
     .header .chip { flex: none; padding: 6px; }
     .header .chip .chip-label { display: none; }
@@ -2345,6 +2379,11 @@ class DockerBase extends HTMLElement {
 
   _tn(key, n, oneKey) {
     return tn(this._hass, this._config, key, n, oneKey);
+  }
+
+  // Locale of the numbers: the card's language.
+  _loc() {
+    return pluralLocale(lang(this._hass, this._config));
   }
 
   _s(id) {
@@ -2824,14 +2863,14 @@ class DockerCard extends DockerBase {
     const { cpu, mem, cores, used, total, cpuId, memId } = this._host(env);
     const cs = this._containerStats(env);
     const runPct = cs.total ? (100 * (cs.running ?? 0)) / cs.total : null;
-    const memLabel = used && total ? `${this._t("memory")}<small>${fmtBytesPair(used, total)}</small>` : this._t("memory");
+    const memLabel = used && total ? `${this._t("memory")}<small>${fmtBytesPair(used, total, this._loc())}</small>` : this._t("memory");
     return `<div class="gauges">
       ${this._gauge(
         cpuId,
         cores ? `${this._t("cpu")}<small>${esc(cores)} ${esc(this._tn("cores", cores))}</small>` : this._t("cpu"),
         ICONS.cpu,
         cpu,
-        cpu === null ? "—" : `${cpu < 10 ? cpu.toFixed(1) : Math.round(cpu)}%`,
+        cpu === null ? "—" : fmtPct(cpu, this._loc()),
         level(cpu, 70, 90)
       )}
       ${this._gauge(memId, memLabel, ICONS.ram, mem, mem === null ? "—" : `${Math.round(mem)}%`, level(mem, 80, 95))}
@@ -2846,17 +2885,30 @@ class DockerCard extends DockerBase {
     </div>`;
   }
 
+  // The host CPU and memory usage sensors whose 24 h history is drawn (none when show_history is false).
+  // Portainer has none: its CPU and memory entities are the core count and the total memory, whose curves
+  // would only draw a flat line labelled as usage.
+  _usageIds(env) {
+    if (this._config.show_history === false || env.source === "portainer") return {};
+    const { cpuId, memId } = this._host(env);
+    return { cpuId, memId };
+  }
+
+  // 24 h usage points of the host CPU and memory sensors, { [id]: [{ t, v }] } (nothing yet at first).
+  _usageHist(env) {
+    const { cpuId, memId } = this._usageIds(env);
+    return { cpuId, memId, hist: this._history([cpuId, memId].filter(Boolean)) };
+  }
+
   // CPU and memory over the last 24 hours, one tile each, from the recorder's 5-minute statistics.
   _usageHistory(env) {
-    if (this._config.show_history === false) return "";
-    const { cpuId, memId } = this._host(env);
-    const hist = this._history([cpuId, memId].filter(Boolean));
+    const { cpuId, memId, hist } = this._usageHist(env);
     const tile = (id, cls, label) => {
       const points = hist?.[id];
       if (!points || points.length < 2) return "";
       const peak = Math.max(...points.map((p) => p.v));
       return `<div class="htile clickable ${cls}" role="button" tabindex="0" data-entity="${esc(id)}">${spark(points, this._histEnd)}<span class="k">${label}</span><span class="m">${esc(
-        this._t("peak", { v: `${peak < 10 ? peak.toFixed(1) : Math.round(peak)}%` })
+        this._t("peak", { v: fmtPct(peak, this._loc()) })
       )}</span></div>`;
     };
     const tiles = tile(cpuId, "cpu", this._t("cpu")) + tile(memId, "mem", this._t("memory"));
@@ -3037,7 +3089,7 @@ class DockerCard extends DockerBase {
       const image = state?.attributes?.image || known(this._s(e._image));
       const name = state?.attributes?.name || ct.name;
       // Sorted by CPU or memory: that value leads the detail line.
-      const value = sort === "cpu" && usage.cpu !== null ? `${usage.cpu < 10 ? usage.cpu.toFixed(1) : Math.round(usage.cpu)}%` : sort === "memory" && usage.mem !== null ? fmtBytes(usage.mem) : null;
+      const value = sort === "cpu" && usage.cpu !== null ? fmtPct(usage.cpu, this._loc()) : sort === "memory" && usage.mem !== null ? fmtBytes(usage.mem, this._loc()) : null;
       return {
         problem,
         usage,
@@ -3107,13 +3159,19 @@ class DockerCard extends DockerBase {
 // ---------------------------------------------------------------------------
 
 const MINI_STYLE = `
-  /* The header icon keeps the full card's 40 px (only the narrow-card rule of BASE_STYLE draws it smaller), taller
-     than the two title lines: centred, like on the full card. */
+  /* The header icon keeps the full card's 40 px at every width (the narrow-card rule of BASE_STYLE skips :host([mini])),
+     taller than the two title lines: centred, like on the full card. */
   .name { font-size: 16px; }
   .content { padding: 0 12px 12px; display: flex; flex-direction: column; gap: 8px; }
   /* Label column of up to 86 px (the bars line up across rows), a bar of at least 24 px, the value at its width. */
   .metric { display: grid; grid-template-columns: 18px minmax(0, 86px) minmax(24px, 1fr) minmax(44px, auto); align-items: center; gap: 8px; font-size: 13px; }
   .metric .icon { color: var(--secondary-text-color); }
+  /* 24 h curve behind the CPU and memory rows (the recorder's 5-minute means), in the row's colour. */
+  .metric { position: relative; }
+  .metric > :not(.spark) { position: relative; }
+  .metric .spark { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; }
+  .spark-a { fill: color-mix(in srgb, var(--c, var(--dh-ok)) 7%, transparent); }
+  .spark-l { fill: none; stroke: color-mix(in srgb, var(--c, var(--dh-ok)) 40%, transparent); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
   /* Fixed label column (the bars line up across rows): a longer translation is cut, never drawn over the bar. */
   .metric .lbl { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .metric .v { text-align: right; font-weight: 500; white-space: nowrap; }
@@ -3163,6 +3221,7 @@ class DockerMiniCard extends DockerCard {
   // otherwise stay zoomed in.
   setConfig(config) {
     this._zoomed = false;
+    this.setAttribute("mini", "");
     super.setConfig(config);
   }
 
@@ -3170,8 +3229,9 @@ class DockerMiniCard extends DockerCard {
     return this._zoomed ? super.getCardSize() : 3;
   }
 
+  // rows: "auto" in both views: the Sections grid sizes the card to its content (compact rows, or the full card).
   getGridOptions() {
-    return this._zoomed ? super.getGridOptions() : { columns: 6, min_columns: 6 };
+    return { ...(this._zoomed ? super.getGridOptions() : { columns: 6, min_columns: 6 }), rows: "auto" };
   }
 
   _setZoom(zoomed) {
@@ -3194,9 +3254,10 @@ class DockerMiniCard extends DockerCard {
     return `<button type="button" class="zoom" title="${esc(this._t(z ? "zoom_out" : "zoom_in"))}">${svgIcon(z ? ICONS.collapse : ICONS.expand)}</button>`;
   }
 
-  _metric(id, icon, label, pct, display, cls) {
+  // A row: icon, label, bar and value, over its 24 h sparkline when there is one.
+  _metric(id, icon, label, pct, display, cls, points) {
     return `<div class="metric clickable ${cls}" role="button" tabindex="0" data-entity="${esc(id || "")}" aria-label="${esc(label)} ${display}">
-      ${svgIcon(icon)}<span class="lbl">${label}</span>
+      ${spark(points, this._histEnd)}${svgIcon(icon)}<span class="lbl">${label}</span>
       <div class="bar"><div style="width:${pct === null ? 0 : Math.max(0, Math.min(100, pct))}%"></div></div>
       <span class="v">${display}</span>
     </div>`;
@@ -3208,11 +3269,12 @@ class DockerMiniCard extends DockerCard {
     if (error) return this._error(error);
     const e = env.entities;
     const { cpu, mem, cpuId, memId } = this._host(env);
+    const { hist } = this._usageHist(env);
     const cs = this._containerStats(env);
     const runPct = cs.total ? (100 * (cs.running ?? 0)) / cs.total : null;
     const rows = [
-      this._metric(cpuId, ICONS.cpu, this._t("cpu"), cpu, cpu === null ? "—" : `${cpu < 10 ? cpu.toFixed(1) : Math.round(cpu)}%`, level(cpu, 70, 90)),
-      this._metric(memId, ICONS.ram, this._t("memory"), mem, mem === null ? "—" : `${Math.round(mem)}%`, level(mem, 80, 95)),
+      this._metric(cpuId, ICONS.cpu, this._t("cpu"), cpu, cpu === null ? "—" : fmtPct(cpu, this._loc()), level(cpu, 70, 90), hist?.[cpuId]),
+      this._metric(memId, ICONS.ram, this._t("memory"), mem, mem === null ? "—" : `${Math.round(mem)}%`, level(mem, 80, 95), hist?.[memId]),
       this._metric(
         cs.entity,
         ICONS.container,
@@ -3386,6 +3448,7 @@ class DockerCardEditor extends DockerEditorBase {
 class DockerMiniCardEditor extends DockerEditorBase {
   static get toggles() {
     return [
+      ["show_history", true],
       ["show_updates", true],
       ["zoom", true],
     ];

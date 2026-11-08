@@ -3,8 +3,10 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { load } from "./load.mjs";
 
-const { DockerCard, DockerMiniCard, resolve, sameSig, fmtBytesPair, spark } = load("docker-card.js", [
+const { DockerCard, DockerMiniCard, resolve, sameSig, fmtBytesPair, fmtBytes, fmtPct, spark } = load("docker-card.js", [
   "spark",
+  "fmtBytes",
+  "fmtPct",
   "DockerCard",
   "DockerMiniCard",
   "resolve",
@@ -131,11 +133,12 @@ test("the mini card detail button switches to the full card content and back", (
   assert.equal(el.html.replace(/<button type="button" class="zoom"[\s\S]*?<\/button>/, ""), full._render());
   assert.match(el.html, /<button type="button" class="zoom" title="Back to the compact view">/);
   assert.equal(el.getCardSize(), full.getCardSize());
-  assert.deepEqual({ ...el.getGridOptions() }, { ...full.getGridOptions() });
+  assert.deepEqual({ ...el.getGridOptions() }, { ...full.getGridOptions(), rows: "auto" });
   el._zoomClick(zoomButton());
   assert.equal(el._zoomed, false);
   assert.match(el.html, /class="metric/);
   assert.equal(el.getCardSize(), 3);
+  assert.deepEqual({ ...el.getGridOptions() }, { columns: 6, min_columns: 6, rows: "auto" });
 });
 
 test("a click outside the mini card collapses it, a click inside or in a dialog does not", () => {
@@ -166,6 +169,21 @@ test("memory label keeps the used unit when it differs from the total's", () => 
   const GB = 1024 ** 3;
   assert.equal(fmtBytesPair(980 * 1024 ** 2, 62.5 * GB), "980 MB / 62.5 GB");
   assert.equal(fmtBytesPair(12.3 * GB, 62.5 * GB), "12.3 / 62.5 GB");
+});
+
+test("numbers use the card's language: decimal comma in French, dot in English", () => {
+  const GB = 1024 ** 3;
+  assert.equal(fmtBytesPair(12.3 * GB, 62.5 * GB, "fr"), "12,3 / 62,5 GB");
+  assert.equal(fmtBytes(1.5 * GB, "de"), "1,5 GB");
+  assert.equal(fmtBytes(1.5 * GB), "1.5 GB");
+  assert.equal(fmtPct(4.2, "fr"), "4,2%");
+  assert.equal(fmtPct(4, "en"), "4.0%");
+  assert.equal(fmtPct(42.4, "fr"), "42%");
+  const states = baseStates();
+  states["sensor.cpu"] = { ...states["sensor.cpu"], state: "4.2" };
+  assert.match(make(DockerCard, states, { language: "fr" })._render(), /<b>4,2%<\/b>/);
+  assert.match(make(DockerMiniCard, states, { language: "fr" })._render(), /<span class="v">4,2%<\/span>/);
+  assert.match(make(DockerCard, states, { language: "en" })._render(), /<b>4\.2%<\/b>/);
 });
 
 test("getCardSize applies the only_problems filter, as the rendered sections do", () => {
@@ -458,11 +476,18 @@ test("header icon: the Docker icon in the status color, a link to Dockhand", () 
   assert.match(icon("on", { show_logo: false }), /^ok /);
 });
 
-test("the mini card keeps the full card's header icon size", () => {
+test("the mini card keeps the full card's header icon size, even on a narrow card", () => {
   const src = readFileSync(new URL("../src/docker-card.js", import.meta.url), "utf8");
   const mini = src.match(/const MINI_STYLE = `([\s\S]*?)`;/)[1].replace(/\/\*[\s\S]*?\*\//g, "");
   assert.doesNotMatch(mini, /\.logo[^{]*\{/, "MINI_STYLE does not resize or move the header icon");
   assert.match(src, /\.logo \{ height: 40px; width: 40px;/);
+  // The narrow-card rule that draws the icon at 32 px leaves the mini card (its mini attribute) out.
+  const base = src.match(/const BASE_STYLE = `([\s\S]*?)`;/)[1].replace(/\/\*[\s\S]*?\*\//g, "");
+  for (const rule of base.match(/[^{}]*\.logo[^{]*\{[^}]*height: 32px[^}]*\}/g) || []) assert.match(rule, /:host\(:not\(\[mini\]\)\)/);
+  const el = new DockerMiniCard();
+  el._update = () => {};
+  el.setConfig({});
+  assert.equal(el.attributes?.mini, "");
 });
 
 test("the card types before 2.0 still render the cards", () => {
@@ -511,6 +536,41 @@ test("CPU and memory 24 h history from the recorder statistics, refreshed every 
   off._config = { show_history: false };
   off._hass = el._hass;
   assert.doesNotMatch(off._render(), /class="hist"/);
+  assert.equal(calls.length, 1);
+});
+
+test("mini card: 24 h sparklines behind the CPU and memory rows, none with show_history: false", async () => {
+  const calls = [];
+  const states = baseStates();
+  const hass = {
+    states,
+    entities,
+    devices,
+    language: "en",
+    callWS: async (msg) => {
+      calls.push(msg);
+      const t0 = Date.now() - 3600000;
+      return Object.fromEntries(msg.statistic_ids.map((id) => [id, [10, 40, 20].map((mean, i) => ({ start: t0 + i * 300000, mean }))]));
+    },
+  };
+  const el = new DockerMiniCard();
+  el._config = {};
+  el._hass = hass;
+  el._update = () => {
+    el.html = el._render();
+  };
+  el._update();
+  assert.equal(calls.length, 1);
+  assert.doesNotMatch(el.html, /class="spark"/);
+  await new Promise((r) => setTimeout(r, 0));
+  const cpuRow = el.html.match(/<div class="metric[^"]*"[^>]*data-entity="sensor\.cpu"[^>]*>([\s\S]*?)<\/div>\s*<\/div>/)?.[1] || "";
+  assert.match(cpuRow, /^\s*<svg class="spark"/, "the sparkline is drawn first, behind the row");
+  assert.equal(el.html.match(/class="spark"/g).length, 1, "only the rows with a usage history get one");
+
+  const off = new DockerMiniCard();
+  off._config = { show_history: false };
+  off._hass = hass;
+  assert.doesNotMatch(off._render(), /class="spark"/);
   assert.equal(calls.length, 1);
 });
 

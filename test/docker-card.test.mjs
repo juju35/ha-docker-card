@@ -3,8 +3,9 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { load } from "./load.mjs";
 
-const { DockerCard, DockerMiniCard, DockerCardEditor, DockerMiniCardEditor, resolve, sameSig, fmtBytesPair, fmtBytes, fmtPct, fmtLang, spark, thresholds } = load("docker-card.js", [
+const { DockerCard, DockerMiniCard, DockerCardEditor, DockerMiniCardEditor, resolve, sameSig, fmtBytesPair, fmtBytes, fmtPct, fmtLang, spark, thresholds, normalizeConfig } = load("docker-card.js", [
   "spark",
+  "normalizeConfig",
   "fmtLang",
   "thresholds",
   "DockerCardEditor",
@@ -100,7 +101,8 @@ test("unknown or unavailable counters are shown as a dash", () => {
 test("getCardSize follows the sections shown and the open lists", () => {
   const states = baseStates();
   assert.equal(make(DockerCard, states, {}).getCardSize(), 4);
-  assert.equal(make(DockerCard, states, { show_stats: false, show_counts: false }).getCardSize(), 1);
+  assert.equal(make(DockerCard, states, { show_system: false, show_counts: false }).getCardSize(), 1);
+  assert.equal(make(DockerCard, states, normalizeConfig({ show_stats: false, show_counts: false })).getCardSize(), 1, "show_stats (before 3.5) still read");
   assert.equal(make(DockerCard, states, { show_containers: true }).getCardSize(), 5);
   assert.equal(make(DockerCard, states, { show_containers: true, expand_containers: true }).getCardSize(), 6);
 });
@@ -171,23 +173,23 @@ test("zoom: false removes the mini card detail button, the full card has none", 
 
 test("memory label keeps the used unit when it differs from the total's", () => {
   const GB = 1024 ** 3;
-  assert.equal(fmtBytesPair(980 * 1024 ** 2, 62.5 * GB), "980 MB / 62.5 GB");
-  assert.equal(fmtBytesPair(12.3 * GB, 62.5 * GB), "12.3 / 62.5 GB");
+  assert.equal(fmtBytesPair(980 * 1024 ** 2, 62.5 * GB), "980 MiB / 62.5 GiB");
+  assert.equal(fmtBytesPair(12.3 * GB, 62.5 * GB), "12.3 / 62.5 GiB");
 });
 
 test("numbers use the card's language: decimal comma in French, dot in English", () => {
   const GB = 1024 ** 3;
-  assert.equal(fmtBytesPair(12.3 * GB, 62.5 * GB, "fr"), "12,3 / 62,5 GB");
-  assert.equal(fmtBytes(1.5 * GB, "de"), "1,5 GB");
-  assert.equal(fmtBytes(1.5 * GB), "1.5 GB");
+  assert.equal(fmtBytesPair(12.3 * GB, 62.5 * GB, "fr"), "12,3 / 62,5 GiB");
+  assert.equal(fmtBytes(1.5 * GB, "de"), "1,5 GiB");
+  assert.equal(fmtBytes(1.5 * GB), "1.5 GiB");
   assert.equal(fmtPct(4.2, "fr"), "4,2%");
   assert.equal(fmtPct(4, "en"), "4.0%");
   assert.equal(fmtPct(42.4, "fr"), "42%");
+  // Host CPU and RAM: whole percentages, like the other cards.
   const states = baseStates();
-  states["sensor.cpu"] = { ...states["sensor.cpu"], state: "4.2" };
-  assert.match(make(DockerCard, states, { language: "fr" })._render(), /<b>4,2%<\/b>/);
-  assert.match(make(DockerMiniCard, states, { language: "fr" })._render(), /<span class="v">4,2%<\/span>/);
-  assert.match(make(DockerCard, states, { language: "en" })._render(), /<b>4\.2%<\/b>/);
+  states["sensor.cpu"] = { ...states["sensor.cpu"], state: "4.6" };
+  assert.match(make(DockerCard, states, { language: "fr" })._render(), /<b>5%<\/b>/);
+  assert.match(make(DockerMiniCard, states, { language: "fr" })._render(), /<span class="v">5%<\/span>/);
 });
 
 test("getCardSize applies the only_problems filter, as the rendered sections do", () => {
@@ -528,18 +530,19 @@ test("CPU and memory 24 h history from the recorder statistics, refreshed every 
   assert.equal(calls.length, 1);
   assert.equal(calls[0].type, "recorder/statistics_during_period");
   assert.ok(calls[0].statistic_ids.length >= 1);
-  assert.doesNotMatch(el.html, /class="hist"/);
+  // The curves are drawn behind the CPU and RAM gauges, on a 0-100 scale, once the statistics arrive.
+  const gaugeSpark = /class="gauge clickable \w*" role="button" tabindex="0" data-entity="sensor\.cpu"><svg class="spark"/;
+  assert.doesNotMatch(el.html, gaugeSpark);
   await new Promise((r) => setTimeout(r, 0));
-  assert.match(el.html, /class="hist"/);
-  assert.match(el.html, /Last 24 <span class="unit">h<\/span>/);
-  assert.match(el.html, /max 40%/);
+  assert.match(el.html, gaugeSpark);
+  assert.doesNotMatch(el.html, /Last 24/);
   el._update();
   assert.equal(calls.length, 1, "no new query within 5 minutes");
 
   const off = new DockerCard();
   off._config = { show_history: false };
   off._hass = el._hass;
-  assert.doesNotMatch(off._render(), /class="hist"/);
+  assert.doesNotMatch(off._render(), /class="spark"/);
   assert.equal(calls.length, 1);
 });
 
@@ -681,10 +684,13 @@ test("number locale keeps Home Assistant's region when its language matches the 
   assert.equal(el._loc(), "de-CH");
 });
 
-test("CPU and memory thresholds: defaults 70/90 and 80/95, overridable in the config", () => {
+test("CPU and RAM thresholds: defaults 70/90 and 80/95, overridable in the config", () => {
   assert.deepEqual([...thresholds({}, "cpu")], [70, 90]);
-  assert.deepEqual([...thresholds(undefined, "memory")], [80, 95]);
-  assert.deepEqual([...thresholds({ memory_warning: 60, memory_critical: "85" }, "memory")], [60, 85]);
+  assert.deepEqual([...thresholds(undefined, "ram")], [80, 95]);
+  assert.deepEqual([...thresholds({ ram_warning: 60, ram_critical: "85" }, "ram")], [60, 85]);
+  // memory_* (before 3.5) still read by the cards, ram_* winning when both are set.
+  const legacy = normalizeConfig({ memory_warning: 10, memory_critical: 20, ram_critical: 30 });
+  assert.deepEqual([legacy.ram_warning, legacy.ram_critical, legacy.memory_warning], [10, 30, undefined]);
   assert.deepEqual([...thresholds({ cpu_warning: "", cpu_critical: "x" }, "cpu")], [70, 90], "invalid values keep the defaults");
   const cls = (Cls, config) => {
     const html = make(Cls, baseStates(), config)._render(); // CPU at 12 %
@@ -697,11 +703,11 @@ test("CPU and memory thresholds: defaults 70/90 and 80/95, overridable in the co
   }
 });
 
-test("Editors: CPU and memory threshold fields in the full and mini card editors", () => {
+test("Editors: CPU and RAM threshold fields in the full and mini card editors", () => {
   for (const Editor of [DockerCardEditor, DockerMiniCardEditor]) {
     const editor = new Editor();
     editor._config = {};
     const names = editor._schema([]).flatMap((s) => (s.schema ? [...s.schema] : [s])).map((s) => s.name);
-    for (const n of ["cpu_warning", "cpu_critical", "memory_warning", "memory_critical"]) assert.ok(names.includes(n), `${Editor.name} ${n}`);
+    for (const n of ["cpu_warning", "cpu_critical", "ram_warning", "ram_critical"]) assert.ok(names.includes(n), `${Editor.name} ${n}`);
   }
 });

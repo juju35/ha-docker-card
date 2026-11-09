@@ -2756,14 +2756,6 @@ const FULL_STYLE = `
   .section-title.closed .chevron { transform: rotate(-90deg); }
   .gauges { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
   .section-title .unit { text-transform: none; }
-           background: var(--secondary-background-color, rgba(127,127,127,.08)); }
-  .htile > :not(.spark) { position: relative; }
-  .htile.cpu { --c: var(--dh-orange); } .htile.mem { --c: var(--info-color, #039be5); }
-  .htile .k { font-size: 12px; font-weight: 500; }
-  .htile .m { margin-left: auto; font-size: 11px; color: var(--secondary-text-color); white-space: nowrap; }
-  .htile .spark { position: absolute; left: 0; bottom: 0; width: 100%; height: 60%; pointer-events: none; }
-  .spark-a { fill: color-mix(in srgb, var(--c) 14%, transparent); }
-  .spark-l { fill: none; stroke: color-mix(in srgb, var(--c) 60%, transparent); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
   .gauge { display: flex; flex-direction: column; align-items: center; min-width: 0; position: relative; border-radius: 10px; overflow: hidden; }
   .gauge > :not(.spark) { position: relative; }
   .gauge .spark { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
@@ -2797,6 +2789,10 @@ const FULL_STYLE = `
   .count-tile.has-updates .v { color: var(--dh-orange); }
   .list { display: flex; flex-direction: column; }
   .item { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--divider-color, rgba(127,127,127,.15)); min-width: 0; }
+  /* CPU over the last 24 hours behind a container's row, discreet. */
+  .item { position: relative; }
+  .item > :not(.spark) { position: relative; }
+  .item > .spark { position: absolute; left: 0; bottom: 0; width: 100%; height: 50%; pointer-events: none; --c: var(--primary-color, #03a9f4); opacity: .7; }
   .item:last-child { border-bottom: none; }
   .item .main { flex: 1; min-width: 0; }
   .item .title { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }
@@ -2940,7 +2936,15 @@ class DockerCard extends DockerBase {
   // 24 h usage points of the host CPU and memory sensors, { [id]: [{ t, v }] } (nothing yet at first).
   _usageHist(env) {
     const { cpuId, memId } = this._usageIds(env);
-    return { cpuId, memId, hist: this._history([cpuId, memId].filter(Boolean)) };
+    return { cpuId, memId, hist: this._history([cpuId, memId, ...this._ctCpuIds(env)].filter(Boolean)) };
+  }
+
+  // The containers' CPU sensors whose 24 h curve is drawn behind their row: only while the containers list is open,
+  // in the same statistics query as the host's (none when show_history is false).
+  _ctCpuIds(env) {
+    const c = this._config;
+    if (c.show_history === false || !this._showContainers(env) || !this._isOpen("containers")) return [];
+    return env.containers.map((ct) => ct.entities.container_cpu_percent ?? ct.entities._cpu).filter(Boolean);
   }
 
   // 24 h of 5-minute means from the recorder's statistics, fetched again every 5 minutes, as { t, v } points
@@ -3102,8 +3106,11 @@ class DockerCard extends DockerBase {
   _containers(env) {
     const sort = this._ctSort ?? "name";
     const query = (this._ctQuery ?? "").trim().toLowerCase();
+    // Their CPU over 24 h behind each row, from the statistics already fetched with the host's (see _usageHist).
+    const hist = this._ctCpuIds(env).length ? this._usageHist(env).hist : null;
     const rows = env.containers.map((ct) => {
       const e = ct.entities;
+      const cpuId = e.container_cpu_percent ?? e._cpu;
       const usage = this._ctUsage(e);
       const state = this._s(e.state);
       const upd = this._s(e._update);
@@ -3122,7 +3129,7 @@ class DockerCard extends DockerBase {
         problem,
         usage,
         match: !query || name.toLowerCase().includes(query) || ct.name.toLowerCase().includes(query),
-        html: `<div class="item" data-key="${esc(ct.id)}">
+        html: `<div class="item" data-key="${esc(ct.id)}">${hist && cpuId ? spark(hist[cpuId], this._histEnd) : ""}
           <span class="dot ${unhealthy ? "crit" : cls}"></span>
           <div class="main clickable" role="button" tabindex="0" data-entity="${esc(e.state || e._status || "")}">
             <div class="title"><span>${esc(name)}</span>

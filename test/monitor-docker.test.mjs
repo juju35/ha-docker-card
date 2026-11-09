@@ -147,3 +147,31 @@ test("Monitor Docker discovery is reused until an entity id appears or disappear
   const names = resolve({ states: renamed, entities, devices }).envs[0].containers.map((c) => c.name);
   assert.ok(names.includes("other") && !names.includes("new"));
 });
+
+test("containers list open: each container's CPU over 24 h behind its row, in the same statistics query", async () => {
+  const states = { ...baseStates(), ...Object.fromEntries([st("sensor.docker_web_cpu", 4.2, {})]) };
+  const calls = [];
+  const el = make(DockerCard, states, { expand_containers: true });
+  el._hass.callWS = async (msg) => {
+    calls.push(msg);
+    const t0 = Date.now() - 3600000;
+    return Object.fromEntries(msg.statistic_ids.map((id) => [id, [10, 40, 20].map((mean, i) => ({ start: t0 + i * 300000, mean }))]));
+  };
+  el._update = () => {
+    el.html = el._render();
+  };
+  el._update();
+  assert.equal(calls.length, 1);
+  assert.ok(calls[0].statistic_ids.includes("sensor.docker_web_cpu"), calls[0].statistic_ids.join());
+  await new Promise((r) => setTimeout(r, 0));
+  assert.match(el.html, /<div class="item" data-key="[^"]*web[^"]*"><svg class="spark"/);
+  // Folded list: the containers' sensors are not queried.
+  const folded = make(DockerCard, states, {});
+  const ids = [];
+  folded._hass.callWS = async (msg) => {
+    ids.push(...msg.statistic_ids);
+    return {};
+  };
+  folded._render();
+  assert.ok(!ids.includes("sensor.docker_web_cpu"));
+});

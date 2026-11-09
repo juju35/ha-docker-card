@@ -165,6 +165,8 @@ test("containers list open: each container's CPU over 24 h behind its row, in th
   assert.ok(calls[0].statistic_ids.includes("sensor.docker_web_cpu"), calls[0].statistic_ids.join());
   await new Promise((r) => setTimeout(r, 0));
   assert.match(el.html, /<div class="item" data-key="[^"]*web[^"]*"><svg class="spark"/);
+  // The row's tooltip gives the container's 24 h CPU low and high.
+  assert.match(el.html, /title="[^"]*· CPU · 24 h 10% – 40%"/);
   // Folded list: the containers' sensors are not queried.
   const folded = make(DockerCard, states, {});
   const ids = [];

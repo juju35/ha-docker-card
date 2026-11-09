@@ -2315,6 +2315,13 @@ const inDialog = (ev) => ev.composedPath().some((n) => ["ha-more-info-dialog", "
 const HIST_PERIOD = 5 * 60000;
 const HIST_REFRESH = HIST_PERIOD;
 const HIST_WINDOW = 864e5;
+// "· 24 h 2 % – 34 %": a curve's lowest and highest percent, for a tooltip (the curve itself has no scale); "" without one.
+function rangeText(points, loc) {
+  if (!points || points.length < 2) return "";
+  const vs = points.map((p) => p.v);
+  return ` · 24 h ${fmtPct(Math.min(...vs), loc)} – ${fmtPct(Math.max(...vs), loc)}`;
+}
+
 function spark(points, end, max) {
   if (!points || points.length < 2) return "";
   const peak = max || Math.max(...points.map((p) => p.v)) || 1;
@@ -2890,7 +2897,8 @@ class DockerCard extends DockerBase {
   }
 
   _gauge(id, label, icon, pct, display, cls, hist = null) {
-    return `<div class="gauge clickable ${cls}" role="button" tabindex="0" data-entity="${esc(id || "")}">${spark(hist, this._histEnd, 100)}
+    const range = rangeText(hist, this._loc());
+    return `<div class="gauge clickable ${cls}" role="button" tabindex="0" data-entity="${esc(id || "")}"${range ? ` title="${esc(label + range)}"` : ""}>${spark(hist, this._histEnd, 100)}
       <div class="gw">${ring(pct)}<div class="val">${svgIcon(icon)}<b>${display}</b></div></div>
       <div class="lbl">${label}</div>
     </div>`;
@@ -3131,7 +3139,7 @@ class DockerCard extends DockerBase {
         match: !query || name.toLowerCase().includes(query) || ct.name.toLowerCase().includes(query),
         html: `<div class="item" data-key="${esc(ct.id)}">${hist && cpuId ? spark(hist[cpuId], this._histEnd) : ""}
           <span class="dot ${unhealthy ? "crit" : cls}"></span>
-          <div class="main clickable" role="button" tabindex="0" data-entity="${esc(e.state || e._status || "")}">
+          <div class="main clickable" role="button" tabindex="0" data-entity="${esc(e.state || e._status || "")}"${hist && cpuId && rangeText(hist[cpuId], this._loc()) ? ` title="${esc(`${name} · CPU${rangeText(hist[cpuId], this._loc())}`)}"` : ""}>
             <div class="title"><span>${esc(name)}</span>
               ${unhealthy ? `<span class="tag alert crit">${esc(this._t("unhealthy"))}</span>` : ""}
             </div>
@@ -3291,7 +3299,8 @@ class DockerMiniCard extends DockerCard {
 
   // A row: icon, label, bar and value, over its 24 h sparkline when there is one.
   _metric(id, icon, label, pct, display, cls, points) {
-    return `<div class="metric clickable ${cls}" role="button" tabindex="0" data-entity="${esc(id || "")}" aria-label="${esc(label)} ${display}">
+    const range = rangeText(points, this._loc());
+    return `<div class="metric clickable ${cls}" role="button" tabindex="0" data-entity="${esc(id || "")}" aria-label="${esc(label)} ${display}"${range ? ` title="${esc(label + range)}"` : ""}>
       ${spark(points, this._histEnd)}${svgIcon(icon)}<span class="lbl">${label}</span>
       <div class="bar"><div style="width:${pct === null ? 0 : Math.max(0, Math.min(100, pct))}%"></div></div>
       <span class="v">${display}</span>

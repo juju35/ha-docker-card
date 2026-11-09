@@ -80,8 +80,8 @@ Or manually:
 
 ### Manual
 
-1. Download `docker-card.js` from the [latest release](https://github.com/juju35/ha-docker-card/releases/latest)
-2. Copy it to `/config/www/docker-card.js`
+1. Download `docker-card.js` and the `docker-card.i18n.*.js` translation files from the [latest release](https://github.com/juju35/ha-docker-card/releases/latest)
+2. Copy them all to `/config/www/` (without the translation files, the cards show in English)
 3. Go to **Settings → Dashboards → ⋮ → Resources** → Add resource:
    - URL: `/local/docker-card.js`
    - Type: **JavaScript Module**

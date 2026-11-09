@@ -2756,14 +2756,6 @@ const FULL_STYLE = `
   .section-title.closed .chevron { transform: rotate(-90deg); }
   .gauges { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
   .section-title .unit { text-transform: none; }
-           background: var(--secondary-background-color, rgba(127,127,127,.08)); }
-  .htile > :not(.spark) { position: relative; }
-  .htile.cpu { --c: var(--dh-orange); } .htile.mem { --c: var(--info-color, #039be5); }
-  .htile .k { font-size: 12px; font-weight: 500; }
-  .htile .m { margin-left: auto; font-size: 11px; color: var(--secondary-text-color); white-space: nowrap; }
-  .htile .spark { position: absolute; left: 0; bottom: 0; width: 100%; height: 60%; pointer-events: none; }
-  .spark-a { fill: color-mix(in srgb, var(--c) 14%, transparent); }
-  .spark-l { fill: none; stroke: color-mix(in srgb, var(--c) 60%, transparent); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
   .gauge { display: flex; flex-direction: column; align-items: center; min-width: 0; position: relative; border-radius: 10px; overflow: hidden; }
   .gauge > :not(.spark) { position: relative; }
   .gauge .spark { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
@@ -2800,7 +2792,7 @@ const FULL_STYLE = `
   /* CPU over the last 24 hours behind a container's row, discreet. */
   .item { position: relative; }
   .item > :not(.spark) { position: relative; }
-  .item > .spark { position: absolute; left: 0; bottom: 0; width: 100%; height: 70%; pointer-events: none; --c: var(--primary-color); opacity: .7; }
+  .item > .spark { position: absolute; left: 0; bottom: 0; width: 100%; height: 50%; pointer-events: none; --c: var(--primary-color, #03a9f4); opacity: .7; }
   .item:last-child { border-bottom: none; }
   .item .main { flex: 1; min-width: 0; }
   .item .title { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }

@@ -33,7 +33,7 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 - Configurable CPU and memory alert thresholds (orange / red)
 - Stacks, images, volumes, networks and pending updates counters
 - Stacks list with status, Git badge, sync errors and available updates
-- Optional containers list with state, health, image and available updates, a search field (filters by name) and a sort by name, CPU or memory
+- Optional containers list with state, health, image and available updates, a search field (filters by name) and a sort by name, CPU or memory; each container's CPU over the last 24 hours drawn behind its row (with `show_history`)
 - Image update button on containers with an update available (Dockhand, Portainer): it asks for confirmation, then installs the update (`update.install`)
 - Start / stop and restart buttons for stacks and containers (with confirmation)
 - "Only items needing attention" mode: stopped, unhealthy or outdated first

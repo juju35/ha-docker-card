@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.7.0 - 2026-11-09
+
+### Features
+- **Container curves**: while the containers list is open, each container's CPU over the last 24 hours is drawn behind its row, from the same statistics query as the host's CPU and memory curves (its CPU sensor's 5-minute means; `show_history: false` turns them off with the others).
+
 ## 3.6.1 - 2026-11-09
 
 ### Fixes

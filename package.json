@@ -1,6 +1,6 @@
 {
   "name": "ha-docker-card",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "Lovelace cards for Home Assistant to monitor and control Docker hosts (Dockhand, Monitor Docker, Portainer).",
   "private": true,
   "type": "module",
@@ -12,6 +12,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "acorn": "^8.19.0",
     "playwright": "^1.56.1"
   }
 }

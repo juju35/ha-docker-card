@@ -29,7 +29,7 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 - Two cards: a full **Docker Card** and a compact **Docker Mini Card**
 - Automatic discovery of the Dockhand environments, Monitor Docker instances and Portainer endpoints (several of each supported)
 - CPU, memory and running containers gauges, Docker version and connection type
-- CPU and RAM over the last 24 hours (recorder statistics), drawn behind the CPU and RAM gauges and, on the mini card, behind the CPU and RAM rows, on a real time axis: missing data shows as a gap
+- CPU and RAM over the last 24 hours (recorder statistics), drawn behind the CPU and RAM gauges and, on the mini card, behind the CPU and RAM rows, on a real time axis: missing data shows as a gap; their lowest and highest values in the tooltip
 - Configurable CPU and memory alert thresholds (orange / red)
 - Stacks, images, volumes, networks and pending updates counters
 - Stacks list with status, Git badge, sync errors and available updates

@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.7.2 - 2026-11-09
+
+### Improvements
+- The 24 h curves have a scale in their tooltip: the CPU and memory gauges, the mini card's rows and each container's row give the curve's lowest and highest values (*CPU · 24 h 2% – 34%*). A tap still opens the entity.
+
 ## 3.7.1 - 2026-11-09
 
 ### Maintenance

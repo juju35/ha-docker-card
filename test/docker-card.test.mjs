@@ -531,10 +531,12 @@ test("CPU and memory 24 h history from the recorder statistics, refreshed every 
   assert.equal(calls[0].type, "recorder/statistics_during_period");
   assert.ok(calls[0].statistic_ids.length >= 1);
   // The curves are drawn behind the CPU and RAM gauges, on a 0-100 scale, once the statistics arrive.
-  const gaugeSpark = /class="gauge clickable \w*" role="button" tabindex="0" data-entity="sensor\.cpu"><svg class="spark"/;
+  // With a curve, the gauge's tooltip gives its 24 h low and high (the curve has no scale).
+  const gaugeSpark = /class="gauge clickable \w*" role="button" tabindex="0" data-entity="sensor\.cpu"( title="[^"]*")?><svg class="spark"/;
   assert.doesNotMatch(el.html, gaugeSpark);
   await new Promise((r) => setTimeout(r, 0));
   assert.match(el.html, gaugeSpark);
+  assert.match(el.html, /data-entity="sensor\.cpu" title="[^"]* · 24 h 10%? – 40%"/);
   assert.doesNotMatch(el.html, /Last 24/);
   el._update();
   assert.equal(calls.length, 1, "no new query within 5 minutes");

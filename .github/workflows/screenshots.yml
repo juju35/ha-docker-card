@@ -7,6 +7,7 @@ on:
     paths:
       - "src/**"
       - "scripts/**"
+      - ".github/workflows/screenshots.yml"
       # A Playwright/Chromium bump changes the rendering; the logo is drawn in the screenshots.
       - "package-lock.json"
       - "images/**"

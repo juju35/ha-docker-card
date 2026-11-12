@@ -142,6 +142,8 @@ language: fr
 |---|---|---|---|
 | `environment` | both | First environment | Environment to display. Dockhand: its name (as shown in Dockhand) or its Home Assistant device id (set by the visual editor). Monitor Docker: `monitor_docker.<prefix>` (`monitor_docker.docker` for `name: Docker`). Portainer: the endpoint name or its device id |
 | `title` | both | Environment name | Card title |
+| `show_title` | both | `true` | Show the title in the header (e.g. `false` under a section heading of your own) |
+| `show_subtitle` | both | `true` | Show the subtitle under the title |
 | `url` | both | Detected | Address opened in a new tab when clicking the header icon. Defaults to the Dockhand web UI known by the integration, or [dockhand.pro](https://dockhand.pro) if none ([Monitor Docker](https://github.com/ualex73/monitor_docker) for a Monitor Docker instance). Portainer: the endpoint dashboard in Portainer |
 | `show_system` | full | `true` | CPU, RAM and running containers gauges (`show_stats` before 3.5.0, still read) |
 | `show_history` | both | `true` | CPU and RAM curves of the last 24 hours (0-100 % scale), from the recorder's 5-minute statistics, placed on a 24 h time axis with a gap where data is missing (shown once the statistics exist). Full card: behind the CPU and RAM gauges (needs `show_system`); mini card: behind the CPU and RAM rows. Not for Portainer, which has no host usage sensor |

@@ -2353,6 +2353,41 @@ const CONFIRM_GUARD_MS = 400;
 // A click inside a dialog (more-info opened from the card, say) is not a click outside the card.
 const inDialog = (ev) => ev.composedPath().some((n) => ["ha-more-info-dialog", "ha-dialog", "dialog"].includes(n.localName));
 
+// "A click elsewhere" is caught on the pointer, not only on the click event: on iOS (Safari and the companion app) a
+// tap on something that is not clickable (the background, an empty spot, a card with no action) sends no click to the
+// page. It counts when the press and the release are both outside the card (a slider dragged out of the card does not
+// fold it), and a scroll does not count (the browser cancels the pointer). Keyboard clicks still go through the click
+// event. `tap(ev)` (a press and a release at the same spot) is for the tests.
+const watchOutside = (isOut, handler) => {
+  let downOutside = false;
+  const onDown = (ev) => {
+    downOutside = isOut(ev);
+  };
+  const onUp = (ev) => {
+    if (downOutside && isOut(ev)) handler(ev);
+    downOutside = false;
+  };
+  const onClick = (ev) => {
+    if (ev.detail === 0 && isOut(ev)) handler(ev);
+  };
+  return {
+    on() {
+      document.addEventListener("pointerdown", onDown, true);
+      document.addEventListener("pointerup", onUp, true);
+      document.addEventListener("click", onClick, true);
+    },
+    tap(ev) {
+      onDown(ev);
+      onUp(ev);
+    },
+    off() {
+      document.removeEventListener("pointerdown", onDown, true);
+      document.removeEventListener("pointerup", onUp, true);
+      document.removeEventListener("click", onClick, true);
+    },
+  };
+};
+
 // Sparkline of a series of { t, v } points (24 h of usage ending at `end`), scaled from 0 to its peak; nothing
 // under two points. Points sit on a real time axis: x is their time within the 24 h window, so a missing stretch
 // (recorder stopped, sensor unavailable) is a gap — the line and area are broken where two consecutive points
@@ -2428,27 +2463,34 @@ class DockerBase extends HTMLElement {
     return this._hass;
   }
 
-  // A click elsewhere on the page folds the sections back to their defaults (as in ha-carburants-france).
-  // A click, not a pointerdown: folding on press would shift the layout under the pointer before the click.
+  // A tap elsewhere on the page folds the sections back to their defaults (as in ha-carburants-france). On the
+  // release, not the press: folding on press would shift the layout under the pointer before the click.
   connectedCallback() {
-    this._onOutside ??= (ev) => {
-      const foldsOpen = this._folds && Object.keys(this._folds).length;
-      if ((!foldsOpen && !this._confirm) || ev.composedPath().includes(this) || inDialog(ev)) return;
-      // Closed by a click elsewhere on the page: the focus goes where that click put it.
-      if (this._confirm) this._closeConfirm(false);
-      if (foldsOpen) {
-        this._folds = {};
-        this._update();
-      }
-    };
-    document.addEventListener("click", this._onOutside, true);
-    // Reattached with the popup still open (view switch, editor): Escape keeps closing it.
-    if (this._confirm) window.addEventListener("keydown", this._onKey);
+    this._outside ??= watchOutside(
+      (ev) => !ev.composedPath().includes(this) && !inDialog(ev),
+      () => {
+        const foldsOpen = this._folds && Object.keys(this._folds).length;
+        if (!foldsOpen && !this._confirm) return;
+        // Closed by a click elsewhere on the page: the focus goes where that click put it.
+        if (this._confirm) this._closeConfirm(false);
+        if (foldsOpen) {
+          this._folds = {};
+          this._update();
+        }
+      },
+    );
+    this._outside.on();
+    // Back on the page after leaving it: rendered again in its default state.
+    if (this._hass && this._config) this._update();
   }
 
   disconnectedCallback() {
-    document.removeEventListener("click", this._onOutside, true);
+    this._outside?.off();
     window.removeEventListener("keydown", this._onKey);
+    // Left (another dashboard view, a conditional card hidden): back to the defaults, so that the card does not come
+    // back unfolded or with its popup open.
+    this._folds = {};
+    this._confirm = null;
   }
 
   setConfig(config) {
@@ -3293,19 +3335,24 @@ class DockerMiniCard extends DockerCard {
     this._zoomed = false;
     this.shadowRoot.addEventListener("click", (ev) => this._zoomClick(ev));
     // A click outside the card, and not in a dialog opened from it, brings it back to the compact view.
-    this._onUnzoom = (ev) => {
-      if (this._zoomed && !ev.composedPath().includes(this) && !inDialog(ev)) this._setZoom(false);
-    };
+    this._unzoom = watchOutside(
+      (ev) => !ev.composedPath().includes(this) && !inDialog(ev),
+      () => {
+        if (this._zoomed) this._setZoom(false);
+      },
+    );
   }
 
   connectedCallback() {
     super.connectedCallback();
-    document.addEventListener("click", this._onUnzoom, true);
+    this._unzoom.on();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener("click", this._onUnzoom, true);
+    this._unzoom.off();
+    // Back to the compact view once off the screen (see the full card).
+    this._zoomed = false;
   }
 
   // A config change (the editor, say) starts over from the compact view: the preview would

@@ -122,6 +122,27 @@ const node = (localName) => ({ localName });
 const click = (path, extra = {}) => ({ composedPath: () => path, stopPropagation() {}, detail: 1, ...extra });
 const zoomButton = () => click([], { target: { closest: (sel) => (sel === ".zoom" ? {} : null) } });
 
+test("folding: a tap elsewhere (pointer), not a drag that ends outside; leaving the page folds back too", () => {
+  const el = zoomCard();
+  el.connectedCallback();
+  el._folds = { containers: true };
+  // A slider pressed in the card and released outside of it: nothing folds.
+  el._outside.tap(click([node("div"), el]));
+  assert.deepEqual({ ...el._folds }, { containers: true });
+  // A tap on a spot that sends no click (iOS): the pointer alone folds.
+  el._outside.tap(click([node("body")]));
+  assert.deepEqual({ ...el._folds }, {});
+  // Left zoomed with a section open and back: compact, folded.
+  el._zoomClick(zoomButton());
+  el._folds = { containers: true };
+  el.disconnectedCallback();
+  el.connectedCallback();
+  assert.equal(el._zoomed, false);
+  assert.deepEqual({ ...el._folds }, {});
+  assert.match(el.html, /class="metric/);
+  el.disconnectedCallback();
+});
+
 test("the mini card detail button switches to the full card content and back", () => {
   const el = zoomCard();
   const full = make(DockerCard, el._hass.states);
@@ -152,16 +173,16 @@ test("a click outside the mini card collapses it, a click inside or in a dialog 
   assert.match(el.html, /title="Afficher la carte complète"/);
   el._zoomClick(zoomButton());
   assert.match(el.html, /title="Revenir à la vue compacte"/);
-  el._onUnzoom(click([node("div"), el, node("body")]));
+  el._unzoom.tap(click([node("div"), el, node("body")]));
   assert.equal(el._zoomed, true);
   for (const dialog of ["ha-more-info-dialog", "ha-dialog", "dialog"]) {
-    el._onUnzoom(click([node("div"), node(dialog), node("body")]));
+    el._unzoom.tap(click([node("div"), node(dialog), node("body")]));
     assert.equal(el._zoomed, true, dialog);
   }
   // Other clicks on the card leave it as it is.
   el._zoomClick(click([el], { target: { closest: () => null } }));
   assert.equal(el._zoomed, true);
-  el._onUnzoom(click([node("div"), node("body")]));
+  el._unzoom.tap(click([node("div"), node("body")]));
   assert.equal(el._zoomed, false);
   assert.match(el.html, /class="metric/);
 });
@@ -282,9 +303,8 @@ test("closing the confirmation gives the focus back to the button that opened it
   // Closed by a click elsewhere on the page: the focus is left where that click put it.
   el._onClick(click([{ dataset: { action: "restart", entity: "button.web_restart", label: "web" } }]));
   const n = focused.length;
-  el._onOutside ??= null;
   el.connectedCallback();
-  el._onOutside(click([node("body")]));
+  el._outside.tap(click([node("body")]));
   assert.equal(el._confirm, null);
   assert.equal(focused.length, n);
 });

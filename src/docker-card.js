@@ -3555,8 +3555,10 @@ class DockerEditorBase extends HTMLElement {
   }
 
   // [name, default] for the selected environment (`environment` id, else the first one listed).
-  _toggles(_environment) {
-    return [...this.constructor.toggles];
+  // Monitor Docker has no stacks: its containers list is shown by default.
+  _toggles(environment) {
+    const md = String(environment || "").startsWith("monitor_docker.");
+    return this.constructor.toggles.map(([name, def]) => [name, name === "show_containers" ? md : def]);
   }
 
   _render() {
@@ -3622,21 +3624,12 @@ class DockerCardEditor extends DockerEditorBase {
       ["expand_containers", false],
     ];
   }
-
-  // Monitor Docker has no stacks: its containers list is shown by default.
-  _toggles(environment) {
-    const md = String(environment || "").startsWith("monitor_docker.");
-    return super._toggles(environment).map(([name, def]) => [name, name === "show_containers" ? md : def]);
-  }
 }
 
 class DockerMiniCardEditor extends DockerEditorBase {
   static get toggles() {
-    return [
-      ["show_history", true],
-      ["show_updates", true],
-      ["zoom", true],
-    ];
+    // The full card's options too: its detail button switches to the full card, which reads them.
+    return [...DockerCardEditor.toggles, ["show_updates", true], ["zoom", true]];
   }
 }
 

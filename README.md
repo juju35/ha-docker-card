@@ -11,7 +11,7 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/images/logo.png" alt="Dockhand" width="64">&nbsp;&nbsp;
   <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/images/monitor_docker.png" alt="Monitor Docker" width="64">&nbsp;&nbsp;
-  <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/images/portainer.png" alt="Portainer" width="64">
+  <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/images/portainer.svg" alt="Portainer" height="64">
 </p>
 
 Lovelace cards for Home Assistant to monitor and control Docker hosts: CPU, memory, containers, stacks and pending updates at a glance.
@@ -55,7 +55,7 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 |---|---|
 | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/images/logo.png" alt="" width="16"> [Dockhand](https://github.com/raetha/ha-dockhand) (Marketplace) | Everything: CPU, memory and containers gauges, Docker version, stacks with Git badge, sync errors and updates, images, volumes, networks, containers, start / stop and restart |
 | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/images/monitor_docker.png" alt="" width="16"> [Monitor Docker](https://github.com/ualex73/monitor_docker) (Marketplace, YAML) | CPU, memory and containers gauges, Docker version, OS and architecture, images, containers with start / stop and restart; no stacks, volumes, networks nor image updates. Details in [Monitor Docker](#monitor-docker) |
-| <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/images/portainer.png" alt="" width="16"> [Portainer](https://www.home-assistant.io/integrations/portainer/) (built in, 2025.10 and later) | Status, Docker version, OS and architecture, CPU, memory and containers gauges, images and updates, stacks and containers with start / stop and restart. Details in [Portainer](#portainer) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/images/portainer.svg" alt="" height="16"> [Portainer](https://www.home-assistant.io/integrations/portainer/) (built in, 2025.10 and later) | Status, Docker version, OS and architecture, CPU, memory and containers gauges, images and updates, stacks and containers with start / stop and restart. Details in [Portainer](#portainer) |
 
 Several environments, instances and endpoints are supported, and the sources can be mixed: each one shows in the editor's environment list.
 

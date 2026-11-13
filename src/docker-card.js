@@ -2423,6 +2423,28 @@ class DockerBase extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this._html = "";
+    // No rewrite of the card between a press and its click: Home Assistant updates the card several times a second,
+    // and a rewrite under the pointer replaces the element pressed, so that the click lands on the card itself and
+    // does nothing. The update held back is drawn once released: by the click (registered before the card's own
+    // handler, which renders at once), else right after the release.
+    this._onPress = () => {
+      this._pressing = true;
+      window.addEventListener("pointerup", this._onPressEnd, true);
+      window.addEventListener("pointercancel", this._onPressEnd, true);
+    };
+    this._onPressEnd = () => {
+      window.removeEventListener("pointerup", this._onPressEnd, true);
+      window.removeEventListener("pointercancel", this._onPressEnd, true);
+      setTimeout(() => {
+        this._pressing = false;
+        if (this._dirty) this._update();
+      }, 0);
+    };
+    this._onPressClick = () => {
+      this._pressing = false;
+    };
+    this.shadowRoot.addEventListener("pointerdown", this._onPress);
+    this.shadowRoot.addEventListener("click", this._onPressClick);
     this.shadowRoot.addEventListener("click", (ev) => this._onClick(ev));
     // Keyboard access: Enter or Space on a focusable non-button element acts as a click.
     this.shadowRoot.addEventListener("keydown", (ev) => {
@@ -2485,6 +2507,9 @@ class DockerBase extends HTMLElement {
   }
 
   disconnectedCallback() {
+    this._pressing = this._dirty = false;
+    window.removeEventListener("pointerup", this._onPressEnd, true);
+    window.removeEventListener("pointercancel", this._onPressEnd, true);
     this._outside?.off();
     window.removeEventListener("keydown", this._onKey);
     // Left (another dashboard view, a conditional card hidden): back to the defaults, so that the card does not come
@@ -2540,6 +2565,12 @@ class DockerBase extends HTMLElement {
 
   _update(sig) {
     if (!this._hass || !this._config) return;
+    // Held back under a press (see the constructor): drawn once released.
+    if (this._pressing) {
+      this._dirty = true;
+      return;
+    }
+    this._dirty = false;
     this._sig = sig ?? this._signature();
     let html = this._render();
     if (this._confirm)

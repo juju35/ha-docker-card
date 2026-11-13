@@ -122,6 +122,34 @@ const node = (localName) => ({ localName });
 const click = (path, extra = {}) => ({ composedPath: () => path, stopPropagation() {}, detail: 1, ...extra });
 const zoomButton = () => click([], { target: { closest: (sel) => (sel === ".zoom" ? {} : null) } });
 
+test("no rewrite under a press: an update is held until the click, which draws it at once, or the release", async () => {
+  const el = make(DockerCard, baseStates());
+  // The DOM patch is left out (no document here): the renders are counted instead.
+  let renders = 0;
+  el._render = () => {
+    renders++;
+    return el._html;
+  };
+  el._html = "<ha-card></ha-card>";
+  // Pressed: an update does not touch the card under the pointer.
+  el._onPress();
+  el._update();
+  assert.equal(renders, 0, "held under the press");
+  // Released without a click: drawn right after.
+  el._onPressEnd();
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(renders, 1);
+  // The click itself draws at once.
+  el._onPress();
+  el._update();
+  el._onPressClick();
+  el._update();
+  assert.equal(renders, 2);
+  el._onPressEnd();
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(renders, 2, "nothing left to draw");
+});
+
 test("folding: a tap elsewhere (pointer), not a drag that ends outside; leaving the page folds back too", () => {
   const el = zoomCard();
   el.connectedCallback();

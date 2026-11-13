@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.8.2 - 2026-11-14
+
+### Fixes
+- The mini card's visual editor now offers the full card's options its detail button uses (`show_system`, `show_counts`, `show_stacks`, `show_containers`, `show_controls`, `only_problems`, `expand_stacks`, `expand_containers`), and `show_title` / `show_subtitle`, which the mini card's header reads: they could only be set in YAML.
+
 ## 3.8.1 - 2026-11-13
 
 ### Fixes

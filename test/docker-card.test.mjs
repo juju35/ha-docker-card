@@ -761,3 +761,20 @@ test("Editors: CPU and RAM threshold fields in the full and mini card editors", 
     for (const n of ["cpu_warning", "cpu_critical", "ram_warning", "ram_critical"]) assert.ok(names.includes(n), `${Editor.name} ${n}`);
   }
 });
+
+test("Editors: the mini card offers the full card's options (its detailed view), plus its own, labelled in every language", () => {
+  const STRINGS = load("docker-card.js", ["STRINGS"]).STRINGS;
+  const full = new DockerCardEditor();
+  const mini = new DockerMiniCardEditor();
+  full._config = mini._config = {};
+  const names = (editor) => editor._schema([]).flatMap((s) => (s.schema ? [...s.schema] : [s])).map((s) => s.name);
+  const miniNames = names(mini);
+  for (const n of names(full)) assert.ok(miniNames.includes(n), n);
+  for (const n of ["show_title", "show_subtitle", "show_updates", "zoom"]) assert.ok(miniNames.includes(n), n);
+  // Same defaults as the full card, Monitor Docker's containers list included.
+  assert.deepEqual(full._toggles("monitor_docker.docker"), mini._toggles("monitor_docker.docker").slice(0, full._toggles().length));
+  assert.equal(Object.fromEntries(mini._toggles("monitor_docker.docker")).show_containers, true);
+  assert.equal(Object.fromEntries(mini._toggles("docker_host")).show_containers, false);
+  for (const [code, strings] of Object.entries(STRINGS))
+    for (const [n] of mini._toggles()) assert.ok(strings[n], `${code}: ${n}`);
+});

@@ -46,7 +46,7 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 - Start / stop and restart buttons for stacks and containers (with confirmation)
 - "Only items needing attention" mode: stopped, unhealthy or outdated first
 - Click any value to open its Home Assistant history (more-info dialog)
-- Detail button at the top right of the mini card: it switches to the full card and back; a click anywhere outside the card brings the compact view back
+- Detail button at the top right of the mini card: it switches to the full card and back; a click anywhere outside the card brings the compact view back (the full card's options are set on the mini card too, in its visual editor as well)
 - Visual editor in the dashboard UI for both cards (no YAML needed)
 - Light and dark mode; English, French, German, Spanish, Serbian (Cyrillic and Latin), Italian, Dutch, European Portuguese, Polish, Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Slovak, Czech, Slovenian, Latvian and Greek
 - Single file, no external dependency
@@ -138,6 +138,8 @@ type: custom:docker-mini-card
 environment: Docker host
 title: Docker
 url: http://192.168.1.10:3000
+show_title: true
+show_subtitle: true
 show_history: true
 show_updates: true
 zoom: true
@@ -153,19 +155,19 @@ language: fr
 | `show_title` | both | `true` | Show the title in the header (e.g. `false` under a section heading of your own) |
 | `show_subtitle` | both | `true` | Show the subtitle under the title |
 | `url` | both | Detected | Address opened in a new tab when clicking the header icon. Defaults to the Dockhand web UI known by the integration, or [dockhand.pro](https://dockhand.pro) if none ([Monitor Docker](https://github.com/ualex73/monitor_docker) for a Monitor Docker instance). Portainer: the endpoint dashboard in Portainer |
-| `show_system` | full | `true` | CPU, RAM and running containers gauges (`show_stats` before 3.5.0, still read) |
+| `show_system` | both | `true` | CPU, RAM and running containers gauges (`show_stats` before 3.5.0, still read) |
 | `show_history` | both | `true` | CPU and RAM curves of the last 24 hours (0-100 % scale), from the recorder's 5-minute statistics, placed on a 24 h time axis with a gap where data is missing (shown once the statistics exist). Full card: behind the CPU and RAM gauges (needs `show_system`); mini card: behind the CPU and RAM rows. Not for Portainer, which has no host usage sensor |
-| `show_counts` | full | `true` | Stacks, images, volumes, networks and updates counters |
-| `show_stacks` | full | `true` | Stacks list |
-| `show_containers` | full | `false` (`true` for Monitor Docker) | Containers list |
-| `show_controls` | full | `true` | Start / stop, restart and image update buttons (`false`: the update icon only opens the update entity) |
-| `only_problems` | full | `false` | Only list stacks and containers that are stopped, unhealthy, out of sync or have an update |
-| `expand_stacks` | full | `false` | Stacks list expanded when the card loads (click the section title to fold / unfold) |
-| `expand_containers` | full | `false` | Containers list expanded when the card loads (click the section title to fold / unfold) |
+| `show_counts` | both | `true` | Stacks, images, volumes, networks and updates counters |
+| `show_stacks` | both | `true` | Stacks list |
+| `show_containers` | both | `false` (`true` for Monitor Docker) | Containers list |
+| `show_controls` | both | `true` | Start / stop, restart and image update buttons (`false`: the update icon only opens the update entity) |
+| `only_problems` | both | `false` | Only list stacks and containers that are stopped, unhealthy, out of sync or have an update |
+| `expand_stacks` | both | `false` | Stacks list expanded when the card loads (click the section title to fold / unfold) |
+| `expand_containers` | both | `false` | Containers list expanded when the card loads (click the section title to fold / unfold) |
 | `show_updates` | mini | `true` | Pending updates in the footer |
 | `cpu_warning` / `cpu_critical` | both | `70` / `90` | CPU usage (%) from which the CPU gauge or row turns orange / red |
 | `ram_warning` / `ram_critical` | both | `80` / `95` | RAM usage (%) from which the RAM gauge or row turns orange / red (`memory_warning` / `memory_critical` before 3.5.0, still read) |
-| `zoom` | mini | `true` | Detail button at the top right: switches to the full card and back (`false` removes it) |
+| `zoom` | mini | `true` | Detail button at the top right: switches to the full card and back (`false` removes it). The full card shown follows the full card's options (`show_system`, `show_counts`, `show_stacks`, `show_containers`, `show_controls`, `only_problems`, `expand_stacks`, `expand_containers`), also set on the mini card |
 | `language` | both | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt`, `pl`, `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv` or `el` (auto-detects from HA settings) |
 
 ## Upgrading from ha-dockhand-card

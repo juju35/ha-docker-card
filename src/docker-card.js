@@ -2408,19 +2408,18 @@ const BASE_STYLE = `
      tint would stay under 4.5:1). */
   .header .chip.idle { color: var(--primary-text-color); }
   .chip-label { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  /* Banner and classic header: the chip sits on the title line, right after the title. The title ellipsises first
-     (never under 4 characters), the chip keeps its whole label. Without room for both, the chip goes on its own
-     line under the subtitle; on a very narrow card only its dot is left (its text stays in title and aria-label). */
+  /* Banner and classic header: the chip sits on the title line, right after the title, when the whole title and its
+     whole label fit there. Otherwise the chip goes on its own line under the subtitle, and when even that is too tight
+     only its dot is left (its text stays in title and aria-label). Decided by measure (see _fitPill). */
   .titles { display: flex; flex-direction: column; align-items: flex-start; container: dk-titles / inline-size; }
   .titles > * { max-width: 100%; }
   .trow { display: flex; align-items: center; gap: 8px; min-width: 0; }
-  .trow .name { flex: 0 1 auto; min-width: 4ch; }
-  .trow .chip { flex: none; max-width: calc(100% - 4ch - 8px); }
-  @container dk-titles (max-width: 170px) {
-    .trow { display: contents; }
-    .trow .name, .trow .chip { max-width: 100%; }
-    .trow .chip { order: 3; margin-top: 3px; }
-  }
+  .trow .name { flex: 0 1 auto; min-width: 0; }
+  .trow .chip { flex: none; max-width: none; }
+  .titles.pill-below .trow { display: contents; }
+  .titles.pill-below .trow .name, .titles.pill-below .trow .chip { max-width: 100%; }
+  .titles.pill-below .trow .chip { order: 3; margin-top: 3px; }
+  .titles.pill-dot .trow .chip { padding: 6px; } .titles.pill-dot .trow .chip .chip-label { display: none; }
   @container dk-card (max-width: 239px) {
     .header { gap: 6px; }
     /* The full card's icon draws smaller; the mini card's keeps its 40 px, compact or detailed view. */
@@ -2460,6 +2459,14 @@ const MOTION_STYLE = `
 // ---------------------------------------------------------------------------
 
 // Night picture: forced by illustration_theme, else the sun below the horizon or Home Assistant's dark theme.
+// The width of an element's whole text in fractional pixels, even while it is cut with an ellipsis (0 when hidden).
+const textWidth = (el) => {
+  if (!el?.getClientRects?.().length || typeof document.createRange !== "function") return 0;
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  return range.getBoundingClientRect().width;
+};
+
 const dkIsNight = (hass, config) => {
   const theme = config?.illustration_theme;
   if (theme === "night") return true;
@@ -2745,11 +2752,25 @@ class DockerBase extends HTMLElement {
       },
     );
     this._outside.on();
+    // A new width (or the web font loaded): the status pill is fitted again, in the next frame.
+    if (typeof ResizeObserver === "function") {
+      this._pillResize ??= new ResizeObserver((entries) => {
+        const w = Math.round(entries.at(-1).contentRect.width);
+        if (w === this._pillWidth) return;
+        this._pillWidth = w;
+        cancelAnimationFrame(this._pillFrame);
+        this._pillFrame = requestAnimationFrame(() => this._fitPill());
+      });
+      this._pillResize.observe(this);
+    }
+    document.fonts?.ready?.then(() => this._fitPill());
     // Back on the page after leaving it: rendered again in its default state.
     if (this._hass && this._config) this._update();
   }
 
   disconnectedCallback() {
+    this._pillResize?.disconnect();
+    this._pillWidth = null;
     this._pressing = this._dirty = false;
     window.removeEventListener("pointerup", this._onPressEnd, true);
     window.removeEventListener("pointercancel", this._onPressEnd, true);
@@ -2821,6 +2842,40 @@ class DockerBase extends HTMLElement {
     if (html !== this._html) {
       this._html = html;
       morph(this.shadowRoot, html);
+    }
+    this._fitPill();
+  }
+
+  // The status pill goes on the title row, right after the title, only when the whole title and the pill's whole
+  // label fit there; otherwise it takes its own line under the subtitle (.pill-below) and the title keeps its row
+  // (cut only when it does not fit alone). The subtitle then keeps one line (its whole text in its tooltip), and when
+  // the block still runs out of the banner or into its ground strip, or the label does not fit its own line, the pill
+  // keeps its dot alone (.pill-dot, the label in its tooltip and aria-label). Measured after each render and on each
+  // new width, never by a fixed width, so that every language fits.
+  _fitPill() {
+    for (const t of this.shadowRoot?.querySelectorAll?.(".titles") || []) {
+      const chips = [...t.querySelectorAll(".chip")];
+      if (!chips[0]?.getBoundingClientRect) continue;
+      t.classList.remove("pill-below", "pill-dot");
+      const sub = t.querySelector(".sub");
+      sub?.removeAttribute("title");
+      if (!chips[0].querySelector(".chip-label")?.getClientRects().length) continue;
+      const avail = t.getBoundingClientRect().width;
+      const gap = parseFloat(getComputedStyle(chips[0].parentElement).columnGap) || 0;
+      const widths = chips.map((c) => {
+        const cs = getComputedStyle(c);
+        return c.getBoundingClientRect().width + (parseFloat(cs.marginLeft) || 0) + (parseFloat(cs.marginRight) || 0);
+      });
+      if (textWidth(t.querySelector(".name")) + widths.reduce((w, c) => w + gap + c, 0) <= avail + 0.01) continue;
+      t.classList.add("pill-below");
+      if (sub && sub.scrollWidth > sub.clientWidth) sub.title = sub.textContent.trim();
+      const banner = t.closest(".banner");
+      const box = banner?.getBoundingClientRect();
+      const floor = banner?.querySelector(".dk-ground")?.getBoundingClientRect().top ?? box?.bottom;
+      const r = t.getBoundingClientRect();
+      const out = box && (r.top < box.top - 0.5 || r.bottom > floor + 0.5);
+      const room = avail;
+      if (out || widths.some((w) => w > room + 0.01)) t.classList.add("pill-dot");
     }
   }
 

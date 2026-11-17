@@ -2408,16 +2408,28 @@ const BASE_STYLE = `
      tint would stay under 4.5:1). */
   .header .chip.idle { color: var(--primary-text-color); }
   .chip-label { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  /* With a subtitle, the title block starts at the top and the 18 px chip is centred on the 20 px title
-     line, not on the two lines. */
-  .header:has(.sub) .titles { align-self: flex-start; }
-  .header:has(.sub) .chip { align-self: flex-start; margin-top: 1px; }
+  /* Banner and classic header: the chip sits on the title line, right after the title. The title ellipsises first
+     (never under 4 characters), the chip keeps its whole label. Without room for both, the chip goes on its own
+     line under the subtitle; on a very narrow card only its dot is left (its text stays in title and aria-label). */
+  .titles { display: flex; flex-direction: column; align-items: flex-start; container: dk-titles / inline-size; }
+  .titles > * { max-width: 100%; }
+  .trow { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .trow .name { flex: 0 1 auto; min-width: 4ch; }
+  .trow .chip { flex: none; max-width: calc(100% - 4ch - 8px); }
+  @container dk-titles (max-width: 170px) {
+    .trow { display: contents; }
+    .trow .name, .trow .chip { max-width: 100%; }
+    .trow .chip { order: 3; margin-top: 3px; }
+  }
   @container dk-card (max-width: 239px) {
     .header { gap: 6px; }
     /* The full card's icon draws smaller; the mini card's keeps its 40 px, compact or detailed view. */
     :host(:not([mini])) .header .logo { height: 32px; width: 32px; }
     :host(:not([mini])) .header .logo .icon { width: 18px; height: 18px; }
-    /* Only the coloured dot, in an 18 px chip that no longer shrinks: its text stays in title and aria-label. */
+  }
+  /* At 200 px or less, only the coloured dot, in an 18 px chip that no longer shrinks: its text stays in title and
+     aria-label. */
+  @container dk-card (max-width: 200px) {
     .header .chip { flex: none; padding: 6px; }
     .header .chip .chip-label { display: none; }
   }
@@ -2533,19 +2545,6 @@ const DK_BANNER_STYLE = `
   /* The round icon on the sky: a light tile, the icon in the status colour (lighter at night). */
   .banner .logo { background: rgba(255,255,255,.62); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent); }
   .banner.night .logo { color: color-mix(in srgb, var(--c) 72%, #fff); background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }
-  /* The chip sits on the title line, right after the title: the title ellipsises first (never under 4
-     characters), the chip keeps its whole label. Without room for both, the chip goes on its own line under the
-     subtitle; on a very narrow card only its dot is left (its text stays in title and aria-label). */
-  .banner .titles { display: flex; flex-direction: column; align-items: flex-start; container: dk-titles / inline-size; }
-  .banner .titles > * { max-width: 100%; }
-  .banner .trow { display: flex; align-items: center; gap: 8px; min-width: 0; }
-  .banner .trow .name { flex: 0 1 auto; min-width: 4ch; }
-  .banner .trow .chip { flex: none; max-width: calc(100% - 4ch - 8px); }
-  @container dk-titles (max-width: 170px) {
-    .banner .trow { display: contents; }
-    .banner .trow .name, .banner .trow .chip { max-width: 100%; }
-    .banner .trow .chip { order: 3; margin-top: 3px; }
-  }
   .banner .chip { background: color-mix(in srgb, var(--c) 18%, rgba(255,255,255,.78)); color: color-mix(in srgb, var(--c) 45%, #0d2a45); }
   .banner.night .chip { background: color-mix(in srgb, var(--c) 30%, rgba(8,18,38,.55)); color: color-mix(in srgb, var(--c) 35%, #ffffff); }
   .banner > .zoom { position: absolute; z-index: 2; top: 5px; right: 5px; margin: 0; width: 24px; height: 24px; color: #33506b;
@@ -2988,16 +2987,16 @@ class DockerBase extends HTMLElement {
       ? `<span class="chip clickable ${chipCls}" role="button" tabindex="0" data-entity="${esc(online.entity_id)}" title="${chipText}" aria-label="${chipText}"><span class="dot"></span><span class="chip-label">${chipText}</span></span>`
       : "";
     const name = `<div class="name">${esc(c.title || env.name)}</div>`;
-    // On the banner the chip sits right after the title (its own line under the subtitle when the header is
-    // narrow); the classic header keeps it at the right of the titles.
+    // On the banner and the classic header alike, the chip sits right after the title (its own line under the
+    // subtitle when the header is narrow).
     const header = `
       <div class="header">
         <a class="logo-link logo ${host.cls}" href="${esc(this._logoUrl(env))}" target="_blank" rel="noopener noreferrer" title="${esc(srcName)}" aria-label="${esc(srcName)}">${svgIcon(ICONS.docker)}</a>
         <div class="titles">
-          ${illustrated ? `<div class="trow">${name}${chip}</div>` : name}
+          <div class="trow">${name}${chip}</div>
           ${sub.length ? `<div class="sub">${esc(sub.join(" · "))}</div>` : ""}
         </div>
-        ${illustrated ? "" : `${chip}${zoom}`}
+        ${illustrated ? "" : zoom}
       </div>`;
     if (!illustrated) return header;
     const night = dkIsNight(this._hass, c);

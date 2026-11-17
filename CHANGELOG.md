@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.9.0 - 2026-11-17
+
+### Features
+- Animated illustrated header on the full and mini cards (90 px): the Docker whale carries its containers on the sea, over a quay strip. The containers show the host's state — all coloured with the whale spouting when every container runs, grey ones for stopped containers, a blinking red one when a container is unhealthy, the whale grey and asleep when the host is offline. Day and night pictures (`illustration_theme`: `auto` follows `sun.sun`, then Home Assistant's dark mode; `day`; `night`), honouring "reduce motion"; `illustration: false` keeps the classic header. Both options are in the visual editors and translated in every language.
+- The header icon now always takes the colour of the host's overall state: green when every container runs, orange when some are stopped, red when one is unhealthy or the host is offline, grey when unknown.
+
 ## 3.8.2 - 2026-11-14
 
 ### Fixes

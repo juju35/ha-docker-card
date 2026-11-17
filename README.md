@@ -35,6 +35,7 @@ Entities are **discovered automatically**, you don't have to pick them one by on
 ## Features
 
 - Two cards: a full **Docker Card** and a compact **Docker Mini Card**
+- Animated illustrated header: the Docker whale carries its containers on the sea, coloured by the host's state (running, some stopped, unhealthy, offline), with a day and a night picture
 - Automatic discovery of the Dockhand environments, Monitor Docker instances and Portainer endpoints (several of each supported)
 - CPU, memory and running containers gauges, Docker version and connection type
 - CPU and RAM over the last 24 hours (recorder statistics), drawn behind the CPU and RAM gauges and, on the mini card, behind the CPU and RAM rows, on a real time axis: missing data shows as a gap; their lowest and highest values in the tooltip
@@ -152,6 +153,8 @@ language: fr
 |---|---|---|---|
 | `environment` | both | First environment | Environment to display. Dockhand: its name (as shown in Dockhand) or its Home Assistant device id (set by the visual editor). Monitor Docker: `monitor_docker.<prefix>` (`monitor_docker.docker` for `name: Docker`). Portainer: the endpoint name or its device id |
 | `title` | both | Environment name | Card title |
+| `illustration` | both | `true` | Illustrated header: the Docker whale carrying its containers on the sea, over a quay strip. The containers show the host's state: all coloured with the whale spouting when every container runs, grey ones for stopped containers, a blinking red one when a container is unhealthy, the whale grey and asleep when the host is offline. The header icon always takes the state colour (green running, orange some stopped, red unhealthy or offline, grey unknown). `false`: the classic header |
+| `illustration_theme` | both | `auto` | Day or night picture: `auto` (night while `sun.sun` is below the horizon, else Home Assistant's dark mode), `day` or `night`. Honours the OS "reduce motion" setting |
 | `show_title` | both | `true` | Show the title in the header (e.g. `false` under a section heading of your own) |
 | `show_subtitle` | both | `true` | Show the subtitle under the title |
 | `url` | both | Detected | Address opened in a new tab when clicking the header icon. Defaults to the Dockhand web UI known by the integration, or [dockhand.pro](https://dockhand.pro) if none ([Monitor Docker](https://github.com/ualex73/monitor_docker) for a Monitor Docker instance). Portainer: the endpoint dashboard in Portainer |
@@ -266,10 +269,12 @@ Containers list:
 
 | Animation | Light | Dark |
 |---|---|---|
+| Illustrated header | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-header.gif" alt="illustrated header: all running, some stopped, unhealthy" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-header-dark.gif" alt="illustrated header: all running, some stopped, unhealthy dark" width="400"> |
 | Folding sections | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-sections.gif" alt="sections folding and unfolding" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-sections-dark.gif" alt="sections folding and unfolding dark" width="400"> |
 | Live gauges | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-gauges.gif" alt="gauges animating on a state change" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/card-gauges-dark.gif" alt="gauges animating on a state change dark" width="400"> |
 | Mini card detail button | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom.gif" alt="mini card switching to the full card and back" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-docker-card/main/screenshots/mini-card-zoom-dark.gif" alt="mini card switching to the full card and back dark" width="400"> |
 
+- `card-header.gif` / `card-header-dark.gif` — the illustrated header as the host goes from all containers running to some stopped, then to an unhealthy container (icon green, orange, red).
 - `card-sections.gif` / `card-sections-dark.gif` — the stacks list folds and unfolds on a click on its title, with the chevron rotating along (the containers list, when shown, works the same way).
 - `card-gauges.gif` / `card-gauges-dark.gif` — the CPU and memory rings and labels follow every state change with a smooth transition.
 - `mini-card-zoom.gif` / `mini-card-zoom-dark.gif` — the detail button switches the mini card to the full card and back.

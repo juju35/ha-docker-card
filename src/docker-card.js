@@ -105,6 +105,11 @@ const STRINGS = {
     show_system: "Show CPU, memory and containers",
     show_title: "Show title",
     show_subtitle: "Show subtitle",
+    illustration: "Illustration",
+    illustration_theme: "Illustration theme",
+    theme_auto: "Auto (sun, then dark mode)",
+    theme_day: "Day",
+    theme_night: "Night",
     show_history: "Show the 24 h CPU and memory history",
     threshold_warning: "orange from",
     threshold_critical: "red from",
@@ -181,6 +186,11 @@ const STRINGS = {
     show_system: "Afficher CPU, mémoire et conteneurs",
     show_title: "Afficher le titre",
     show_subtitle: "Afficher le sous-titre",
+    illustration: "Illustration",
+    illustration_theme: "Thème de l'illustration",
+    theme_auto: "Auto (soleil, puis mode sombre)",
+    theme_day: "Jour",
+    theme_night: "Nuit",
     show_history: "Afficher l’historique 24 h du CPU et de la mémoire",
     threshold_warning: "orange dès",
     threshold_critical: "rouge dès",
@@ -257,6 +267,11 @@ const STRINGS = {
     show_system: "CPU, Speicher und Container anzeigen",
     show_title: "Titel anzeigen",
     show_subtitle: "Untertitel anzeigen",
+    illustration: "Illustration",
+    illustration_theme: "Illustrationsthema",
+    theme_auto: "Automatisch (Sonne, dann Dunkelmodus)",
+    theme_day: "Tag",
+    theme_night: "Nacht",
     show_history: "24-h-Verlauf von CPU und Speicher anzeigen",
     threshold_warning: "orange ab",
     threshold_critical: "rot ab",
@@ -333,6 +348,11 @@ const STRINGS = {
     show_system: "Mostrar CPU, memoria y contenedores",
     show_title: "Mostrar el título",
     show_subtitle: "Mostrar el subtítulo",
+    illustration: "Ilustración",
+    illustration_theme: "Tema de la ilustración",
+    theme_auto: "Automático (sol, luego modo oscuro)",
+    theme_day: "Día",
+    theme_night: "Noche",
     show_history: "Mostrar el historial de 24 h de CPU y memoria",
     threshold_warning: "naranja desde",
     threshold_critical: "rojo desde",
@@ -414,6 +434,11 @@ const STRINGS = {
     show_system: "Прикажи CPU, меморију и контејнере",
     show_title: "Прикажи наслов",
     show_subtitle: "Прикажи поднаслов",
+    illustration: "Илустрација",
+    illustration_theme: "Тема илустрације",
+    theme_auto: "Аутоматски (сунце, па тамни режим)",
+    theme_day: "Дан",
+    theme_night: "Ноћ",
     show_history: "Прикажи историју процесора и меморије за 24 ч",
     threshold_warning: "наранџасто од",
     threshold_critical: "црвено од",
@@ -495,6 +520,11 @@ const STRINGS = {
     show_system: "Prikaži CPU, memoriju i kontejnere",
     show_title: "Prikaži naslov",
     show_subtitle: "Prikaži podnaslov",
+    illustration: "Ilustracija",
+    illustration_theme: "Tema ilustracije",
+    theme_auto: "Automatski (sunce, pa tamni režim)",
+    theme_day: "Dan",
+    theme_night: "Noć",
     show_history: "Prikaži istoriju procesora i memorije za 24 č",
     threshold_warning: "narandžasto od",
     threshold_critical: "crveno od",
@@ -571,6 +601,11 @@ const STRINGS = {
     show_system: "Mostra CPU, memoria e container",
     show_title: "Mostra il titolo",
     show_subtitle: "Mostra il sottotitolo",
+    illustration: "Illustrazione",
+    illustration_theme: "Tema dell'illustrazione",
+    theme_auto: "Automatico (sole, poi modalità scura)",
+    theme_day: "Giorno",
+    theme_night: "Notte",
     show_history: "Mostra lo storico 24 h di CPU e memoria",
     threshold_warning: "arancione da",
     threshold_critical: "rosso da",
@@ -647,6 +682,11 @@ const STRINGS = {
     show_system: "CPU, geheugen en containers tonen",
     show_title: "Titel tonen",
     show_subtitle: "Ondertitel tonen",
+    illustration: "Illustratie",
+    illustration_theme: "Thema van de illustratie",
+    theme_auto: "Automatisch (zon, dan donkere modus)",
+    theme_day: "Dag",
+    theme_night: "Nacht",
     show_history: "24-uursgeschiedenis van CPU en geheugen weergeven",
     threshold_warning: "oranje vanaf",
     threshold_critical: "rood vanaf",
@@ -723,6 +763,11 @@ const STRINGS = {
     show_system: "Mostrar CPU, memória e contentores",
     show_title: "Mostrar o título",
     show_subtitle: "Mostrar o subtítulo",
+    illustration: "Ilustração",
+    illustration_theme: "Tema da ilustração",
+    theme_auto: "Automático (sol, depois modo escuro)",
+    theme_day: "Dia",
+    theme_night: "Noite",
     show_history: "Mostrar o histórico de 24 h da CPU e da memória",
     threshold_warning: "laranja a partir de",
     threshold_critical: "vermelho a partir de",
@@ -810,6 +855,11 @@ const STRINGS = {
     show_system: "Pokaż CPU, pamięć i kontenery",
     show_title: "Pokaż tytuł",
     show_subtitle: "Pokaż podtytuł",
+    illustration: "Ilustracja",
+    illustration_theme: "Motyw ilustracji",
+    theme_auto: "Automatycznie (słońce, potem tryb ciemny)",
+    theme_day: "Dzień",
+    theme_night: "Noc",
     show_history: "Pokaż historię CPU i pamięci z 24 h",
     threshold_warning: "pomarańczowy od",
     threshold_critical: "czerwony od",
@@ -898,6 +948,11 @@ const STRINGS = {
     show_system: "Afișează CPU, memoria și containerele",
     show_title: "Afișează titlul",
     show_subtitle: "Afișează subtitlul",
+    illustration: "Ilustrație",
+    illustration_theme: "Tema ilustrației",
+    theme_auto: "Automat (soare, apoi modul întunecat)",
+    theme_day: "Zi",
+    theme_night: "Noapte",
     show_history: "Afișează istoricul pe 24 h al CPU și memoriei",
     threshold_warning: "portocaliu de la",
     threshold_critical: "roșu de la",
@@ -974,6 +1029,11 @@ const STRINGS = {
     show_system: "Vis CPU, hukommelse og containere",
     show_title: "Vis titel",
     show_subtitle: "Vis undertitel",
+    illustration: "Illustration",
+    illustration_theme: "Illustrationstema",
+    theme_auto: "Automatisk (sol, derefter mørk tilstand)",
+    theme_day: "Dag",
+    theme_night: "Nat",
     show_history: "Vis 24-timers historik for CPU og hukommelse",
     threshold_warning: "orange fra",
     threshold_critical: "rød fra",
@@ -1050,6 +1110,11 @@ const STRINGS = {
     show_system: "Visa CPU, minne och containrar",
     show_title: "Visa rubrik",
     show_subtitle: "Visa underrubrik",
+    illustration: "Illustration",
+    illustration_theme: "Illustrationstema",
+    theme_auto: "Automatiskt (sol, sedan mörkt läge)",
+    theme_day: "Dag",
+    theme_night: "Natt",
     show_history: "Visa 24 h-historik för CPU och minne",
     threshold_warning: "orange från",
     threshold_critical: "röd från",
@@ -1127,6 +1192,11 @@ const STRINGS = {
     show_system: "Покажи CPU, памет и контейнери",
     show_title: "Показване на заглавието",
     show_subtitle: "Показване на подзаглавието",
+    illustration: "Илюстрация",
+    illustration_theme: "Тема на илюстрацията",
+    theme_auto: "Автоматично (слънце, после тъмен режим)",
+    theme_day: "Ден",
+    theme_night: "Нощ",
     show_history: "Показване на 24-часовата история на CPU и паметта",
     threshold_warning: "оранжево от",
     threshold_critical: "червено от",
@@ -1214,6 +1284,11 @@ const STRINGS = {
     show_system: "Показывать CPU, память и контейнеры",
     show_title: "Показывать заголовок",
     show_subtitle: "Показывать подзаголовок",
+    illustration: "Иллюстрация",
+    illustration_theme: "Тема иллюстрации",
+    theme_auto: "Авто (солнце, затем тёмный режим)",
+    theme_day: "День",
+    theme_night: "Ночь",
     show_history: "Показать историю CPU и памяти за 24 ч",
     threshold_warning: "оранжевый от",
     threshold_critical: "красный от",
@@ -1301,6 +1376,11 @@ const STRINGS = {
     show_system: "Показувати CPU, пам'ять і контейнери",
     show_title: "Показувати заголовок",
     show_subtitle: "Показувати підзаголовок",
+    illustration: "Ілюстрація",
+    illustration_theme: "Тема ілюстрації",
+    theme_auto: "Авто (сонце, потім темний режим)",
+    theme_day: "День",
+    theme_night: "Ніч",
     show_history: "Показати історію CPU і пам’яті за 24 год",
     threshold_warning: "помаранчевий від",
     threshold_critical: "червоний від",
@@ -1373,6 +1453,11 @@ const STRINGS = {
     show_system: "CPU, memória és konténerek megjelenítése",
     show_title: "Cím megjelenítése",
     show_subtitle: "Alcím megjelenítése",
+    illustration: "Illusztráció",
+    illustration_theme: "Illusztráció témája",
+    theme_auto: "Automatikus (nap, majd sötét mód)",
+    theme_day: "Nappal",
+    theme_night: "Éjszaka",
     show_history: "CPU és memória 24 órás előzményeinek megjelenítése",
     threshold_warning: "narancs ettől",
     threshold_critical: "piros ettől",
@@ -1455,6 +1540,11 @@ const STRINGS = {
     show_system: "Zobraziť CPU, pamäť a kontajnery",
     show_title: "Zobraziť názov",
     show_subtitle: "Zobraziť podnázov",
+    illustration: "Ilustrácia",
+    illustration_theme: "Téma ilustrácie",
+    theme_auto: "Automaticky (slnko, potom tmavý režim)",
+    theme_day: "Deň",
+    theme_night: "Noc",
     show_history: "Zobraziť 24 h históriu CPU a pamäte",
     threshold_warning: "oranžová od",
     threshold_critical: "červená od",
@@ -1537,6 +1627,11 @@ const STRINGS = {
     show_system: "Zobrazit CPU, paměť a kontejnery",
     show_title: "Zobrazit název",
     show_subtitle: "Zobrazit podnázev",
+    illustration: "Ilustrace",
+    illustration_theme: "Motiv ilustrace",
+    theme_auto: "Automaticky (slunce, pak tmavý režim)",
+    theme_day: "Den",
+    theme_night: "Noc",
     show_history: "Zobrazit 24h historii CPU a paměti",
     threshold_warning: "oranžová od",
     threshold_critical: "červená od",
@@ -1624,6 +1719,11 @@ const STRINGS = {
     show_system: "Prikaži CPU, pomnilnik in vsebnike",
     show_title: "Prikaži naslov",
     show_subtitle: "Prikaži podnaslov",
+    illustration: "Ilustracija",
+    illustration_theme: "Tema ilustracije",
+    theme_auto: "Samodejno (sonce, nato temni način)",
+    theme_day: "Dan",
+    theme_night: "Noč",
     show_history: "Prikaži 24-urno zgodovino CPE in pomnilnika",
     threshold_warning: "oranžna od",
     threshold_critical: "rdeča od",
@@ -1707,6 +1807,11 @@ const STRINGS = {
     show_system: "Rādīt CPU, atmiņu un konteinerus",
     show_title: "Rādīt virsrakstu",
     show_subtitle: "Rādīt apakšvirsrakstu",
+    illustration: "Ilustrācija",
+    illustration_theme: "Ilustrācijas tēma",
+    theme_auto: "Automātiski (saule, pēc tam tumšais režīms)",
+    theme_day: "Diena",
+    theme_night: "Nakts",
     show_history: "Rādīt CPU un atmiņas 24 h vēsturi",
     threshold_warning: "oranžs no",
     threshold_critical: "sarkans no",
@@ -1784,6 +1889,11 @@ const STRINGS = {
     show_system: "Εμφάνιση CPU, μνήμης και κοντέινερ",
     show_title: "Εμφάνιση τίτλου",
     show_subtitle: "Εμφάνιση υπότιτλου",
+    illustration: "Εικονογράφηση",
+    illustration_theme: "Θέμα εικονογράφησης",
+    theme_auto: "Αυτόματο (ήλιος, μετά σκοτεινή λειτουργία)",
+    theme_day: "Ημέρα",
+    theme_night: "Νύχτα",
     show_history: "Εμφάνιση ιστορικού 24 ωρών CPU και μνήμης",
     threshold_warning: "πορτοκαλί από",
     threshold_critical: "κόκκινο από",
@@ -2332,6 +2442,126 @@ const MOTION_STYLE = `
 // In-card confirmation popup, as in the other ha-* cards (ha-vacuum-card, ha-system-monitor-card): a backdrop
 // over the card with a small dialog at the top of the card, so it stays in view when the card is long.
 // window.confirm() is blocking and silently neutralised in some webviews; this popup is neither.
+// ---------------------------------------------------------------------------
+// Illustrated header: the Docker whale carrying its containers on the sea, at the right of a 90 px banner
+// (200 × 80 picture over a 10 px quay strip). The left of the banner is open sky for the icon and the title.
+// ---------------------------------------------------------------------------
+
+// Night picture: forced by illustration_theme, else the sun below the horizon, else Home Assistant's dark mode.
+const dkIsNight = (hass, config) => {
+  const theme = config?.illustration_theme;
+  if (theme === "night") return true;
+  if (theme === "day") return false;
+  const sun = hass?.states?.["sun.sun"];
+  if (sun && sun.state !== "unknown" && sun.state !== "unavailable") return sun.state === "below_horizon";
+  return !!hass?.themes?.darkMode;
+};
+
+// The containers on the whale's back: [x, y, colour], bottom row first; DK_STOP_ORDER is the order in which
+// they turn grey as containers stop, DK_SICK the one that turns red when a container is unhealthy.
+const DK_BOXES = [
+  [30, -27, "#e5484d"],
+  [42, -27, "#f5b400"],
+  [54, -27, "#43a047"],
+  [66, -27, "#ffffff"],
+  [78, -27, "#d4537e"],
+  [42, -36, "#1d9e75"],
+  [54, -36, "#ef9f27"],
+  [66, -36, "#2496ed"],
+  [54, -45, "#7f77dd"],
+];
+const DK_STOP_ORDER = [8, 7, 4, 5, 0, 6, 3, 1, 2];
+const DK_SICK = 3;
+const DK_WAVE = `M0 60 q5 -2 10 0${" t10 0".repeat(21)}`;
+
+// state: running | stopped (some containers down, `stoppedShare` of them) | unhealthy | offline | unknown.
+// `uid` keeps the ids of each card's gradients apart on a page with several cards.
+const dkScene = (uid, night, state, stoppedShare = 0) => {
+  const down = state === "offline" || state === "unknown";
+  const grey = down ? DK_BOXES.length : state === "stopped" ? Math.min(DK_BOXES.length - 1, Math.max(1, Math.round(stoppedShare * DK_BOXES.length))) : 0;
+  const greyed = new Set(DK_STOP_ORDER.slice(0, grey));
+  const boxes = DK_BOXES.map(([x, y, c], i) => {
+    const sick = state === "unhealthy" && i === DK_SICK;
+    const fill = sick ? "#e5484d" : greyed.has(i) ? (night ? "#4a5466" : "#aab4bf") : c;
+    return `<rect class="dk-box${sick ? " dk-sick" : ""}${greyed.has(i) ? " dk-off" : ""}" x="${x}" y="${y}" width="11" height="9" fill="${fill}" stroke="#1b74bf" stroke-width=".6"/>`;
+  }).join("");
+  const alert =
+    state === "unhealthy"
+      ? `<g class="dk-alert"><circle cx="71.5" cy="-33" r="4.2" fill="#e5484d"/><path d="M71.5 -35.6v3.2M71.5 -30.6v.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></g>`
+      : "";
+  const stars = night
+    ? `<g fill="#fff" opacity=".8">${[[12, 8], [44, 18], [96, 6], [132, 24], [168, 10], [188, 30], [70, 30]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r=".6"/>`).join("")}</g>`
+    : "";
+  const sun = night
+    ? `<circle cx="40" cy="14" r="5.5" fill="#f3eed2"/><circle cx="42.5" cy="12" r="4.5" fill="#13254a"/>`
+    : `<circle cx="40" cy="14" r="9" fill="#ffd65a" opacity=".28"/><circle cx="40" cy="14" r="6" fill="#ffd65a"/>`;
+  return `<svg class="dk-scene dk-${state}" viewBox="0 0 200 80" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false">
+    <defs><linearGradient id="dk-sea-${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${night ? "#1b4470" : "#5cbdf0"}"/><stop offset="1" stop-color="${night ? "#12304f" : "#3aa4e0"}"/></linearGradient></defs>
+    ${stars}${sun}<g transform="translate(90 12)"><path class="dk-cloud" d="M-14,4 C-17,4 -18,0 -14.5,-1 C-14,-5 -8,-6 -6,-3 C-4,-8 4,-8 5,-2 C9,-3 12,0 10,4 Z"/></g>
+    <rect y="58" width="200" height="22" fill="url(#dk-sea-${uid})"/>
+    <g class="dk-bob"><g transform="translate(66 62)"><g class="dk-whale">
+      <path d="M0 -4 C0 -14 14 -18 40 -18 H82 C90 -18 94 -16 96 -12 C100 -16 106 -24 112 -24 C110 -18 108 -12 102 -8 C98 4 82 12 56 12 C24 12 0 8 0 -4Z" fill="#2496ed"/>
+      <path d="M4 2 C14 8 34 10 56 10 C76 10 90 6 98 -2 C94 8 80 14 56 14 C30 14 10 10 4 2Z" fill="#e8f4fd"/>
+      <circle cx="14" cy="-6" r="2" fill="#0b2a4a"/><circle cx="14.6" cy="-6.6" r=".6" fill="#fff"/>
+      <path d="M24 0 q4 3 8 0" stroke="#1b74bf" stroke-width="1" fill="none"/>
+      ${boxes}${alert}
+      ${state === "running" || state === "stopped" ? `<g class="dk-spout"><path d="M18 -18 q-2 -6 -6 -8 M18 -18 q0 -7 0 -10 M18 -18 q2 -6 6 -8" stroke="#bfe6ff" stroke-width="1.6" fill="none" stroke-linecap="round"/></g>` : ""}
+      ${down ? `<g class="dk-zz" fill="${night ? "#a9c4ff" : "#3b5b78"}" font-size="7" font-family="sans-serif"><text x="8" y="-20">z</text><text x="2" y="-27" font-size="5">z</text></g>` : ""}
+    </g></g></g>
+    <path class="dk-wave" d="${DK_WAVE}" stroke="${night ? "#2b5a86" : "#b5e2fa"}" stroke-width="1.2" fill="none"/>
+  </svg>`;
+};
+
+// The banner: sky gradient (day / night), the scene at the right, the quay strip at the bottom, the header
+// (icon, title, subtitle, chip) on the sky at the left. 90 px on the full card and the mini card.
+const DK_BANNER_STYLE = `
+  .banner { position: relative; height: 90px; overflow: hidden; color: #0d2a45;
+            background: linear-gradient(90deg, #f1f8ff 0%, #e2f1fd 34%, #b9def8 70%, #9fd0f3 100%); }
+  .banner.night { color: #fff; background: linear-gradient(90deg, #1b2f52 0%, #15284a 36%, #0f1f3d 72%, #0a1830 100%); }
+  /* The scene leaves the text at least 230 px (icon, a few characters of the title, the whole chip), smaller on a
+     narrower card, anchored on the quay at the bottom right. */
+  .dk-scene { position: absolute; right: 0; bottom: 10px; height: 80px; width: clamp(0px, calc(100% - 230px), 200px);
+              -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14%); mask-image: linear-gradient(90deg, transparent 0, #000 14%); }
+  .dk-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: #9aa1a9; box-shadow: inset 0 2px 0 #b5bbc2; }
+  .night .dk-ground { background: #2c323b; box-shadow: inset 0 2px 0 #3a414c; }
+  /* Centred on the sky above the quay, at its own height: the chip still lines up with the title line. */
+  .banner .header { position: absolute; left: 0; top: calc(50% - 5px); transform: translateY(-50%); right: clamp(0px, calc(100% - 230px), 200px);
+                    padding: 0 8px 0 12px; box-sizing: border-box; }
+  .banner .name { font-weight: 500; }
+  .banner .sub { color: #3b5b78; }
+  .banner.night .sub { color: rgba(255,255,255,.78); }
+  /* The round icon on the sky: a light tile, the icon in the status colour (lighter at night). */
+  .banner .logo { background: rgba(255,255,255,.62); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent); }
+  .banner.night .logo { color: color-mix(in srgb, var(--c) 72%, #fff); background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }
+  .banner .chip { background: rgba(255,255,255,.7); color: color-mix(in srgb, var(--c) 62%, #10283f); }
+  .banner .chip.idle { color: #10283f; }
+  .banner.night .chip { background: rgba(10,20,40,.5); color: color-mix(in srgb, var(--c) 45%, #fff); }
+  .banner.night .chip.idle { color: #fff; }
+  .banner > .zoom { position: absolute; top: 6px; right: 6px; margin: 0; color: #10283f; background: rgba(255,255,255,.55); }
+  .banner.night > .zoom { color: #fff; background: rgba(10,20,40,.45); }
+  .banner > .zoom:hover { background: rgba(255,255,255,.8); color: #10283f; }
+  .banner.night > .zoom:hover { background: rgba(10,20,40,.7); color: #fff; }
+  /* The classic header ended with 8 px of padding: the content keeps that gap under the quay strip. */
+  .banner + .content { padding-top: 10px; }
+  .banner + .content:empty { display: none; }
+  /* Narrow card: no room for the scene beside the text, the sky alone stays. */
+  @container (max-width: 359px) { .dk-scene { display: none; } .banner .header { right: 0; } :host([mini]) .banner .header { right: 30px; } }
+  .dk-cloud { fill: #fff; opacity: .92; animation: dk-drift 4s ease-in-out infinite alternate; }
+  .night .dk-cloud { opacity: .1; }
+  .dk-bob { animation: dk-bob 3s ease-in-out infinite; }
+  .dk-wave { animation: dk-wave 3s ease-in-out infinite; }
+  .dk-spout { animation: dk-spout 3s ease-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+  .dk-sick, .dk-alert { animation: dk-blink 1.2s ease-in-out infinite; }
+  .dk-zz { animation: dk-blink 2.4s ease-in-out infinite; }
+  .dk-offline .dk-whale, .dk-unknown .dk-whale { filter: saturate(.25); }
+  .dk-offline .dk-bob, .dk-unknown .dk-bob { animation: none; transform: translateY(1.5px); }
+  @keyframes dk-drift { to { transform: translateX(4px); } }
+  @keyframes dk-bob { 50% { transform: translateY(1.5px); } }
+  @keyframes dk-wave { 50% { transform: translateX(-6px); } }
+  @keyframes dk-blink { 50% { opacity: .25; } }
+  @keyframes dk-spout { 0%, 40% { opacity: 0; transform: scaleY(.2); } 55% { opacity: 1; transform: scaleY(1); } 90%, 100% { opacity: 0; transform: scaleY(1.1); } }
+`;
+
 const DIALOG_STYLE = `
   ha-card.dialog-open { position: relative; min-height: 150px; }
   .backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: flex-start; justify-content: center;
@@ -2418,11 +2648,15 @@ function spark(points, end, max) {
   return `<svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><path class="spark-a" d="${area}"/><path class="spark-l" d="${line}"/></svg>`;
 }
 
+let _dkUid = 0;
+
 class DockerBase extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
     this._html = "";
+    // Unique per card: keeps the illustration's SVG ids apart when several cards share a page.
+    this._uid = ++_dkUid;
     // No rewrite of the card between a press and its click: Home Assistant updates the card several times a second,
     // and a rewrite under the pointer replaces the element pressed, so that the click lands on the card itself and
     // does nothing. The update held back is drawn once released: by the click (registered before the card's own
@@ -2555,7 +2789,7 @@ class DockerBase extends HTMLElement {
   // and its containers.
   _signature() {
     const h = this._hass;
-    const sig = [h.entities, h.devices, h.language, h.locale?.language];
+    const sig = [h.entities, h.devices, h.language, h.locale?.language, h.states?.["sun.sun"]?.state, !!h.themes?.darkMode];
     const { env } = findEnv(h, this._config);
     if (!env) return sig;
     if (env.key !== undefined) sig.push(env.key);
@@ -2708,6 +2942,20 @@ class DockerBase extends HTMLElement {
     return SOURCES[env.source].site;
   }
 
+  // Overall state of the host, for the header icon colour and the illustration: offline (red), unhealthy
+  // containers (red), some containers stopped (amber), all running (green), else unknown (grey).
+  _hostState(env) {
+    const online = this._s(env.entities.online);
+    if (online?.state === "off") return { state: "offline", cls: "crit" };
+    const cs = this._containerStats(env);
+    const total = Number.isFinite(cs.total) ? cs.total : null;
+    if ((online && online.state !== "on") || (!online && total === null)) return { state: "unknown", cls: "idle" };
+    if (cs.unhealthy > 0) return { state: "unhealthy", cls: "crit" };
+    const stopped = total && Number.isFinite(cs.running) ? Math.max(0, total - cs.running) : 0;
+    if (stopped > 0) return { state: "stopped", cls: "warn", share: stopped / total };
+    return { state: "running", cls: "ok" };
+  }
+
   _header(env) {
     const c = this._config;
     const online = this._s(env.entities.online);
@@ -2719,13 +2967,14 @@ class DockerBase extends HTMLElement {
     const platform = this._platform(env);
     const conn = this._s(env.entities.connection_type)?.state;
     const srcName = SOURCES[env.source].name;
-    // Without an online sensor (Monitor Docker), the logo is tinted while the containers counter answers.
-    const total = this._s(env.entities.containers)?.state;
-    const logoCls = online ? chipCls : env.source === "monitor_docker" && total !== undefined && total !== "unknown" && total !== "unavailable" ? "ok" : "idle";
+    // The icon is always in the colour of the host's overall state (see _hostState).
+    const host = this._hostState(env);
     const sub = [docker && docker !== "unknown" && docker !== "unavailable" ? `Docker ${docker}` : null, platform, conn].filter((v) => v && v !== "unknown" && v !== "unavailable");
-    return `
+    const illustrated = c.illustration !== false;
+    const zoom = this._zoomButton();
+    const header = `
       <div class="header">
-        <a class="logo-link logo ${logoCls}" href="${esc(this._logoUrl(env))}" target="_blank" rel="noopener noreferrer" title="${esc(srcName)}" aria-label="${esc(srcName)}">${svgIcon(ICONS.docker)}</a>
+        <a class="logo-link logo ${host.cls}" href="${esc(this._logoUrl(env))}" target="_blank" rel="noopener noreferrer" title="${esc(srcName)}" aria-label="${esc(srcName)}">${svgIcon(ICONS.docker)}</a>
         <div class="titles">
           <div class="name">${esc(c.title || env.name)}</div>
           ${sub.length ? `<div class="sub">${esc(sub.join(" · "))}</div>` : ""}
@@ -2735,8 +2984,16 @@ class DockerBase extends HTMLElement {
             ? `<span class="chip clickable ${chipCls}" role="button" tabindex="0" data-entity="${esc(online.entity_id)}" title="${chipText}" aria-label="${chipText}"><span class="dot"></span><span class="chip-label">${chipText}</span></span>`
             : ""
         }
-        ${this._zoomButton()}
+        ${illustrated ? "" : zoom}
       </div>`;
+    if (!illustrated) return header;
+    const night = dkIsNight(this._hass, c);
+    return `<div class="banner${night ? " night" : ""}">${dkScene(this._uid, night, host.state, host.share)}<div class="dk-ground"></div>${header}${zoom}</div>`;
+  }
+
+  // The illustration's styles, only when it is shown.
+  _bannerStyle() {
+    return this._config.illustration === false ? "" : DK_BANNER_STYLE;
   }
 
   // Button at the far right of the header: only the mini card has one.
@@ -3010,7 +3267,7 @@ class DockerCard extends DockerBase {
     if (c.show_counts !== false) parts.push(this._counts(env));
     if (c.show_stacks !== false) parts.push(this._stacks(env));
     if (this._showContainers(env)) parts.push(this._containers(env));
-    return `<style>${BASE_STYLE}${DIALOG_STYLE}${FULL_STYLE}${MOTION_STYLE}</style>
+    return `<style>${BASE_STYLE}${this._bannerStyle()}${DIALOG_STYLE}${FULL_STYLE}${MOTION_STYLE}</style>
       <ha-card>
         ${this._header(env)}
         <div class="content">${parts.filter(Boolean).join("")}</div>
@@ -3466,7 +3723,7 @@ class DockerMiniCard extends DockerCard {
           this._tn("updates_lc", cs.updates)
         )}</span>`
       );
-    return `<style>${BASE_STYLE}${DIALOG_STYLE}${MINI_STYLE}${MOTION_STYLE}</style>
+    return `<style>${BASE_STYLE}${this._bannerStyle()}${DIALOG_STYLE}${MINI_STYLE}${MOTION_STYLE}</style>
       <ha-card>
         ${this._header(env)}
         <div class="content">
@@ -3480,6 +3737,9 @@ class DockerMiniCard extends DockerCard {
 // ---------------------------------------------------------------------------
 // Visual editors (ha-form)
 // ---------------------------------------------------------------------------
+
+// Editor fields other than toggles and thresholds, left out of the YAML at their default.
+const EDITOR_DEFAULTS = { illustration_theme: "auto" };
 
 class DockerEditorBase extends HTMLElement {
   // [name, default]
@@ -3505,6 +3765,10 @@ class DockerEditorBase extends HTMLElement {
       { name: "environment", selector: { select: { mode: "dropdown", options: envs } } },
       { name: "title", selector: { text: {} } },
       { name: "url", selector: { text: { type: "url" } } },
+      {
+        name: "illustration_theme",
+        selector: { select: { mode: "dropdown", options: ["auto", "day", "night"].map((v) => ({ value: v, label: tr(`theme_${v}`) })) } },
+      },
       {
         type: "grid",
         name: "",
@@ -3578,7 +3842,7 @@ class DockerEditorBase extends HTMLElement {
       this._form.addEventListener("value-changed", (ev) => {
         ev.stopPropagation();
         const config = { ...ev.detail.value };
-        const defaults = { ...Object.fromEntries(this._toggles(envOf(config))), ...THRESHOLDS };
+        const defaults = { ...Object.fromEntries(this._toggles(envOf(config))), ...THRESHOLDS, ...EDITOR_DEFAULTS };
         for (const [k, v] of Object.entries(config)) {
           // Keep the YAML minimal: drop empty values and toggles left at their default.
           if (v === "" || v === undefined || v === null || (k in defaults && v === defaults[k])) delete config[k];
@@ -3589,7 +3853,7 @@ class DockerEditorBase extends HTMLElement {
       this.appendChild(this._form);
     }
     const data = { ...this._config };
-    for (const [name, def] of [...toggles, ...Object.entries(THRESHOLDS)]) if (data[name] === undefined) data[name] = def;
+    for (const [name, def] of [...toggles, ...Object.entries(THRESHOLDS), ...Object.entries(EDITOR_DEFAULTS)]) if (data[name] === undefined) data[name] = def;
     if (!data.environment) data.environment = envs[0]?.value;
     this._form.hass = this._hass;
     // hass is pushed on every state change of Home Assistant while the editor is open: reassign data and
@@ -3611,6 +3875,7 @@ class DockerEditorBase extends HTMLElement {
 class DockerCardEditor extends DockerEditorBase {
   static get toggles() {
     return [
+      ["illustration", true],
       ["show_title", true],
       ["show_subtitle", true],
       ["show_system", true],

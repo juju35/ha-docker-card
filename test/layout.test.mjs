@@ -147,16 +147,18 @@ const render = async ({ widths, wraps = [], langs, states: stateSets }) => {
       for (const { at, css, wrapped, childCss, track } of boxes)
         for (const language of langs)
           for (const [st, states] of Object.entries(stateSets))
-            for (const [type, zoom] of [
-              ["docker-mini-card", false],
-              ["docker-mini-card", true],
-              ["docker-card", false],
+            for (const [type, zoom, illustration] of [
+              ["docker-mini-card", false, true],
+              ["docker-mini-card", true, true],
+              ["docker-card", false, true],
+              ["docker-mini-card", false, false],
+              ["docker-card", false, false],
             ]) {
               const box = document.createElement("div");
               box.style.cssText = css;
               document.getElementById("root").replaceChildren(box);
               const el = document.createElement(type);
-              el.setConfig({ type: `custom:${type}`, language });
+              el.setConfig({ type: `custom:${type}`, language, ...(illustration ? {} : { illustration: false }) });
               el.hass = { states, entities, devices, language, locale: { language }, callService: () => {} };
               // Card placed directly in the container, or wrapped in a plain <div> (as many layout cards do).
               const parent = wrapped ? box.appendChild(document.createElement("div")) : box;
@@ -165,8 +167,13 @@ const render = async ({ widths, wraps = [], langs, states: stateSets }) => {
               if (zoom) el.shadowRoot.querySelector(".zoom").dispatchEvent(new MouseEvent("click", { bubbles: true, composed: true, detail: 1 }));
               const r = el.shadowRoot;
               const label = r.querySelector(".header .chip-label");
+              // The chip right after the title on its line (8 px gap), or on its own line under it.
+              const n = r.querySelector(".header .name").getBoundingClientRect();
+              const p = label.parentElement.getBoundingClientRect();
+              const sameLine = Math.abs(p.top + p.height / 2 - (n.top + n.height / 2)) < 3;
+              const placed = sameLine ? Math.abs(p.left - n.right - 8) <= 1 : p.top >= n.bottom - 0.5;
               res.push({
-                at: `${zoom ? "mini-zoomed" : type} ${at} ${language} ${st}`,
+                at: `${zoom ? "mini-zoomed" : type}${illustration ? "" : " classic"} ${at} ${language} ${st}`,
                 track,
                 overflow: box.scrollWidth - box.clientWidth,
                 card: Math.round(r.querySelector("ha-card").getBoundingClientRect().width),
@@ -174,6 +181,8 @@ const render = async ({ widths, wraps = [], langs, states: stateSets }) => {
                 label: label.textContent,
                 labelShown: getComputedStyle(label).display !== "none",
                 labelCut: label.scrollWidth > label.clientWidth + 0.5,
+                placed,
+                chipShare: sameLine ? p.width / r.querySelector(".header .titles").getBoundingClientRect().width : 0,
               });
             }
       return res;
@@ -198,6 +207,16 @@ test("header chip: its whole label shows from 245 to 500 px, the title keeps a f
     assert.ok(m.labelShown, `${m.at}: chip reduced to its dot`);
     assert.equal(m.labelCut, false, `${m.at}: chip label "${m.label}" cut`);
     assert.ok(m.title >= 40, `${m.at}: title only ${m.title}px wide`);
+    assert.ok(m.placed, `${m.at}: chip neither right after the title nor under it`);
+    assert.ok(m.chipShare <= 0.52, `${m.at}: chip takes ${Math.round(m.chipShare * 100)} % of the title block`);
+  }
+});
+
+test("header chip: only its dot at 200 px or less, banner and classic header", async (t) => {
+  if (skip) return t.skip(skip);
+  for (const m of await render({ widths: [175, 200], langs: ["en"], states: { normal: states } })) {
+    assert.equal(m.labelShown, false, `${m.at}: chip label shown`);
+    assert.ok(m.placed, `${m.at}: chip neither right after the title nor under it`);
   }
 });
 

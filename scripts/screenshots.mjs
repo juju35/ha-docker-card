@@ -59,7 +59,7 @@ const openCard = async (browser, s) => {
   await page.addScriptTag({ content: HA_CARD });
   await page.addScriptTag({ content: cardJs });
   await page.evaluate(
-    ({ type, config, states, entities, devices, zoom }) => {
+    ({ type, config, states, entities, devices, zoom, dark }) => {
       const el = document.createElement(type);
       el.setConfig({ type: `custom:${type}`, ...config });
       // Recorder statistics: a plausible 24 h usage curve for CPU and memory (builds at night, busy evening), 5-minute
@@ -76,7 +76,8 @@ const openCard = async (browser, s) => {
           ])
         );
       };
-      el.hass = { states, entities, devices, language: "en", locale: { language: "en" }, callService: () => {}, callWS };
+      // The dark theme draws the illustrated header at night (Home Assistant's dark mode, no sun.sun in the mocks).
+      el.hass = { states, entities, devices, language: "en", locale: { language: "en" }, themes: { darkMode: dark }, callService: () => {}, callWS };
       document.getElementById("root").appendChild(el);
       window.__card = el;
       // A mouse click (detail 1) on the detail button: the zoomed-in view, without a keyboard focus ring.
@@ -85,7 +86,7 @@ const openCard = async (browser, s) => {
           .querySelector(".zoom")
           .dispatchEvent(new MouseEvent("click", { bubbles: true, composed: true, detail: 1 }));
     },
-    { type: s.type, config: s.config, states: s.states ?? states, entities: s.entities ?? entities, devices: s.devices ?? devices, zoom: !!s.zoom }
+    { type: s.type, config: s.config, states: s.states ?? states, entities: s.entities ?? entities, devices: s.devices ?? devices, zoom: !!s.zoom, dark: s.theme === "dark" }
   );
   return page;
 };

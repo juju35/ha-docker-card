@@ -81,5 +81,19 @@ const lightGifs = [
       { at: 2.9, click: ".zoom" },
     ],
   },
+  {
+    // The illustrated header through the host's states: all running, some stopped, a container unhealthy.
+    file: "card-header",
+    type: "docker-card",
+    theme: "light",
+    width: 460,
+    config: { show_system: false, show_counts: false, show_stacks: false },
+    seconds: 6,
+    events: [
+      { at: 0, states: { "sensor.host_conteneurs": { attributes: { running: 11, stopped: 0, unhealthy: 0 } } } },
+      { at: 2, states: { "sensor.host_conteneurs": { attributes: { running: 9, stopped: 2, unhealthy: 0 } } } },
+      { at: 4, states: { "sensor.host_conteneurs": { attributes: { running: 11, stopped: 0, unhealthy: 1 } } } },
+    ],
+  },
 ];
 export const gifs = withDarkTwins(lightGifs);

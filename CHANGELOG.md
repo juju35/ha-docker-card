@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.9.0 - 2026-11-17
+
+### Features
+- Animated illustrated header on the full and mini cards (90 px): the Docker whale carries its containers on the sea, over a quay strip. The containers show the host's state — all coloured with the whale spouting when every container runs, grey ones for stopped containers, a blinking red one when a container is unhealthy, the whale grey and asleep when the host is offline. Day and night pictures (`illustration_theme`: `auto` is night when `sun.sun` is below the horizon or Home Assistant's theme is dark; `day`; `night`), honouring "reduce motion"; `illustration: false` keeps the classic header. Both options are in the visual editors and translated in every language.
+- The header icon now always takes the colour of the host's overall state: green when every container runs, orange when some are stopped, red when one is unhealthy or the host is offline, grey when unknown.
+- On the banner the **status chip sits right after the title**, in the icon's status colour, only when the whole title and its whole label fit there, otherwise on its own line under the subtitle (then kept to one line), and only its dot when even that does not fit in the banner (measured on the rendered card, so that it fits in every language); the mini card's expand/collapse button is a 24 px frosted round button in the banner's top-right corner.
+- The classic header (`illustration: false`) puts its status chip in the same place, right after the title (under the subtitle when the whole title and label do not fit side by side), instead of at the far right; on both headers the chip keeps its label down to 201 px, only its dot at 200 px or less.
+- Night picture with the dark theme even while the sun is up
+
+### Fixes
+- The 24 h sparklines no longer run under the text: on the full card they sit in their own 24 px band under each ring and its label ("12 cores", memory used/total), on a container row in a thin band under its details, and on the mini card behind the bar only, clear of the label and the value.
+
 ## 3.8.2 - 2026-11-14
 
 ### Fixes

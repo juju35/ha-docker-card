@@ -105,6 +105,11 @@ const STRINGS = {
     show_system: "Show CPU, memory and containers",
     show_title: "Show title",
     show_subtitle: "Show subtitle",
+    illustration: "Illustration",
+    illustration_theme: "Illustration theme",
+    theme_auto: "Automatic (sun or dark theme)",
+    theme_day: "Day",
+    theme_night: "Night",
     show_history: "Show the 24 h CPU and memory history",
     threshold_warning: "orange from",
     threshold_critical: "red from",
@@ -181,6 +186,11 @@ const STRINGS = {
     show_system: "Afficher CPU, mémoire et conteneurs",
     show_title: "Afficher le titre",
     show_subtitle: "Afficher le sous-titre",
+    illustration: "Illustration",
+    illustration_theme: "Thème de l'illustration",
+    theme_auto: "Automatique (soleil ou thème sombre)",
+    theme_day: "Jour",
+    theme_night: "Nuit",
     show_history: "Afficher l’historique 24 h du CPU et de la mémoire",
     threshold_warning: "orange dès",
     threshold_critical: "rouge dès",
@@ -257,6 +267,11 @@ const STRINGS = {
     show_system: "CPU, Speicher und Container anzeigen",
     show_title: "Titel anzeigen",
     show_subtitle: "Untertitel anzeigen",
+    illustration: "Illustration",
+    illustration_theme: "Illustrationsthema",
+    theme_auto: "Automatisch (Sonne oder dunkles Design)",
+    theme_day: "Tag",
+    theme_night: "Nacht",
     show_history: "24-h-Verlauf von CPU und Speicher anzeigen",
     threshold_warning: "orange ab",
     threshold_critical: "rot ab",
@@ -333,6 +348,11 @@ const STRINGS = {
     show_system: "Mostrar CPU, memoria y contenedores",
     show_title: "Mostrar el título",
     show_subtitle: "Mostrar el subtítulo",
+    illustration: "Ilustración",
+    illustration_theme: "Tema de la ilustración",
+    theme_auto: "Automático (sol o tema oscuro)",
+    theme_day: "Día",
+    theme_night: "Noche",
     show_history: "Mostrar el historial de 24 h de CPU y memoria",
     threshold_warning: "naranja desde",
     threshold_critical: "rojo desde",
@@ -414,6 +434,11 @@ const STRINGS = {
     show_system: "Прикажи CPU, меморију и контејнере",
     show_title: "Прикажи наслов",
     show_subtitle: "Прикажи поднаслов",
+    illustration: "Илустрација",
+    illustration_theme: "Тема илустрације",
+    theme_auto: "Аутоматски (сунце или тамна тема)",
+    theme_day: "Дан",
+    theme_night: "Ноћ",
     show_history: "Прикажи историју процесора и меморије за 24 ч",
     threshold_warning: "наранџасто од",
     threshold_critical: "црвено од",
@@ -495,6 +520,11 @@ const STRINGS = {
     show_system: "Prikaži CPU, memoriju i kontejnere",
     show_title: "Prikaži naslov",
     show_subtitle: "Prikaži podnaslov",
+    illustration: "Ilustracija",
+    illustration_theme: "Tema ilustracije",
+    theme_auto: "Automatski (sunce ili tamna tema)",
+    theme_day: "Dan",
+    theme_night: "Noć",
     show_history: "Prikaži istoriju procesora i memorije za 24 č",
     threshold_warning: "narandžasto od",
     threshold_critical: "crveno od",
@@ -571,6 +601,11 @@ const STRINGS = {
     show_system: "Mostra CPU, memoria e container",
     show_title: "Mostra il titolo",
     show_subtitle: "Mostra il sottotitolo",
+    illustration: "Illustrazione",
+    illustration_theme: "Tema dell'illustrazione",
+    theme_auto: "Automatico (sole o tema scuro)",
+    theme_day: "Giorno",
+    theme_night: "Notte",
     show_history: "Mostra lo storico 24 h di CPU e memoria",
     threshold_warning: "arancione da",
     threshold_critical: "rosso da",
@@ -647,6 +682,11 @@ const STRINGS = {
     show_system: "CPU, geheugen en containers tonen",
     show_title: "Titel tonen",
     show_subtitle: "Ondertitel tonen",
+    illustration: "Illustratie",
+    illustration_theme: "Thema van de illustratie",
+    theme_auto: "Automatisch (zon of donker thema)",
+    theme_day: "Dag",
+    theme_night: "Nacht",
     show_history: "24-uursgeschiedenis van CPU en geheugen weergeven",
     threshold_warning: "oranje vanaf",
     threshold_critical: "rood vanaf",
@@ -723,6 +763,11 @@ const STRINGS = {
     show_system: "Mostrar CPU, memória e contentores",
     show_title: "Mostrar o título",
     show_subtitle: "Mostrar o subtítulo",
+    illustration: "Ilustração",
+    illustration_theme: "Tema da ilustração",
+    theme_auto: "Automático (sol ou tema escuro)",
+    theme_day: "Dia",
+    theme_night: "Noite",
     show_history: "Mostrar o histórico de 24 h da CPU e da memória",
     threshold_warning: "laranja a partir de",
     threshold_critical: "vermelho a partir de",
@@ -810,6 +855,11 @@ const STRINGS = {
     show_system: "Pokaż CPU, pamięć i kontenery",
     show_title: "Pokaż tytuł",
     show_subtitle: "Pokaż podtytuł",
+    illustration: "Ilustracja",
+    illustration_theme: "Motyw ilustracji",
+    theme_auto: "Automatycznie (słońce lub ciemny motyw)",
+    theme_day: "Dzień",
+    theme_night: "Noc",
     show_history: "Pokaż historię CPU i pamięci z 24 h",
     threshold_warning: "pomarańczowy od",
     threshold_critical: "czerwony od",
@@ -898,6 +948,11 @@ const STRINGS = {
     show_system: "Afișează CPU, memoria și containerele",
     show_title: "Afișează titlul",
     show_subtitle: "Afișează subtitlul",
+    illustration: "Ilustrație",
+    illustration_theme: "Tema ilustrației",
+    theme_auto: "Automat (soare sau temă întunecată)",
+    theme_day: "Zi",
+    theme_night: "Noapte",
     show_history: "Afișează istoricul pe 24 h al CPU și memoriei",
     threshold_warning: "portocaliu de la",
     threshold_critical: "roșu de la",
@@ -974,6 +1029,11 @@ const STRINGS = {
     show_system: "Vis CPU, hukommelse og containere",
     show_title: "Vis titel",
     show_subtitle: "Vis undertitel",
+    illustration: "Illustration",
+    illustration_theme: "Illustrationstema",
+    theme_auto: "Automatisk (sol eller mørkt tema)",
+    theme_day: "Dag",
+    theme_night: "Nat",
     show_history: "Vis 24-timers historik for CPU og hukommelse",
     threshold_warning: "orange fra",
     threshold_critical: "rød fra",
@@ -1050,6 +1110,11 @@ const STRINGS = {
     show_system: "Visa CPU, minne och containrar",
     show_title: "Visa rubrik",
     show_subtitle: "Visa underrubrik",
+    illustration: "Illustration",
+    illustration_theme: "Illustrationstema",
+    theme_auto: "Automatiskt (sol eller mörkt tema)",
+    theme_day: "Dag",
+    theme_night: "Natt",
     show_history: "Visa 24 h-historik för CPU och minne",
     threshold_warning: "orange från",
     threshold_critical: "röd från",
@@ -1127,6 +1192,11 @@ const STRINGS = {
     show_system: "Покажи CPU, памет и контейнери",
     show_title: "Показване на заглавието",
     show_subtitle: "Показване на подзаглавието",
+    illustration: "Илюстрация",
+    illustration_theme: "Тема на илюстрацията",
+    theme_auto: "Автоматично (слънце или тъмна тема)",
+    theme_day: "Ден",
+    theme_night: "Нощ",
     show_history: "Показване на 24-часовата история на CPU и паметта",
     threshold_warning: "оранжево от",
     threshold_critical: "червено от",
@@ -1214,6 +1284,11 @@ const STRINGS = {
     show_system: "Показывать CPU, память и контейнеры",
     show_title: "Показывать заголовок",
     show_subtitle: "Показывать подзаголовок",
+    illustration: "Иллюстрация",
+    illustration_theme: "Тема иллюстрации",
+    theme_auto: "Автоматически (солнце или тёмная тема)",
+    theme_day: "День",
+    theme_night: "Ночь",
     show_history: "Показать историю CPU и памяти за 24 ч",
     threshold_warning: "оранжевый от",
     threshold_critical: "красный от",
@@ -1301,6 +1376,11 @@ const STRINGS = {
     show_system: "Показувати CPU, пам'ять і контейнери",
     show_title: "Показувати заголовок",
     show_subtitle: "Показувати підзаголовок",
+    illustration: "Ілюстрація",
+    illustration_theme: "Тема ілюстрації",
+    theme_auto: "Автоматично (сонце або темна тема)",
+    theme_day: "День",
+    theme_night: "Ніч",
     show_history: "Показати історію CPU і пам’яті за 24 год",
     threshold_warning: "помаранчевий від",
     threshold_critical: "червоний від",
@@ -1373,6 +1453,11 @@ const STRINGS = {
     show_system: "CPU, memória és konténerek megjelenítése",
     show_title: "Cím megjelenítése",
     show_subtitle: "Alcím megjelenítése",
+    illustration: "Illusztráció",
+    illustration_theme: "Illusztráció témája",
+    theme_auto: "Automatikus (nap vagy sötét téma)",
+    theme_day: "Nappal",
+    theme_night: "Éjszaka",
     show_history: "CPU és memória 24 órás előzményeinek megjelenítése",
     threshold_warning: "narancs ettől",
     threshold_critical: "piros ettől",
@@ -1455,6 +1540,11 @@ const STRINGS = {
     show_system: "Zobraziť CPU, pamäť a kontajnery",
     show_title: "Zobraziť názov",
     show_subtitle: "Zobraziť podnázov",
+    illustration: "Ilustrácia",
+    illustration_theme: "Téma ilustrácie",
+    theme_auto: "Automaticky (slnko alebo tmavá téma)",
+    theme_day: "Deň",
+    theme_night: "Noc",
     show_history: "Zobraziť 24 h históriu CPU a pamäte",
     threshold_warning: "oranžová od",
     threshold_critical: "červená od",
@@ -1537,6 +1627,11 @@ const STRINGS = {
     show_system: "Zobrazit CPU, paměť a kontejnery",
     show_title: "Zobrazit název",
     show_subtitle: "Zobrazit podnázev",
+    illustration: "Ilustrace",
+    illustration_theme: "Motiv ilustrace",
+    theme_auto: "Automaticky (slunce nebo tmavý motiv)",
+    theme_day: "Den",
+    theme_night: "Noc",
     show_history: "Zobrazit 24h historii CPU a paměti",
     threshold_warning: "oranžová od",
     threshold_critical: "červená od",
@@ -1624,6 +1719,11 @@ const STRINGS = {
     show_system: "Prikaži CPU, pomnilnik in vsebnike",
     show_title: "Prikaži naslov",
     show_subtitle: "Prikaži podnaslov",
+    illustration: "Ilustracija",
+    illustration_theme: "Tema ilustracije",
+    theme_auto: "Samodejno (sonce ali temna tema)",
+    theme_day: "Dan",
+    theme_night: "Noč",
     show_history: "Prikaži 24-urno zgodovino CPE in pomnilnika",
     threshold_warning: "oranžna od",
     threshold_critical: "rdeča od",
@@ -1707,6 +1807,11 @@ const STRINGS = {
     show_system: "Rādīt CPU, atmiņu un konteinerus",
     show_title: "Rādīt virsrakstu",
     show_subtitle: "Rādīt apakšvirsrakstu",
+    illustration: "Ilustrācija",
+    illustration_theme: "Ilustrācijas tēma",
+    theme_auto: "Automātiski (saule vai tumšais motīvs)",
+    theme_day: "Diena",
+    theme_night: "Nakts",
     show_history: "Rādīt CPU un atmiņas 24 h vēsturi",
     threshold_warning: "oranžs no",
     threshold_critical: "sarkans no",
@@ -1784,6 +1889,11 @@ const STRINGS = {
     show_system: "Εμφάνιση CPU, μνήμης και κοντέινερ",
     show_title: "Εμφάνιση τίτλου",
     show_subtitle: "Εμφάνιση υπότιτλου",
+    illustration: "Εικονογράφηση",
+    illustration_theme: "Θέμα εικονογράφησης",
+    theme_auto: "Αυτόματο (ήλιος ή σκούρο θέμα)",
+    theme_day: "Ημέρα",
+    theme_night: "Νύχτα",
     show_history: "Εμφάνιση ιστορικού 24 ωρών CPU και μνήμης",
     threshold_warning: "πορτοκαλί από",
     threshold_critical: "κόκκινο από",
@@ -2267,7 +2377,7 @@ const BASE_STYLE = `
           --dh-crit: var(--error-color, #db4437); --dh-idle: var(--disabled-text-color, #9e9e9e); }
   /* Query container: the header, the mini card rows and the gauges adapt to the card width (Sections view). */
   :host { display: block; }
-  ha-card { overflow: hidden; container-type: inline-size; }
+  ha-card { overflow: hidden; container: dk-card / inline-size; }
   /* A size container has no content width: in a parent that sizes to its content (inline-block, "auto" grid
      column of layout-card / button-card) the card would fall to a few pixels. This empty, zero-height grid
      gives the card a natural (max-content) width of 300 px with no minimum (its min-content width is 0), so in
@@ -2292,22 +2402,33 @@ const BASE_STYLE = `
   /* The title block takes what the chip and buttons leave (flex basis 0) and shrinks with an ellipsis down to
      a few characters; only then does the chip cut its label. */
   .titles { flex: 1 1 0; min-width: 5ch; }
-  :host([hide-title]) .titles > .name, :host([hide-subtitle]) .titles > .sub { display: none; }
+  :host([hide-title]) .titles .name, :host([hide-subtitle]) .titles > .sub { display: none; }
   .header .chip { flex: 0 1 auto; min-width: 0; overflow: hidden; line-height: 16px; box-sizing: border-box; }
   /* Unavailable / unknown: the dot stays grey, the text takes the primary text colour (grey text on a grey
      tint would stay under 4.5:1). */
   .header .chip.idle { color: var(--primary-text-color); }
   .chip-label { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  /* With a subtitle, the title block starts at the top and the 18 px chip is centred on the 20 px title
-     line, not on the two lines. */
-  .header:has(.sub) .titles { align-self: flex-start; }
-  .header:has(.sub) .chip { align-self: flex-start; margin-top: 1px; }
-  @container (max-width: 239px) {
+  /* Banner and classic header: the chip sits on the title line, right after the title, when the whole title and its
+     whole label fit there. Otherwise the chip goes on its own line under the subtitle, and when even that is too tight
+     only its dot is left (its text stays in title and aria-label). Decided by measure (see _fitPill). */
+  .titles { display: flex; flex-direction: column; align-items: flex-start; container: dk-titles / inline-size; }
+  .titles > * { max-width: 100%; }
+  .trow { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .trow .name { flex: 0 1 auto; min-width: 0; }
+  .trow .chip { flex: none; max-width: none; }
+  .titles.pill-below .trow { display: contents; }
+  .titles.pill-below .trow .name, .titles.pill-below .trow .chip { max-width: 100%; }
+  .titles.pill-below .trow .chip { order: 3; margin-top: 3px; }
+  .titles.pill-dot .trow .chip { padding: 6px; } .titles.pill-dot .trow .chip .chip-label { display: none; }
+  @container dk-card (max-width: 239px) {
     .header { gap: 6px; }
     /* The full card's icon draws smaller; the mini card's keeps its 40 px, compact or detailed view. */
     :host(:not([mini])) .header .logo { height: 32px; width: 32px; }
     :host(:not([mini])) .header .logo .icon { width: 18px; height: 18px; }
-    /* Only the coloured dot, in an 18 px chip that no longer shrinks: its text stays in title and aria-label. */
+  }
+  /* At 200 px or less, only the coloured dot, in an 18 px chip that no longer shrinks: its text stays in title and
+     aria-label. */
+  @container dk-card (max-width: 200px) {
     .header .chip { flex: none; padding: 6px; }
     .header .chip .chip-label { display: none; }
   }
@@ -2332,6 +2453,131 @@ const MOTION_STYLE = `
 // In-card confirmation popup, as in the other ha-* cards (ha-vacuum-card, ha-system-monitor-card): a backdrop
 // over the card with a small dialog at the top of the card, so it stays in view when the card is long.
 // window.confirm() is blocking and silently neutralised in some webviews; this popup is neither.
+// ---------------------------------------------------------------------------
+// Illustrated header: the Docker whale carrying its containers on the sea, at the right of a 90 px banner
+// (200 × 80 picture over a 10 px quay strip). The left of the banner is open sky for the icon and the title.
+// ---------------------------------------------------------------------------
+
+// Night picture: forced by illustration_theme, else the sun below the horizon or Home Assistant's dark theme.
+// The width of an element's whole text in fractional pixels, even while it is cut with an ellipsis (0 when hidden).
+const textWidth = (el) => {
+  if (!el?.getClientRects?.().length || typeof document.createRange !== "function") return 0;
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  return range.getBoundingClientRect().width;
+};
+
+const dkIsNight = (hass, config) => {
+  const theme = config?.illustration_theme;
+  if (theme === "night") return true;
+  if (theme === "day") return false;
+  return hass?.states?.["sun.sun"]?.state === "below_horizon" || !!hass?.themes?.darkMode;
+};
+
+// The containers on the whale's back: [x, y, colour], bottom row first; DK_STOP_ORDER is the order in which
+// they turn grey as containers stop, DK_SICK the one that turns red when a container is unhealthy.
+const DK_BOXES = [
+  [30, -27, "#e5484d"],
+  [42, -27, "#f5b400"],
+  [54, -27, "#43a047"],
+  [66, -27, "#ffffff"],
+  [78, -27, "#d4537e"],
+  [42, -36, "#1d9e75"],
+  [54, -36, "#ef9f27"],
+  [66, -36, "#2496ed"],
+  [54, -45, "#7f77dd"],
+];
+const DK_STOP_ORDER = [8, 7, 4, 5, 0, 6, 3, 1, 2];
+const DK_SICK = 3;
+const DK_WAVE = `M0 60 q5 -2 10 0${" t10 0".repeat(21)}`;
+
+// state: running | stopped (some containers down, `stoppedShare` of them) | unhealthy | offline | unknown.
+// `uid` keeps the ids of each card's gradients apart on a page with several cards.
+const dkScene = (uid, night, state, stoppedShare = 0) => {
+  const down = state === "offline" || state === "unknown";
+  const grey = down ? DK_BOXES.length : state === "stopped" ? Math.min(DK_BOXES.length - 1, Math.max(1, Math.round(stoppedShare * DK_BOXES.length))) : 0;
+  const greyed = new Set(DK_STOP_ORDER.slice(0, grey));
+  const boxes = DK_BOXES.map(([x, y, c], i) => {
+    const sick = state === "unhealthy" && i === DK_SICK;
+    const fill = sick ? "#e5484d" : greyed.has(i) ? (night ? "#4a5466" : "#aab4bf") : c;
+    return `<rect class="dk-box${sick ? " dk-sick" : ""}${greyed.has(i) ? " dk-off" : ""}" x="${x}" y="${y}" width="11" height="9" fill="${fill}" stroke="#1b74bf" stroke-width=".6"/>`;
+  }).join("");
+  const alert =
+    state === "unhealthy"
+      ? `<g class="dk-alert"><circle cx="71.5" cy="-33" r="4.2" fill="#e5484d"/><path d="M71.5 -35.6v3.2M71.5 -30.6v.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></g>`
+      : "";
+  const stars = night
+    ? `<g fill="#fff" opacity=".8">${[[12, 8], [44, 18], [96, 6], [132, 24], [168, 10], [188, 30], [70, 30]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r=".6"/>`).join("")}</g>`
+    : "";
+  const sun = night
+    ? `<circle cx="40" cy="14" r="5.5" fill="#f3eed2"/><circle cx="42.5" cy="12" r="4.5" fill="#13254a"/>`
+    : `<circle cx="40" cy="14" r="9" fill="#ffd65a" opacity=".28"/><circle cx="40" cy="14" r="6" fill="#ffd65a"/>`;
+  return `<svg class="dk-scene dk-${state}" viewBox="0 0 200 80" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false">
+    <defs><linearGradient id="dk-sea-${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${night ? "#1b4470" : "#5cbdf0"}"/><stop offset="1" stop-color="${night ? "#12304f" : "#3aa4e0"}"/></linearGradient></defs>
+    ${stars}${sun}<g transform="translate(90 12)"><path class="dk-cloud" d="M-14,4 C-17,4 -18,0 -14.5,-1 C-14,-5 -8,-6 -6,-3 C-4,-8 4,-8 5,-2 C9,-3 12,0 10,4 Z"/></g>
+    <rect y="58" width="200" height="22" fill="url(#dk-sea-${uid})"/>
+    <g class="dk-bob"><g transform="translate(66 62)"><g class="dk-whale">
+      <path d="M0 -4 C0 -14 14 -18 40 -18 H82 C90 -18 94 -16 96 -12 C100 -16 106 -24 112 -24 C110 -18 108 -12 102 -8 C98 4 82 12 56 12 C24 12 0 8 0 -4Z" fill="#2496ed"/>
+      <path d="M4 2 C14 8 34 10 56 10 C76 10 90 6 98 -2 C94 8 80 14 56 14 C30 14 10 10 4 2Z" fill="#e8f4fd"/>
+      <circle cx="14" cy="-6" r="2" fill="#0b2a4a"/><circle cx="14.6" cy="-6.6" r=".6" fill="#fff"/>
+      <path d="M24 0 q4 3 8 0" stroke="#1b74bf" stroke-width="1" fill="none"/>
+      ${boxes}${alert}
+      ${state === "running" || state === "stopped" ? `<g class="dk-spout"><path d="M18 -18 q-2 -6 -6 -8 M18 -18 q0 -7 0 -10 M18 -18 q2 -6 6 -8" stroke="#bfe6ff" stroke-width="1.6" fill="none" stroke-linecap="round"/></g>` : ""}
+      ${down ? `<g class="dk-zz" fill="${night ? "#a9c4ff" : "#3b5b78"}" font-size="7" font-family="sans-serif"><text x="8" y="-20">z</text><text x="2" y="-27" font-size="5">z</text></g>` : ""}
+    </g></g></g>
+    <path class="dk-wave" d="${DK_WAVE}" stroke="${night ? "#2b5a86" : "#b5e2fa"}" stroke-width="1.2" fill="none"/>
+  </svg>`;
+};
+
+// The banner: sky gradient (day / night), the scene at the right, the quay strip at the bottom, the header
+// (icon, title, subtitle, chip) on the sky at the left. 90 px on the full card and the mini card.
+const DK_BANNER_STYLE = `
+  .banner { position: relative; height: 90px; overflow: hidden; color: #0d2a45;
+            background: linear-gradient(90deg, #f1f8ff 0%, #e2f1fd 34%, #b9def8 70%, #9fd0f3 100%); }
+  .banner.night { color: #fff; background: linear-gradient(90deg, #1b2f52 0%, #15284a 36%, #0f1f3d 72%, #0a1830 100%); }
+  /* The scene leaves the text at least 230 px (icon, a few characters of the title, the whole chip), smaller on a
+     narrower card, anchored on the quay at the bottom right. */
+  .dk-scene { position: absolute; right: 0; bottom: 10px; height: 80px; width: clamp(0px, calc(100% - 230px), 200px);
+              -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14%); mask-image: linear-gradient(90deg, transparent 0, #000 14%); }
+  .dk-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: #9aa1a9; box-shadow: inset 0 2px 0 #b5bbc2; }
+  .night .dk-ground { background: #2c323b; box-shadow: inset 0 2px 0 #3a414c; }
+  /* Centred on the sky above the quay, at its own height: the chip still lines up with the title line. */
+  .banner .header { position: absolute; left: 0; top: calc(50% - 5px); transform: translateY(-50%); right: clamp(0px, calc(100% - 230px), 200px);
+                    padding: 0 8px 0 12px; box-sizing: border-box; }
+  .banner .name { font-weight: 500; }
+  .banner .sub { color: #3b5b78; }
+  .banner.night .sub { color: rgba(255,255,255,.78); }
+  /* The round icon on the sky: a light tile, the icon in the status colour (lighter at night). */
+  .banner .logo { background: rgba(255,255,255,.62); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent); }
+  .banner.night .logo { color: color-mix(in srgb, var(--c) 72%, #fff); background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }
+  .banner .chip { background: color-mix(in srgb, var(--c) 18%, rgba(255,255,255,.78)); color: color-mix(in srgb, var(--c) 45%, #0d2a45); }
+  .banner.night .chip { background: color-mix(in srgb, var(--c) 30%, rgba(8,18,38,.55)); color: color-mix(in srgb, var(--c) 35%, #ffffff); }
+  .banner > .zoom { position: absolute; z-index: 2; top: 5px; right: 5px; margin: 0; width: 24px; height: 24px; color: #33506b;
+                    background: rgba(255,255,255,.55); box-shadow: inset 0 0 0 1px rgba(255,255,255,.7); backdrop-filter: blur(4px); }
+  .banner.night > .zoom { color: #fff; background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
+  .banner > .zoom:hover { background: rgba(255,255,255,.75); color: #33506b; }
+  .banner.night > .zoom:hover { background: rgba(255,255,255,.22); color: #fff; }
+  /* The classic header ended with 8 px of padding: the content keeps that gap under the quay strip. */
+  .banner + .content { padding-top: 10px; }
+  .banner + .content:empty { display: none; }
+  /* Narrow card: no room for the scene beside the text, the sky alone stays. */
+  @container dk-card (max-width: 359px) { .dk-scene { display: none; } .banner .header { right: 0; } :host([mini]) .banner .header { right: 30px; } }
+  .dk-cloud { fill: #fff; opacity: .92; animation: dk-drift 4s ease-in-out infinite alternate; }
+  .night .dk-cloud { opacity: .1; }
+  .dk-bob { animation: dk-bob 3s ease-in-out infinite; }
+  .dk-wave { animation: dk-wave 3s ease-in-out infinite; }
+  .dk-spout { animation: dk-spout 3s ease-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+  .dk-sick, .dk-alert { animation: dk-blink 1.2s ease-in-out infinite; }
+  .dk-zz { animation: dk-blink 2.4s ease-in-out infinite; }
+  .dk-offline .dk-whale, .dk-unknown .dk-whale { filter: saturate(.25); }
+  .dk-offline .dk-bob, .dk-unknown .dk-bob { animation: none; transform: translateY(1.5px); }
+  @keyframes dk-drift { to { transform: translateX(4px); } }
+  @keyframes dk-bob { 50% { transform: translateY(1.5px); } }
+  @keyframes dk-wave { 50% { transform: translateX(-6px); } }
+  @keyframes dk-blink { 50% { opacity: .25; } }
+  @keyframes dk-spout { 0%, 40% { opacity: 0; transform: scaleY(.2); } 55% { opacity: 1; transform: scaleY(1); } 90%, 100% { opacity: 0; transform: scaleY(1.1); } }
+`;
+
 const DIALOG_STYLE = `
   ha-card.dialog-open { position: relative; min-height: 150px; }
   .backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: flex-start; justify-content: center;
@@ -2418,11 +2664,15 @@ function spark(points, end, max) {
   return `<svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><path class="spark-a" d="${area}"/><path class="spark-l" d="${line}"/></svg>`;
 }
 
+let _dkUid = 0;
+
 class DockerBase extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
     this._html = "";
+    // Unique per card: keeps the illustration's SVG ids apart when several cards share a page.
+    this._uid = ++_dkUid;
     // No rewrite of the card between a press and its click: Home Assistant updates the card several times a second,
     // and a rewrite under the pointer replaces the element pressed, so that the click lands on the card itself and
     // does nothing. The update held back is drawn once released: by the click (registered before the card's own
@@ -2502,11 +2752,25 @@ class DockerBase extends HTMLElement {
       },
     );
     this._outside.on();
+    // A new width (or the web font loaded): the status pill is fitted again, in the next frame.
+    if (typeof ResizeObserver === "function") {
+      this._pillResize ??= new ResizeObserver((entries) => {
+        const w = Math.round(entries.at(-1).contentRect.width);
+        if (w === this._pillWidth) return;
+        this._pillWidth = w;
+        cancelAnimationFrame(this._pillFrame);
+        this._pillFrame = requestAnimationFrame(() => this._fitPill());
+      });
+      this._pillResize.observe(this);
+    }
+    document.fonts?.ready?.then(() => this._fitPill());
     // Back on the page after leaving it: rendered again in its default state.
     if (this._hass && this._config) this._update();
   }
 
   disconnectedCallback() {
+    this._pillResize?.disconnect();
+    this._pillWidth = null;
     this._pressing = this._dirty = false;
     window.removeEventListener("pointerup", this._onPressEnd, true);
     window.removeEventListener("pointercancel", this._onPressEnd, true);
@@ -2555,7 +2819,7 @@ class DockerBase extends HTMLElement {
   // and its containers.
   _signature() {
     const h = this._hass;
-    const sig = [h.entities, h.devices, h.language, h.locale?.language];
+    const sig = [h.entities, h.devices, h.language, h.locale?.language, h.states?.["sun.sun"]?.state, !!h.themes?.darkMode];
     const { env } = findEnv(h, this._config);
     if (!env) return sig;
     if (env.key !== undefined) sig.push(env.key);
@@ -2578,6 +2842,40 @@ class DockerBase extends HTMLElement {
     if (html !== this._html) {
       this._html = html;
       morph(this.shadowRoot, html);
+    }
+    this._fitPill();
+  }
+
+  // The status pill goes on the title row, right after the title, only when the whole title and the pill's whole
+  // label fit there; otherwise it takes its own line under the subtitle (.pill-below) and the title keeps its row
+  // (cut only when it does not fit alone). The subtitle then keeps one line (its whole text in its tooltip), and when
+  // the block still runs out of the banner or into its ground strip, or the label does not fit its own line, the pill
+  // keeps its dot alone (.pill-dot, the label in its tooltip and aria-label). Measured after each render and on each
+  // new width, never by a fixed width, so that every language fits.
+  _fitPill() {
+    for (const t of this.shadowRoot?.querySelectorAll?.(".titles") || []) {
+      const chips = [...t.querySelectorAll(".chip")];
+      if (!chips[0]?.getBoundingClientRect) continue;
+      t.classList.remove("pill-below", "pill-dot");
+      const sub = t.querySelector(".sub");
+      sub?.removeAttribute("title");
+      if (!chips[0].querySelector(".chip-label")?.getClientRects().length) continue;
+      const avail = t.getBoundingClientRect().width;
+      const gap = parseFloat(getComputedStyle(chips[0].parentElement).columnGap) || 0;
+      const widths = chips.map((c) => {
+        const cs = getComputedStyle(c);
+        return c.getBoundingClientRect().width + (parseFloat(cs.marginLeft) || 0) + (parseFloat(cs.marginRight) || 0);
+      });
+      if (textWidth(t.querySelector(".name")) + widths.reduce((w, c) => w + gap + c, 0) <= avail + 0.01) continue;
+      t.classList.add("pill-below");
+      if (sub && sub.scrollWidth > sub.clientWidth) sub.title = sub.textContent.trim();
+      const banner = t.closest(".banner");
+      const box = banner?.getBoundingClientRect();
+      const floor = banner?.querySelector(".dk-ground")?.getBoundingClientRect().top ?? box?.bottom;
+      const r = t.getBoundingClientRect();
+      const out = box && (r.top < box.top - 0.5 || r.bottom > floor + 0.5);
+      const room = avail;
+      if (out || widths.some((w) => w > room + 0.01)) t.classList.add("pill-dot");
     }
   }
 
@@ -2708,6 +3006,20 @@ class DockerBase extends HTMLElement {
     return SOURCES[env.source].site;
   }
 
+  // Overall state of the host, for the header icon colour and the illustration: offline (red), unhealthy
+  // containers (red), some containers stopped (amber), all running (green), else unknown (grey).
+  _hostState(env) {
+    const online = this._s(env.entities.online);
+    if (online?.state === "off") return { state: "offline", cls: "crit" };
+    const cs = this._containerStats(env);
+    const total = Number.isFinite(cs.total) ? cs.total : null;
+    if ((online && online.state !== "on") || (!online && total === null)) return { state: "unknown", cls: "idle" };
+    if (cs.unhealthy > 0) return { state: "unhealthy", cls: "crit" };
+    const stopped = total && Number.isFinite(cs.running) ? Math.max(0, total - cs.running) : 0;
+    if (stopped > 0) return { state: "stopped", cls: "warn", share: stopped / total };
+    return { state: "running", cls: "ok" };
+  }
+
   _header(env) {
     const c = this._config;
     const online = this._s(env.entities.online);
@@ -2719,24 +3031,34 @@ class DockerBase extends HTMLElement {
     const platform = this._platform(env);
     const conn = this._s(env.entities.connection_type)?.state;
     const srcName = SOURCES[env.source].name;
-    // Without an online sensor (Monitor Docker), the logo is tinted while the containers counter answers.
-    const total = this._s(env.entities.containers)?.state;
-    const logoCls = online ? chipCls : env.source === "monitor_docker" && total !== undefined && total !== "unknown" && total !== "unavailable" ? "ok" : "idle";
+    // The icon is always in the colour of the host's overall state (see _hostState).
+    const host = this._hostState(env);
     const sub = [docker && docker !== "unknown" && docker !== "unavailable" ? `Docker ${docker}` : null, platform, conn].filter((v) => v && v !== "unknown" && v !== "unavailable");
-    return `
+    const illustrated = c.illustration !== false;
+    const zoom = this._zoomButton();
+    const chip = online
+      ? `<span class="chip clickable ${chipCls}" role="button" tabindex="0" data-entity="${esc(online.entity_id)}" title="${chipText}" aria-label="${chipText}"><span class="dot"></span><span class="chip-label">${chipText}</span></span>`
+      : "";
+    const name = `<div class="name">${esc(c.title || env.name)}</div>`;
+    // On the banner and the classic header alike, the chip sits right after the title (its own line under the
+    // subtitle when the header is narrow).
+    const header = `
       <div class="header">
-        <a class="logo-link logo ${logoCls}" href="${esc(this._logoUrl(env))}" target="_blank" rel="noopener noreferrer" title="${esc(srcName)}" aria-label="${esc(srcName)}">${svgIcon(ICONS.docker)}</a>
+        <a class="logo-link logo ${host.cls}" href="${esc(this._logoUrl(env))}" target="_blank" rel="noopener noreferrer" title="${esc(srcName)}" aria-label="${esc(srcName)}">${svgIcon(ICONS.docker)}</a>
         <div class="titles">
-          <div class="name">${esc(c.title || env.name)}</div>
+          <div class="trow">${name}${chip}</div>
           ${sub.length ? `<div class="sub">${esc(sub.join(" · "))}</div>` : ""}
         </div>
-        ${
-          online
-            ? `<span class="chip clickable ${chipCls}" role="button" tabindex="0" data-entity="${esc(online.entity_id)}" title="${chipText}" aria-label="${chipText}"><span class="dot"></span><span class="chip-label">${chipText}</span></span>`
-            : ""
-        }
-        ${this._zoomButton()}
+        ${illustrated ? "" : zoom}
       </div>`;
+    if (!illustrated) return header;
+    const night = dkIsNight(this._hass, c);
+    return `<div class="banner${night ? " night" : ""}">${dkScene(this._uid, night, host.state, host.share)}<div class="dk-ground"></div>${header}${zoom}</div>`;
+  }
+
+  // The illustration's styles, only when it is shown.
+  _bannerStyle() {
+    return this._config.illustration === false ? "" : DK_BANNER_STYLE;
   }
 
   // Button at the far right of the header: only the mini card has one.
@@ -2886,7 +3208,9 @@ const FULL_STYLE = `
   .section-title .unit { text-transform: none; }
   .gauge { display: flex; flex-direction: column; align-items: center; min-width: 0; position: relative; border-radius: 10px; overflow: hidden; }
   .gauge > :not(.spark) { position: relative; }
-  .gauge .spark { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  /* 24 h curve in its own 24 px band under the ring and the label, never behind the text. */
+  .gauge:has(> .spark) { padding-bottom: 28px; }
+  .gauge .spark { position: absolute; inset: auto 0 0; width: 100%; height: 24px; pointer-events: none; }
   .spark-a { fill: color-mix(in srgb, var(--c) 12%, transparent); }
   .spark-l { fill: none; stroke: color-mix(in srgb, var(--c) 50%, transparent); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
   /* Ring of 60 px, smaller when the column is narrower (6 columns of a small Sections view). */
@@ -2901,7 +3225,7 @@ const FULL_STYLE = `
   .gauge .lbl { font-size: 12px; color: var(--secondary-text-color); margin-top: 0; text-align: center; line-height: 1.35; }
   .gauge .lbl small { display: block; font-size: 11px; opacity: .85; }
   .gauge .lbl { max-width: 100%; overflow-wrap: break-word; }
-  @container (max-width: 299px) {
+  @container dk-card (max-width: 299px) {
     .gauge .val .icon { display: none; }
     .gauge .val b { font-size: 11px; }
     .gauge .lbl, .gauge .lbl small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -2920,7 +3244,8 @@ const FULL_STYLE = `
   /* CPU over the last 24 hours behind a container's row, discreet. */
   .item { position: relative; }
   .item > :not(.spark) { position: relative; }
-  .item > .spark { position: absolute; left: 0; bottom: 0; width: 100%; height: 50%; pointer-events: none; --c: var(--primary-color, #03a9f4); opacity: .7; }
+  .item:has(> .spark) { padding-bottom: 15px; }
+  .item > .spark { position: absolute; inset: auto 0 2px; width: 100%; height: 12px; pointer-events: none; --c: var(--primary-color, #03a9f4); opacity: .7; }
   .item:last-child { border-bottom: none; }
   .item .main { flex: 1; min-width: 0; }
   .item .title { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }
@@ -3010,7 +3335,7 @@ class DockerCard extends DockerBase {
     if (c.show_counts !== false) parts.push(this._counts(env));
     if (c.show_stacks !== false) parts.push(this._stacks(env));
     if (this._showContainers(env)) parts.push(this._containers(env));
-    return `<style>${BASE_STYLE}${DIALOG_STYLE}${FULL_STYLE}${MOTION_STYLE}</style>
+    return `<style>${BASE_STYLE}${this._bannerStyle()}${DIALOG_STYLE}${FULL_STYLE}${MOTION_STYLE}</style>
       <ha-card>
         ${this._header(env)}
         <div class="content">${parts.filter(Boolean).join("")}</div>
@@ -3330,19 +3655,21 @@ const MINI_STYLE = `
   /* Label column of up to 86 px (the bars line up across rows), a bar of at least 24 px, the value at its width. */
   .metric { display: grid; grid-template-columns: 18px minmax(0, 86px) minmax(24px, 1fr) minmax(44px, auto); align-items: center; gap: 8px; font-size: 13px; }
   .metric .icon { color: var(--secondary-text-color); }
-  /* 24 h curve behind the CPU and memory rows (the recorder's 5-minute means), in the row's colour. */
+  /* 24 h curve of the CPU and memory rows (the recorder's 5-minute means), in the row's colour, behind the bar only:
+     it never crosses the label or the value. */
   .metric { position: relative; }
   .metric > :not(.spark) { position: relative; }
-  .metric .spark { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; }
+  .metric .spark { position: absolute; grid-area: 1 / 3 / 2 / 4; inset: -3px 0; width: 100%; height: calc(100% + 6px); pointer-events: none; }
   .spark-a { fill: color-mix(in srgb, var(--c, var(--dh-ok)) 12%, transparent); }
   .spark-l { fill: none; stroke: color-mix(in srgb, var(--c, var(--dh-ok)) 50%, transparent); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
   /* Fixed label column (the bars line up across rows): a longer translation is cut, never drawn over the bar. */
   .metric .lbl { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .metric .v { text-align: right; font-weight: 500; white-space: nowrap; }
-  @container (max-width: 229px) {
+  @container dk-card (max-width: 229px) {
     /* Narrow card (6 columns of a small Sections view): the icon names the row, the label stays in aria-label. */
     .metric { grid-template-columns: 18px minmax(24px, 1fr) minmax(44px, auto); gap: 6px; }
     .metric .lbl { display: none; }
+    .metric .spark { grid-area: 1 / 2 / 2 / 3; }
   }
   .foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; color: var(--secondary-text-color); margin-top: 2px; flex-wrap: wrap; }
   .foot span { display: inline-flex; align-items: center; gap: 4px; }
@@ -3466,7 +3793,7 @@ class DockerMiniCard extends DockerCard {
           this._tn("updates_lc", cs.updates)
         )}</span>`
       );
-    return `<style>${BASE_STYLE}${DIALOG_STYLE}${MINI_STYLE}${MOTION_STYLE}</style>
+    return `<style>${BASE_STYLE}${this._bannerStyle()}${DIALOG_STYLE}${MINI_STYLE}${MOTION_STYLE}</style>
       <ha-card>
         ${this._header(env)}
         <div class="content">
@@ -3480,6 +3807,9 @@ class DockerMiniCard extends DockerCard {
 // ---------------------------------------------------------------------------
 // Visual editors (ha-form)
 // ---------------------------------------------------------------------------
+
+// Editor fields other than toggles and thresholds, left out of the YAML at their default.
+const EDITOR_DEFAULTS = { illustration_theme: "auto" };
 
 class DockerEditorBase extends HTMLElement {
   // [name, default]
@@ -3505,6 +3835,10 @@ class DockerEditorBase extends HTMLElement {
       { name: "environment", selector: { select: { mode: "dropdown", options: envs } } },
       { name: "title", selector: { text: {} } },
       { name: "url", selector: { text: { type: "url" } } },
+      {
+        name: "illustration_theme",
+        selector: { select: { mode: "dropdown", options: ["auto", "day", "night"].map((v) => ({ value: v, label: tr(`theme_${v}`) })) } },
+      },
       {
         type: "grid",
         name: "",
@@ -3578,7 +3912,7 @@ class DockerEditorBase extends HTMLElement {
       this._form.addEventListener("value-changed", (ev) => {
         ev.stopPropagation();
         const config = { ...ev.detail.value };
-        const defaults = { ...Object.fromEntries(this._toggles(envOf(config))), ...THRESHOLDS };
+        const defaults = { ...Object.fromEntries(this._toggles(envOf(config))), ...THRESHOLDS, ...EDITOR_DEFAULTS };
         for (const [k, v] of Object.entries(config)) {
           // Keep the YAML minimal: drop empty values and toggles left at their default.
           if (v === "" || v === undefined || v === null || (k in defaults && v === defaults[k])) delete config[k];
@@ -3589,7 +3923,7 @@ class DockerEditorBase extends HTMLElement {
       this.appendChild(this._form);
     }
     const data = { ...this._config };
-    for (const [name, def] of [...toggles, ...Object.entries(THRESHOLDS)]) if (data[name] === undefined) data[name] = def;
+    for (const [name, def] of [...toggles, ...Object.entries(THRESHOLDS), ...Object.entries(EDITOR_DEFAULTS)]) if (data[name] === undefined) data[name] = def;
     if (!data.environment) data.environment = envs[0]?.value;
     this._form.hass = this._hass;
     // hass is pushed on every state change of Home Assistant while the editor is open: reassign data and
@@ -3611,6 +3945,7 @@ class DockerEditorBase extends HTMLElement {
 class DockerCardEditor extends DockerEditorBase {
   static get toggles() {
     return [
+      ["illustration", true],
       ["show_title", true],
       ["show_subtitle", true],
       ["show_system", true],

@@ -185,7 +185,9 @@ test("the mini card detail button switches to the full card content and back", (
   assert.equal(el._zoomed, true);
   assert.doesNotMatch(el.html, /class="metric/);
   assert.match(el.html, /class="gauges/);
-  assert.equal(el.html.replace(/<button type="button" class="zoom"[\s\S]*?<\/button>/, ""), full._render());
+  // Same content, but the illustration's SVG ids carry each card's own uid.
+  const noUid = (html) => html.replace(/dk-sea-\d+/g, "dk-sea");
+  assert.equal(noUid(el.html.replace(/<button type="button" class="zoom"[\s\S]*?<\/button>/, "")), noUid(full._render()));
   assert.match(el.html, /<button type="button" class="zoom" title="Back to the compact view">/);
   assert.equal(el.getCardSize(), full.getCardSize());
   assert.deepEqual({ ...el.getGridOptions() }, { ...full.getGridOptions(), rows: "auto" });
@@ -777,4 +779,50 @@ test("Editors: the mini card offers the full card's options (its detailed view),
   assert.equal(Object.fromEntries(mini._toggles("docker_host")).show_containers, false);
   for (const [code, strings] of Object.entries(STRINGS))
     for (const [n] of mini._toggles()) assert.ok(strings[n], `${code}: ${n}`);
+});
+
+test("illustrated header: icon colour and scene follow the host state, night mode, classic header", () => {
+  const withCounts = (a) => {
+    const s = baseStates();
+    s["sensor.containers"] = { entity_id: "sensor.containers", state: "3", attributes: { running: 3, unhealthy: 0, ...a } };
+    return s;
+  };
+  const header = (states, config = {}, extra = {}) => {
+    const el = make(DockerCard, states, config);
+    Object.assign(el._hass, extra);
+    return el._render();
+  };
+  let html = header(withCounts({}));
+  assert.match(html, /<div class="banner">/);
+  assert.match(html, /class="logo-link logo ok"/);
+  assert.match(html, /class="dk-scene dk-running"/);
+  assert.match(html, /class="dk-spout"/);
+  html = header(withCounts({ running: 2 }));
+  assert.match(html, /class="logo-link logo warn"/);
+  assert.match(html, /class="dk-scene dk-stopped"/);
+  assert.match(html, /dk-box dk-off/);
+  html = header(withCounts({ unhealthy: 1 }));
+  assert.match(html, /class="logo-link logo crit"/);
+  assert.match(html, /class="dk-scene dk-unhealthy"/);
+  assert.match(html, /dk-box dk-sick/);
+  // Night: forced, else sun.sun below the horizon or the dark mode.
+  assert.match(header(withCounts({}), { illustration_theme: "night" }), /<div class="banner night">/);
+  assert.match(header({ ...withCounts({}), "sun.sun": { state: "below_horizon", attributes: {} } }), /<div class="banner night">/);
+  assert.match(header(withCounts({}), {}, { themes: { darkMode: true } }), /<div class="banner night">/);
+  assert.match(header(withCounts({}), { illustration_theme: "day" }, { themes: { darkMode: true } }), /<div class="banner">/);
+  const sunUp = { ...withCounts({}), "sun.sun": { state: "above_horizon", attributes: {} } };
+  assert.match(header(sunUp, {}, { themes: { darkMode: true } }), /<div class="banner night">/, "dark theme while the sun is up: night");
+  assert.match(header(sunUp, {}, { themes: { darkMode: false } }), /<div class="banner">/, "light theme while the sun is up: day");
+  assert.match(header(sunUp, { illustration_theme: "day" }, { themes: { darkMode: true } }), /<div class="banner">/);
+  assert.match(header(sunUp, { illustration_theme: "night" }, { themes: { darkMode: false } }), /<div class="banner night">/);
+  // Classic header: no banner, no scene styles.
+  html = header(withCounts({}), { illustration: false });
+  assert.doesNotMatch(html, /class="banner|dk-scene/);
+  assert.match(html, /class="logo-link logo ok"/);
+});
+
+test("illustrated header: each card instance has its own SVG ids", () => {
+  const a = make(DockerCard, baseStates())._render().match(/id="(dk-sea-\d+)"/)[1];
+  const b = make(DockerCard, baseStates())._render().match(/id="(dk-sea-\d+)"/)[1];
+  assert.notEqual(a, b);
 });

@@ -1,4 +1,5 @@
 # Changelog
+- On the banner the **status chip sits right after the title**, in the icon's status colour, and drops under the subtitle when the header is narrow; the mini card's expand/collapse button is a 24 px frosted round button in the banner's top-right corner.
 
 ## 3.9.0 - 2026-11-17
 

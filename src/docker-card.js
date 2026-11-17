@@ -2377,7 +2377,7 @@ const BASE_STYLE = `
           --dh-crit: var(--error-color, #db4437); --dh-idle: var(--disabled-text-color, #9e9e9e); }
   /* Query container: the header, the mini card rows and the gauges adapt to the card width (Sections view). */
   :host { display: block; }
-  ha-card { overflow: hidden; container-type: inline-size; }
+  ha-card { overflow: hidden; container: dk-card / inline-size; }
   /* A size container has no content width: in a parent that sizes to its content (inline-block, "auto" grid
      column of layout-card / button-card) the card would fall to a few pixels. This empty, zero-height grid
      gives the card a natural (max-content) width of 300 px with no minimum (its min-content width is 0), so in
@@ -2402,7 +2402,7 @@ const BASE_STYLE = `
   /* The title block takes what the chip and buttons leave (flex basis 0) and shrinks with an ellipsis down to
      a few characters; only then does the chip cut its label. */
   .titles { flex: 1 1 0; min-width: 5ch; }
-  :host([hide-title]) .titles > .name, :host([hide-subtitle]) .titles > .sub { display: none; }
+  :host([hide-title]) .titles .name, :host([hide-subtitle]) .titles > .sub { display: none; }
   .header .chip { flex: 0 1 auto; min-width: 0; overflow: hidden; line-height: 16px; box-sizing: border-box; }
   /* Unavailable / unknown: the dot stays grey, the text takes the primary text colour (grey text on a grey
      tint would stay under 4.5:1). */
@@ -2412,7 +2412,7 @@ const BASE_STYLE = `
      line, not on the two lines. */
   .header:has(.sub) .titles { align-self: flex-start; }
   .header:has(.sub) .chip { align-self: flex-start; margin-top: 1px; }
-  @container (max-width: 239px) {
+  @container dk-card (max-width: 239px) {
     .header { gap: 6px; }
     /* The full card's icon draws smaller; the mini card's keeps its 40 px, compact or detailed view. */
     :host(:not([mini])) .header .logo { height: 32px; width: 32px; }
@@ -2533,19 +2533,31 @@ const DK_BANNER_STYLE = `
   /* The round icon on the sky: a light tile, the icon in the status colour (lighter at night). */
   .banner .logo { background: rgba(255,255,255,.62); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent); }
   .banner.night .logo { color: color-mix(in srgb, var(--c) 72%, #fff); background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }
-  .banner .chip { background: rgba(255,255,255,.7); color: color-mix(in srgb, var(--c) 62%, #10283f); }
-  .banner .chip.idle { color: #10283f; }
-  .banner.night .chip { background: rgba(10,20,40,.5); color: color-mix(in srgb, var(--c) 45%, #fff); }
-  .banner.night .chip.idle { color: #fff; }
-  .banner > .zoom { position: absolute; top: 6px; right: 6px; margin: 0; color: #10283f; background: rgba(255,255,255,.55); }
-  .banner.night > .zoom { color: #fff; background: rgba(10,20,40,.45); }
-  .banner > .zoom:hover { background: rgba(255,255,255,.8); color: #10283f; }
-  .banner.night > .zoom:hover { background: rgba(10,20,40,.7); color: #fff; }
+  /* The chip sits on the title line, right after the title: the title ellipsises first (never under 4
+     characters), the chip keeps its whole label. Without room for both, the chip goes on its own line under the
+     subtitle; on a very narrow card only its dot is left (its text stays in title and aria-label). */
+  .banner .titles { display: flex; flex-direction: column; align-items: flex-start; container: dk-titles / inline-size; }
+  .banner .titles > * { max-width: 100%; }
+  .banner .trow { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .banner .trow .name { flex: 0 1 auto; min-width: 4ch; }
+  .banner .trow .chip { flex: none; max-width: calc(100% - 4ch - 8px); }
+  @container dk-titles (max-width: 170px) {
+    .banner .trow { display: contents; }
+    .banner .trow .name, .banner .trow .chip { max-width: 100%; }
+    .banner .trow .chip { order: 3; margin-top: 3px; }
+  }
+  .banner .chip { background: color-mix(in srgb, var(--c) 18%, rgba(255,255,255,.78)); color: color-mix(in srgb, var(--c) 45%, #0d2a45); }
+  .banner.night .chip { background: color-mix(in srgb, var(--c) 30%, rgba(8,18,38,.55)); color: color-mix(in srgb, var(--c) 35%, #ffffff); }
+  .banner > .zoom { position: absolute; z-index: 2; top: 5px; right: 5px; margin: 0; width: 24px; height: 24px; color: #33506b;
+                    background: rgba(255,255,255,.55); box-shadow: inset 0 0 0 1px rgba(255,255,255,.7); backdrop-filter: blur(4px); }
+  .banner.night > .zoom { color: #fff; background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
+  .banner > .zoom:hover { background: rgba(255,255,255,.75); color: #33506b; }
+  .banner.night > .zoom:hover { background: rgba(255,255,255,.22); color: #fff; }
   /* The classic header ended with 8 px of padding: the content keeps that gap under the quay strip. */
   .banner + .content { padding-top: 10px; }
   .banner + .content:empty { display: none; }
   /* Narrow card: no room for the scene beside the text, the sky alone stays. */
-  @container (max-width: 359px) { .dk-scene { display: none; } .banner .header { right: 0; } :host([mini]) .banner .header { right: 30px; } }
+  @container dk-card (max-width: 359px) { .dk-scene { display: none; } .banner .header { right: 0; } :host([mini]) .banner .header { right: 30px; } }
   .dk-cloud { fill: #fff; opacity: .92; animation: dk-drift 4s ease-in-out infinite alternate; }
   .night .dk-cloud { opacity: .1; }
   .dk-bob { animation: dk-bob 3s ease-in-out infinite; }
@@ -2972,19 +2984,20 @@ class DockerBase extends HTMLElement {
     const sub = [docker && docker !== "unknown" && docker !== "unavailable" ? `Docker ${docker}` : null, platform, conn].filter((v) => v && v !== "unknown" && v !== "unavailable");
     const illustrated = c.illustration !== false;
     const zoom = this._zoomButton();
+    const chip = online
+      ? `<span class="chip clickable ${chipCls}" role="button" tabindex="0" data-entity="${esc(online.entity_id)}" title="${chipText}" aria-label="${chipText}"><span class="dot"></span><span class="chip-label">${chipText}</span></span>`
+      : "";
+    const name = `<div class="name">${esc(c.title || env.name)}</div>`;
+    // On the banner the chip sits right after the title (its own line under the subtitle when the header is
+    // narrow); the classic header keeps it at the right of the titles.
     const header = `
       <div class="header">
         <a class="logo-link logo ${host.cls}" href="${esc(this._logoUrl(env))}" target="_blank" rel="noopener noreferrer" title="${esc(srcName)}" aria-label="${esc(srcName)}">${svgIcon(ICONS.docker)}</a>
         <div class="titles">
-          <div class="name">${esc(c.title || env.name)}</div>
+          ${illustrated ? `<div class="trow">${name}${chip}</div>` : name}
           ${sub.length ? `<div class="sub">${esc(sub.join(" · "))}</div>` : ""}
         </div>
-        ${
-          online
-            ? `<span class="chip clickable ${chipCls}" role="button" tabindex="0" data-entity="${esc(online.entity_id)}" title="${chipText}" aria-label="${chipText}"><span class="dot"></span><span class="chip-label">${chipText}</span></span>`
-            : ""
-        }
-        ${illustrated ? "" : zoom}
+        ${illustrated ? "" : `${chip}${zoom}`}
       </div>`;
     if (!illustrated) return header;
     const night = dkIsNight(this._hass, c);
@@ -3158,7 +3171,7 @@ const FULL_STYLE = `
   .gauge .lbl { font-size: 12px; color: var(--secondary-text-color); margin-top: 0; text-align: center; line-height: 1.35; }
   .gauge .lbl small { display: block; font-size: 11px; opacity: .85; }
   .gauge .lbl { max-width: 100%; overflow-wrap: break-word; }
-  @container (max-width: 299px) {
+  @container dk-card (max-width: 299px) {
     .gauge .val .icon { display: none; }
     .gauge .val b { font-size: 11px; }
     .gauge .lbl, .gauge .lbl small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -3596,7 +3609,7 @@ const MINI_STYLE = `
   /* Fixed label column (the bars line up across rows): a longer translation is cut, never drawn over the bar. */
   .metric .lbl { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .metric .v { text-align: right; font-weight: 500; white-space: nowrap; }
-  @container (max-width: 229px) {
+  @container dk-card (max-width: 229px) {
     /* Narrow card (6 columns of a small Sections view): the icon names the row, the label stays in aria-label. */
     .metric { grid-template-columns: 18px minmax(24px, 1fr) minmax(44px, auto); gap: 6px; }
     .metric .lbl { display: none; }

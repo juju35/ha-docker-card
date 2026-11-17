@@ -147,16 +147,18 @@ const render = async ({ widths, wraps = [], langs, states: stateSets }) => {
       for (const { at, css, wrapped, childCss, track } of boxes)
         for (const language of langs)
           for (const [st, states] of Object.entries(stateSets))
-            for (const [type, zoom] of [
-              ["docker-mini-card", false],
-              ["docker-mini-card", true],
-              ["docker-card", false],
+            for (const [type, zoom, illustration] of [
+              ["docker-mini-card", false, true],
+              ["docker-mini-card", true, true],
+              ["docker-card", false, true],
+              ["docker-mini-card", false, false],
+              ["docker-card", false, false],
             ]) {
               const box = document.createElement("div");
               box.style.cssText = css;
               document.getElementById("root").replaceChildren(box);
               const el = document.createElement(type);
-              el.setConfig({ type: `custom:${type}`, language });
+              el.setConfig({ type: `custom:${type}`, language, ...(illustration ? {} : { illustration: false }) });
               el.hass = { states, entities, devices, language, locale: { language }, callService: () => {} };
               // Card placed directly in the container, or wrapped in a plain <div> (as many layout cards do).
               const parent = wrapped ? box.appendChild(document.createElement("div")) : box;
@@ -166,7 +168,7 @@ const render = async ({ widths, wraps = [], langs, states: stateSets }) => {
               const r = el.shadowRoot;
               const label = r.querySelector(".header .chip-label");
               res.push({
-                at: `${zoom ? "mini-zoomed" : type} ${at} ${language} ${st}`,
+                at: `${zoom ? "mini-zoomed" : type}${illustration ? "" : " classic"} ${at} ${language} ${st}`,
                 track,
                 overflow: box.scrollWidth - box.clientWidth,
                 card: Math.round(r.querySelector("ha-card").getBoundingClientRect().width),

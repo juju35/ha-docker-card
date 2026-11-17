@@ -3153,7 +3153,9 @@ const FULL_STYLE = `
   .section-title .unit { text-transform: none; }
   .gauge { display: flex; flex-direction: column; align-items: center; min-width: 0; position: relative; border-radius: 10px; overflow: hidden; }
   .gauge > :not(.spark) { position: relative; }
-  .gauge .spark { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  /* 24 h curve in its own 24 px band under the ring and the label, never behind the text. */
+  .gauge:has(> .spark) { padding-bottom: 28px; }
+  .gauge .spark { position: absolute; inset: auto 0 0; width: 100%; height: 24px; pointer-events: none; }
   .spark-a { fill: color-mix(in srgb, var(--c) 12%, transparent); }
   .spark-l { fill: none; stroke: color-mix(in srgb, var(--c) 50%, transparent); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
   /* Ring of 60 px, smaller when the column is narrower (6 columns of a small Sections view). */
@@ -3187,7 +3189,8 @@ const FULL_STYLE = `
   /* CPU over the last 24 hours behind a container's row, discreet. */
   .item { position: relative; }
   .item > :not(.spark) { position: relative; }
-  .item > .spark { position: absolute; left: 0; bottom: 0; width: 100%; height: 50%; pointer-events: none; --c: var(--primary-color, #03a9f4); opacity: .7; }
+  .item:has(> .spark) { padding-bottom: 15px; }
+  .item > .spark { position: absolute; inset: auto 0 2px; width: 100%; height: 12px; pointer-events: none; --c: var(--primary-color, #03a9f4); opacity: .7; }
   .item:last-child { border-bottom: none; }
   .item .main { flex: 1; min-width: 0; }
   .item .title { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }
@@ -3597,10 +3600,11 @@ const MINI_STYLE = `
   /* Label column of up to 86 px (the bars line up across rows), a bar of at least 24 px, the value at its width. */
   .metric { display: grid; grid-template-columns: 18px minmax(0, 86px) minmax(24px, 1fr) minmax(44px, auto); align-items: center; gap: 8px; font-size: 13px; }
   .metric .icon { color: var(--secondary-text-color); }
-  /* 24 h curve behind the CPU and memory rows (the recorder's 5-minute means), in the row's colour. */
+  /* 24 h curve of the CPU and memory rows (the recorder's 5-minute means), in the row's colour, behind the bar only:
+     it never crosses the label or the value. */
   .metric { position: relative; }
   .metric > :not(.spark) { position: relative; }
-  .metric .spark { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; }
+  .metric .spark { position: absolute; grid-area: 1 / 3 / 2 / 4; inset: -3px 0; width: 100%; height: calc(100% + 6px); pointer-events: none; }
   .spark-a { fill: color-mix(in srgb, var(--c, var(--dh-ok)) 12%, transparent); }
   .spark-l { fill: none; stroke: color-mix(in srgb, var(--c, var(--dh-ok)) 50%, transparent); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
   /* Fixed label column (the bars line up across rows): a longer translation is cut, never drawn over the bar. */
@@ -3610,6 +3614,7 @@ const MINI_STYLE = `
     /* Narrow card (6 columns of a small Sections view): the icon names the row, the label stays in aria-label. */
     .metric { grid-template-columns: 18px minmax(24px, 1fr) minmax(44px, auto); gap: 6px; }
     .metric .lbl { display: none; }
+    .metric .spark { grid-area: 1 / 2 / 2 / 3; }
   }
   .foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; color: var(--secondary-text-color); margin-top: 2px; flex-wrap: wrap; }
   .foot span { display: inline-flex; align-items: center; gap: 4px; }

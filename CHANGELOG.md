@@ -9,6 +9,9 @@
 - The classic header (`illustration: false`) puts its status chip in the same place, right after the title (under the subtitle when narrow), instead of at the far right; on both headers the chip keeps its label down to 201 px, only its dot at 200 px or less.
 - Night picture with the dark theme even while the sun is up
 
+### Fixes
+- The 24 h sparklines no longer run under the text: on the full card they sit in their own 24 px band under each ring and its label ("12 cores", memory used/total), on a container row in a thin band under its details, and on the mini card behind the bar only, clear of the label and the value.
+
 ## 3.8.2 - 2026-11-14
 
 ### Fixes

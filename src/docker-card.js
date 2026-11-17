@@ -107,7 +107,7 @@ const STRINGS = {
     show_subtitle: "Show subtitle",
     illustration: "Illustration",
     illustration_theme: "Illustration theme",
-    theme_auto: "Automatic (sun or dark theme)",
+    theme_auto: "Automatic (follows the theme)",
     theme_day: "Day",
     theme_night: "Night",
     show_history: "Show the 24 h CPU and memory history",
@@ -188,7 +188,7 @@ const STRINGS = {
     show_subtitle: "Afficher le sous-titre",
     illustration: "Illustration",
     illustration_theme: "Thème de l'illustration",
-    theme_auto: "Automatique (soleil ou thème sombre)",
+    theme_auto: "Automatique (suit le thème)",
     theme_day: "Jour",
     theme_night: "Nuit",
     show_history: "Afficher l’historique 24 h du CPU et de la mémoire",
@@ -269,7 +269,7 @@ const STRINGS = {
     show_subtitle: "Untertitel anzeigen",
     illustration: "Illustration",
     illustration_theme: "Illustrationsthema",
-    theme_auto: "Automatisch (Sonne oder dunkles Design)",
+    theme_auto: "Automatisch (folgt dem Design)",
     theme_day: "Tag",
     theme_night: "Nacht",
     show_history: "24-h-Verlauf von CPU und Speicher anzeigen",
@@ -350,7 +350,7 @@ const STRINGS = {
     show_subtitle: "Mostrar el subtítulo",
     illustration: "Ilustración",
     illustration_theme: "Tema de la ilustración",
-    theme_auto: "Automático (sol o tema oscuro)",
+    theme_auto: "Automático (sigue el tema)",
     theme_day: "Día",
     theme_night: "Noche",
     show_history: "Mostrar el historial de 24 h de CPU y memoria",
@@ -436,7 +436,7 @@ const STRINGS = {
     show_subtitle: "Прикажи поднаслов",
     illustration: "Илустрација",
     illustration_theme: "Тема илустрације",
-    theme_auto: "Аутоматски (сунце или тамна тема)",
+    theme_auto: "Аутоматски (прати тему)",
     theme_day: "Дан",
     theme_night: "Ноћ",
     show_history: "Прикажи историју процесора и меморије за 24 ч",
@@ -522,7 +522,7 @@ const STRINGS = {
     show_subtitle: "Prikaži podnaslov",
     illustration: "Ilustracija",
     illustration_theme: "Tema ilustracije",
-    theme_auto: "Automatski (sunce ili tamna tema)",
+    theme_auto: "Automatski (prati temu)",
     theme_day: "Dan",
     theme_night: "Noć",
     show_history: "Prikaži istoriju procesora i memorije za 24 č",
@@ -603,7 +603,7 @@ const STRINGS = {
     show_subtitle: "Mostra il sottotitolo",
     illustration: "Illustrazione",
     illustration_theme: "Tema dell'illustrazione",
-    theme_auto: "Automatico (sole o tema scuro)",
+    theme_auto: "Automatico (segue il tema)",
     theme_day: "Giorno",
     theme_night: "Notte",
     show_history: "Mostra lo storico 24 h di CPU e memoria",
@@ -684,7 +684,7 @@ const STRINGS = {
     show_subtitle: "Ondertitel tonen",
     illustration: "Illustratie",
     illustration_theme: "Thema van de illustratie",
-    theme_auto: "Automatisch (zon of donker thema)",
+    theme_auto: "Automatisch (volgt het thema)",
     theme_day: "Dag",
     theme_night: "Nacht",
     show_history: "24-uursgeschiedenis van CPU en geheugen weergeven",
@@ -765,7 +765,7 @@ const STRINGS = {
     show_subtitle: "Mostrar o subtítulo",
     illustration: "Ilustração",
     illustration_theme: "Tema da ilustração",
-    theme_auto: "Automático (sol ou tema escuro)",
+    theme_auto: "Automático (segue o tema)",
     theme_day: "Dia",
     theme_night: "Noite",
     show_history: "Mostrar o histórico de 24 h da CPU e da memória",
@@ -857,7 +857,7 @@ const STRINGS = {
     show_subtitle: "Pokaż podtytuł",
     illustration: "Ilustracja",
     illustration_theme: "Motyw ilustracji",
-    theme_auto: "Automatycznie (słońce lub ciemny motyw)",
+    theme_auto: "Automatycznie (zgodnie z motywem)",
     theme_day: "Dzień",
     theme_night: "Noc",
     show_history: "Pokaż historię CPU i pamięci z 24 h",
@@ -950,7 +950,7 @@ const STRINGS = {
     show_subtitle: "Afișează subtitlul",
     illustration: "Ilustrație",
     illustration_theme: "Tema ilustrației",
-    theme_auto: "Automat (soare sau temă întunecată)",
+    theme_auto: "Automat (urmează tema)",
     theme_day: "Zi",
     theme_night: "Noapte",
     show_history: "Afișează istoricul pe 24 h al CPU și memoriei",
@@ -1031,7 +1031,7 @@ const STRINGS = {
     show_subtitle: "Vis undertitel",
     illustration: "Illustration",
     illustration_theme: "Illustrationstema",
-    theme_auto: "Automatisk (sol eller mørkt tema)",
+    theme_auto: "Automatisk (følger temaet)",
     theme_day: "Dag",
     theme_night: "Nat",
     show_history: "Vis 24-timers historik for CPU og hukommelse",
@@ -1112,7 +1112,7 @@ const STRINGS = {
     show_subtitle: "Visa underrubrik",
     illustration: "Illustration",
     illustration_theme: "Illustrationstema",
-    theme_auto: "Automatiskt (sol eller mörkt tema)",
+    theme_auto: "Automatiskt (följer temat)",
     theme_day: "Dag",
     theme_night: "Natt",
     show_history: "Visa 24 h-historik för CPU och minne",
@@ -1194,7 +1194,7 @@ const STRINGS = {
     show_subtitle: "Показване на подзаглавието",
     illustration: "Илюстрация",
     illustration_theme: "Тема на илюстрацията",
-    theme_auto: "Автоматично (слънце или тъмна тема)",
+    theme_auto: "Автоматично (следва темата)",
     theme_day: "Ден",
     theme_night: "Нощ",
     show_history: "Показване на 24-часовата история на CPU и паметта",
@@ -1286,7 +1286,7 @@ const STRINGS = {
     show_subtitle: "Показывать подзаголовок",
     illustration: "Иллюстрация",
     illustration_theme: "Тема иллюстрации",
-    theme_auto: "Автоматически (солнце или тёмная тема)",
+    theme_auto: "Автоматически (по теме)",
     theme_day: "День",
     theme_night: "Ночь",
     show_history: "Показать историю CPU и памяти за 24 ч",
@@ -1378,7 +1378,7 @@ const STRINGS = {
     show_subtitle: "Показувати підзаголовок",
     illustration: "Ілюстрація",
     illustration_theme: "Тема ілюстрації",
-    theme_auto: "Автоматично (сонце або темна тема)",
+    theme_auto: "Автоматично (за темою)",
     theme_day: "День",
     theme_night: "Ніч",
     show_history: "Показати історію CPU і пам’яті за 24 год",
@@ -1455,7 +1455,7 @@ const STRINGS = {
     show_subtitle: "Alcím megjelenítése",
     illustration: "Illusztráció",
     illustration_theme: "Illusztráció témája",
-    theme_auto: "Automatikus (nap vagy sötét téma)",
+    theme_auto: "Automatikus (a témát követi)",
     theme_day: "Nappal",
     theme_night: "Éjszaka",
     show_history: "CPU és memória 24 órás előzményeinek megjelenítése",
@@ -1542,7 +1542,7 @@ const STRINGS = {
     show_subtitle: "Zobraziť podnázov",
     illustration: "Ilustrácia",
     illustration_theme: "Téma ilustrácie",
-    theme_auto: "Automaticky (slnko alebo tmavá téma)",
+    theme_auto: "Automaticky (podľa témy)",
     theme_day: "Deň",
     theme_night: "Noc",
     show_history: "Zobraziť 24 h históriu CPU a pamäte",
@@ -1629,7 +1629,7 @@ const STRINGS = {
     show_subtitle: "Zobrazit podnázev",
     illustration: "Ilustrace",
     illustration_theme: "Motiv ilustrace",
-    theme_auto: "Automaticky (slunce nebo tmavý motiv)",
+    theme_auto: "Automaticky (podle motivu)",
     theme_day: "Den",
     theme_night: "Noc",
     show_history: "Zobrazit 24h historii CPU a paměti",
@@ -1721,7 +1721,7 @@ const STRINGS = {
     show_subtitle: "Prikaži podnaslov",
     illustration: "Ilustracija",
     illustration_theme: "Tema ilustracije",
-    theme_auto: "Samodejno (sonce ali temna tema)",
+    theme_auto: "Samodejno (sledi temi)",
     theme_day: "Dan",
     theme_night: "Noč",
     show_history: "Prikaži 24-urno zgodovino CPE in pomnilnika",
@@ -1809,7 +1809,7 @@ const STRINGS = {
     show_subtitle: "Rādīt apakšvirsrakstu",
     illustration: "Ilustrācija",
     illustration_theme: "Ilustrācijas tēma",
-    theme_auto: "Automātiski (saule vai tumšais motīvs)",
+    theme_auto: "Automātiski (atbilstoši tēmai)",
     theme_day: "Diena",
     theme_night: "Nakts",
     show_history: "Rādīt CPU un atmiņas 24 h vēsturi",
@@ -1891,7 +1891,7 @@ const STRINGS = {
     show_subtitle: "Εμφάνιση υπότιτλου",
     illustration: "Εικονογράφηση",
     illustration_theme: "Θέμα εικονογράφησης",
-    theme_auto: "Αυτόματο (ήλιος ή σκούρο θέμα)",
+    theme_auto: "Αυτόματο (ακολουθεί το θέμα)",
     theme_day: "Ημέρα",
     theme_night: "Νύχτα",
     show_history: "Εμφάνιση ιστορικού 24 ωρών CPU και μνήμης",
@@ -2458,7 +2458,6 @@ const MOTION_STYLE = `
 // (200 × 80 picture over a 10 px quay strip). The left of the banner is open sky for the icon and the title.
 // ---------------------------------------------------------------------------
 
-// Night picture: forced by illustration_theme, else the sun below the horizon or Home Assistant's dark theme.
 // The width of an element's whole text in fractional pixels, even while it is cut with an ellipsis (0 when hidden).
 const textWidth = (el) => {
   if (!el?.getClientRects?.().length || typeof document.createRange !== "function") return 0;
@@ -2467,11 +2466,13 @@ const textWidth = (el) => {
   return range.getBoundingClientRect().width;
 };
 
+// Night picture: forced by illustration_theme, else Home Assistant's dark theme alone (a light theme keeps the day
+// picture after sunset).
 const dkIsNight = (hass, config) => {
   const theme = config?.illustration_theme;
   if (theme === "night") return true;
   if (theme === "day") return false;
-  return hass?.states?.["sun.sun"]?.state === "below_horizon" || !!hass?.themes?.darkMode;
+  return !!hass?.themes?.darkMode;
 };
 
 // The containers on the whale's back: [x, y, colour], bottom row first; DK_STOP_ORDER is the order in which
@@ -2819,7 +2820,7 @@ class DockerBase extends HTMLElement {
   // and its containers.
   _signature() {
     const h = this._hass;
-    const sig = [h.entities, h.devices, h.language, h.locale?.language, h.states?.["sun.sun"]?.state, !!h.themes?.darkMode];
+    const sig = [h.entities, h.devices, h.language, h.locale?.language, !!h.themes?.darkMode];
     const { env } = findEnv(h, this._config);
     if (!env) return sig;
     if (env.key !== undefined) sig.push(env.key);

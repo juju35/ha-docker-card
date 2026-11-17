@@ -76,7 +76,7 @@ const openCard = async (browser, s) => {
           ])
         );
       };
-      // The dark theme draws the illustrated header at night (Home Assistant's dark mode, no sun.sun in the mocks).
+      // The dark theme draws the illustrated header at night (Home Assistant's dark mode alone).
       el.hass = { states, entities, devices, language: "en", locale: { language: "en" }, themes: { darkMode: dark }, callService: () => {}, callWS };
       document.getElementById("root").appendChild(el);
       window.__card = el;

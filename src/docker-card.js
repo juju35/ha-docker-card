@@ -2459,14 +2459,12 @@ const MOTION_STYLE = `
 // (200 × 80 picture over a 10 px quay strip). The left of the banner is open sky for the icon and the title.
 // ---------------------------------------------------------------------------
 
-// Night picture: forced by illustration_theme, else the sun below the horizon, else Home Assistant's dark mode.
+// Night picture: forced by illustration_theme, else the sun below the horizon or Home Assistant's dark theme.
 const dkIsNight = (hass, config) => {
   const theme = config?.illustration_theme;
   if (theme === "night") return true;
   if (theme === "day") return false;
-  const sun = hass?.states?.["sun.sun"];
-  if (sun && sun.state !== "unknown" && sun.state !== "unavailable") return sun.state === "below_horizon";
-  return !!hass?.themes?.darkMode;
+  return hass?.states?.["sun.sun"]?.state === "below_horizon" || !!hass?.themes?.darkMode;
 };
 
 // The containers on the whale's back: [x, y, colour], bottom row first; DK_STOP_ORDER is the order in which

@@ -805,9 +805,11 @@ test("illustrated header: icon colour and scene follow the host state, night mod
   assert.match(html, /class="logo-link logo crit"/);
   assert.match(html, /class="dk-scene dk-unhealthy"/);
   assert.match(html, /dk-box dk-sick/);
-  // Night: forced, else sun.sun below the horizon or the dark mode.
+  // Night: forced, else the dark mode alone (sun.sun left aside).
   assert.match(header(withCounts({}), { illustration_theme: "night" }), /<div class="banner night">/);
-  assert.match(header({ ...withCounts({}), "sun.sun": { state: "below_horizon", attributes: {} } }), /<div class="banner night">/);
+  const sunDown = { ...withCounts({}), "sun.sun": { state: "below_horizon", attributes: {} } };
+  assert.match(header(sunDown, {}, { themes: { darkMode: false } }), /<div class="banner">/, "light theme after sunset: day");
+  assert.match(header(sunDown, {}, { themes: { darkMode: true } }), /<div class="banner night">/, "dark theme after sunset: night");
   assert.match(header(withCounts({}), {}, { themes: { darkMode: true } }), /<div class="banner night">/);
   assert.match(header(withCounts({}), { illustration_theme: "day" }, { themes: { darkMode: true } }), /<div class="banner">/);
   const sunUp = { ...withCounts({}), "sun.sun": { state: "above_horizon", attributes: {} } };

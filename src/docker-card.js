@@ -2016,6 +2016,32 @@ const bytesOf = (s) => {
 const level = (v, warn, crit) => (v === null ? "" : v >= crit ? "crit" : v >= warn ? "warn" : "ok");
 
 // Default orange (warning) and red (critical) levels of the CPU and memory usage, in %.
+// The card's languages, as the editor offers them (the source of truth for the translation tables' keys).
+const LANGUAGES = [
+  ["en", "English"],
+  ["fr", "Français"],
+  ["de", "Deutsch"],
+  ["es", "Español"],
+  ["sr", "Српски"],
+  ["sr-Latn", "Srpski (latinica)"],
+  ["it", "Italiano"],
+  ["nl", "Nederlands"],
+  ["pt", "Português (Portugal)"],
+  ["pl", "Polski"],
+  ["ro", "Română"],
+  ["da", "Dansk"],
+  ["sv", "Svenska"],
+  ["bg", "Български"],
+  ["ru", "Русский"],
+  ["uk", "Українська"],
+  ["hu", "Magyar"],
+  ["sk", "Slovenčina"],
+  ["cs", "Čeština"],
+  ["sl", "Slovenščina"],
+  ["lv", "Latviešu"],
+  ["el", "Ελληνικά"],
+];
+
 const THRESHOLDS = { cpu_warning: 70, cpu_critical: 90, ram_warning: 80, ram_critical: 95 };
 
 // Options renamed in 3.5.0, still read under their old name: `memory_warning` / `memory_critical` -> `ram_*`,
@@ -3882,31 +3908,7 @@ class DockerEditorBase extends HTMLElement {
         selector: {
           select: {
             mode: "dropdown",
-            options: [
-              { value: "", label: tr("lang_auto") },
-              { value: "en", label: "English" },
-              { value: "fr", label: "Français" },
-              { value: "de", label: "Deutsch" },
-              { value: "es", label: "Español" },
-              { value: "sr", label: "Српски" },
-              { value: "sr-Latn", label: "Srpski (latinica)" },
-              { value: "it", label: "Italiano" },
-              { value: "nl", label: "Nederlands" },
-              { value: "pt", label: "Português (Portugal)" },
-              { value: "pl", label: "Polski" },
-              { value: "ro", label: "Română" },
-              { value: "da", label: "Dansk" },
-              { value: "sv", label: "Svenska" },
-              { value: "bg", label: "Български" },
-              { value: "ru", label: "Русский" },
-              { value: "uk", label: "Українська" },
-              { value: "hu", label: "Magyar" },
-              { value: "sk", label: "Slovenčina" },
-              { value: "cs", label: "Čeština" },
-              { value: "sl", label: "Slovenščina" },
-              { value: "lv", label: "Latviešu" },
-              { value: "el", label: "Ελληνικά" },
-            ],
+            options: [{ value: "", label: tr("lang_auto") }, ...LANGUAGES.map(([value, label]) => ({ value, label }))],
           },
         },
       },

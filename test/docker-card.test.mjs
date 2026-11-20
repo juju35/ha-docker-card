@@ -583,9 +583,12 @@ test("CPU and memory 24 h history from the recorder statistics, refreshed every 
   // The curves are drawn behind the CPU and RAM gauges, on a 0-100 scale, once the statistics arrive.
   // With a curve, the gauge's tooltip gives its 24 h low and high (the curve has no scale).
   const gaugeSpark = /class="gauge clickable \w*" role="button" tabindex="0" data-entity="sensor\.cpu"( title="[^"]*")?><svg class="spark"/;
-  assert.doesNotMatch(el.html, gaugeSpark);
+  // Before the answer: the curve's box, empty (the card already has its final height).
+  assert.match(el.html, /data-entity="sensor\.cpu"><svg class="spark"[^>]*><\/svg>/);
+  assert.doesNotMatch(el.html, /class="spark-l"/);
   await new Promise((r) => setTimeout(r, 0));
   assert.match(el.html, gaugeSpark);
+  assert.doesNotMatch(el.html, /<svg class="spark"[^>]*><\/svg>/);
   assert.match(el.html, /data-entity="sensor\.cpu" title="[^"]* · 24 h 10%? – 40%"/);
   assert.doesNotMatch(el.html, /Last 24/);
   el._update();
@@ -620,7 +623,7 @@ test("mini card: 24 h sparklines behind the CPU and memory rows, none with show_
   };
   el._update();
   assert.equal(calls.length, 1);
-  assert.doesNotMatch(el.html, /class="spark"/);
+  assert.doesNotMatch(el.html, /class="spark-l"/);
   await new Promise((r) => setTimeout(r, 0));
   const cpuRow = el.html.match(/<div class="metric[^"]*"[^>]*data-entity="sensor\.cpu"[^>]*>([\s\S]*?)<\/div>\s*<\/div>/)?.[1] || "";
   assert.match(cpuRow, /^\s*<svg class="spark"/, "the sparkline is drawn first, behind the row");
@@ -827,4 +830,61 @@ test("illustrated header: each card instance has its own SVG ids", () => {
   const a = make(DockerCard, baseStates())._render().match(/id="(dk-sea-\d+)"/)[1];
   const b = make(DockerCard, baseStates())._render().match(/id="(dk-sea-\d+)"/)[1];
   assert.notEqual(a, b);
+});
+
+// The page must not move under the card when the statistics arrive: the curves' boxes are there from the first
+// render, empty, and keep their place; a recorder that fails takes them away once, not on each retry.
+test("history: the sparkline boxes are reserved while the statistics load, dropped once if they fail", async () => {
+  const mount = (callWS) => {
+    const el = new DockerCard();
+    el._config = {};
+    el._hass = { states: baseStates(), entities, devices, language: "en", callWS };
+    el._update = () => {
+      el.html = el._render();
+    };
+    return el;
+  };
+  const el = mount(async (msg) => {
+    const t0 = Date.now() - 3600000;
+    return Object.fromEntries(msg.statistic_ids.map((id) => [id, [10, 40, 20].map((mean, i) => ({ start: t0 + i * 300000, mean }))]));
+  });
+  el._update();
+  const boxes = (el.html.match(/<svg class="spark"/g) || []).length;
+  assert.ok(boxes >= 1, "empty boxes before the answer");
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal((el.html.match(/<svg class="spark"/g) || []).length, boxes, "same boxes once the curves arrive");
+
+  const failing = mount(async () => {
+    throw new Error("no recorder");
+  });
+  failing._update();
+  assert.match(failing.html, /<svg class="spark"/);
+  await new Promise((r) => setTimeout(r, 0));
+  assert.doesNotMatch(failing.html, /<svg class="spark"/);
+  // The retry a minute later reserves nothing again: no box coming and going every minute.
+  failing._histAt -= 5 * 60000;
+  failing._update();
+  assert.doesNotMatch(failing.html, /<svg class="spark"/);
+});
+
+test("history: an answer that comes after the card left the page is kept, nothing is drawn until it is back", async () => {
+  const el = new DockerCard();
+  el._config = {};
+  el._hass = {
+    states: baseStates(),
+    entities,
+    devices,
+    language: "en",
+    callWS: async (msg) => Object.fromEntries(msg.statistic_ids.map((id) => [id, [{ start: Date.now() - 600000, mean: 30 }]])),
+  };
+  let draws = 0;
+  el._update = () => {
+    draws++;
+    el.html = el._render();
+  };
+  el._update();
+  Object.defineProperty(el, "isConnected", { value: false, configurable: true });
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(draws, 1, "not drawn off the page");
+  assert.ok(el._hist && Object.keys(el._hist).length, "the answer is kept");
 });

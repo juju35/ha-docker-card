@@ -2016,6 +2016,32 @@ const bytesOf = (s) => {
 const level = (v, warn, crit) => (v === null ? "" : v >= crit ? "crit" : v >= warn ? "warn" : "ok");
 
 // Default orange (warning) and red (critical) levels of the CPU and memory usage, in %.
+// The card's languages, as the editor offers them (the source of truth for the translation tables' keys).
+const LANGUAGES = [
+  ["en", "English"],
+  ["fr", "Français"],
+  ["de", "Deutsch"],
+  ["es", "Español"],
+  ["sr", "Српски"],
+  ["sr-Latn", "Srpski (latinica)"],
+  ["it", "Italiano"],
+  ["nl", "Nederlands"],
+  ["pt", "Português (Portugal)"],
+  ["pl", "Polski"],
+  ["ro", "Română"],
+  ["da", "Dansk"],
+  ["sv", "Svenska"],
+  ["bg", "Български"],
+  ["ru", "Русский"],
+  ["uk", "Українська"],
+  ["hu", "Magyar"],
+  ["sk", "Slovenčina"],
+  ["cs", "Čeština"],
+  ["sl", "Slovenščina"],
+  ["lv", "Latviešu"],
+  ["el", "Ελληνικά"],
+];
+
 const THRESHOLDS = { cpu_warning: 70, cpu_critical: 90, ram_warning: 80, ram_critical: 95 };
 
 // Options renamed in 3.5.0, still read under their old name: `memory_warning` / `memory_critical` -> `ram_*`,
@@ -2649,7 +2675,11 @@ function rangeText(points, loc) {
   return ` · 24 h ${fmtPct(Math.min(...vs), loc)} – ${fmtPct(Math.max(...vs), loc)}`;
 }
 
+// While the first history answer is on its way: the sparkline's box without a curve, so the card has its final height
+// from the first render and does not grow (moving the page under it) when the statistics arrive.
+const HIST_WAIT = Object.freeze([]);
 function spark(points, end, max) {
+  if (points === HIST_WAIT) return `<svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"></svg>`;
   if (!points || points.length < 2) return "";
   const peak = max || Math.max(...points.map((p) => p.v)) || 1;
   const x = (t) => Math.max(0, Math.min(100, (100 * (t - (end - HIST_WINDOW))) / HIST_WINDOW)).toFixed(2);
@@ -2854,6 +2884,16 @@ class DockerBase extends HTMLElement {
   // keeps its dot alone (.pill-dot, the label in its tooltip and aria-label). Measured after each render and on each
   // new width, never by a fixed width, so that every language fits.
   _fitPill() {
+    // Home Assistant's <ha-card> (a Lit element) shows its content only from its first update, a microtask after it
+    // is connected: measured before, everything is 0 px wide and the pill lands on the wrong line. Fitted then.
+    const haCard = this.shadowRoot?.querySelector?.("ha-card");
+    if (haCard && haCard.hasUpdated === false) {
+      this._pillWait ??= (haCard.updateComplete?.then ? haCard.updateComplete : new Promise((r) => requestAnimationFrame(r))).then(() => {
+        this._pillWait = null;
+        this._fitPill();
+      });
+      return;
+    }
     for (const t of this.shadowRoot?.querySelectorAll?.(".titles") || []) {
       const chips = [...t.querySelectorAll(".chip")];
       if (!chips[0]?.getBoundingClientRect) continue;
@@ -3409,6 +3449,9 @@ class DockerCard extends DockerBase {
     const key = ids.join(",");
     if (key && this._hass.callWS && (this._histKey !== key || Date.now() - this._histAt > HIST_REFRESH)) {
       const end = Date.now();
+      // Other series: until their first answer (or failure), the curves already known stay and the new ones keep
+      // their box (HIST_WAIT).
+      if (this._histKey !== key) this._histWait = true;
       this._histKey = key;
       this._histAt = end;
       this._hass
@@ -3421,19 +3464,26 @@ class DockerCard extends DockerBase {
         })
         .then((r) => {
           if (this._histKey !== key) return;
+          this._histWait = false;
           const point = (p) => ({ t: typeof p.start === "number" ? p.start : Date.parse(p.start), v: p.mean });
           this._hist = Object.fromEntries(
             ids.map((id) => [id, (r?.[id] || []).map(point).filter((p) => Number.isFinite(p.t) && Number.isFinite(p.v))])
           );
           this._histEnd = end;
-          this._update();
+          // Left the page meanwhile: kept for its return (connectedCallback renders it), nothing drawn now.
+          if (this.isConnected !== false) this._update();
         })
         // No statistics (sensor without state_class, recorder off): try again in a minute, nothing meanwhile.
         .catch(() => {
           this._histAt = Date.now() - HIST_REFRESH + 60000;
+          if (this._histKey !== key || !this._histWait) return;
+          this._histWait = false;
+          if (this.isConnected !== false) this._update();
         });
     }
-    return this._histKey === key ? this._hist : null;
+    if (this._histKey !== key) return null;
+    if (!this._histWait) return this._hist;
+    return Object.fromEntries(ids.map((id) => [id, this._hist?.[id] ?? HIST_WAIT]));
   }
 
   _counts(env) {
@@ -3858,31 +3908,7 @@ class DockerEditorBase extends HTMLElement {
         selector: {
           select: {
             mode: "dropdown",
-            options: [
-              { value: "", label: tr("lang_auto") },
-              { value: "en", label: "English" },
-              { value: "fr", label: "Français" },
-              { value: "de", label: "Deutsch" },
-              { value: "es", label: "Español" },
-              { value: "sr", label: "Српски" },
-              { value: "sr-Latn", label: "Srpski (latinica)" },
-              { value: "it", label: "Italiano" },
-              { value: "nl", label: "Nederlands" },
-              { value: "pt", label: "Português (Portugal)" },
-              { value: "pl", label: "Polski" },
-              { value: "ro", label: "Română" },
-              { value: "da", label: "Dansk" },
-              { value: "sv", label: "Svenska" },
-              { value: "bg", label: "Български" },
-              { value: "ru", label: "Русский" },
-              { value: "uk", label: "Українська" },
-              { value: "hu", label: "Magyar" },
-              { value: "sk", label: "Slovenčina" },
-              { value: "cs", label: "Čeština" },
-              { value: "sl", label: "Slovenščina" },
-              { value: "lv", label: "Latviešu" },
-              { value: "el", label: "Ελληνικά" },
-            ],
+            options: [{ value: "", label: tr("lang_auto") }, ...LANGUAGES.map(([value, label]) => ({ value, label }))],
           },
         },
       },

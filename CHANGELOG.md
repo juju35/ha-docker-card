@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.9.2 - 2026-11-20
+
+### Maintenance
+- Lint workflow: the Biome job now checks that the pre-commit hook's npm package and the `biome.json` schema carry the hook's Biome version, as in the other cards.
+- The commitlint config is an ES module (the package is `"type": "module"`): the local `commit-msg` hook no longer crashes.
+
 ## 3.9.1 - 2026-11-18
 
 ### Fixes

@@ -3444,14 +3444,15 @@ class DockerCard extends DockerBase {
             ids.map((id) => [id, (r?.[id] || []).map(point).filter((p) => Number.isFinite(p.t) && Number.isFinite(p.v))])
           );
           this._histEnd = end;
-          this._update();
+          // Left the page meanwhile: kept for its return (connectedCallback renders it), nothing drawn now.
+          if (this.isConnected !== false) this._update();
         })
         // No statistics (sensor without state_class, recorder off): try again in a minute, nothing meanwhile.
         .catch(() => {
           this._histAt = Date.now() - HIST_REFRESH + 60000;
           if (this._histKey !== key || !this._histWait) return;
           this._histWait = false;
-          this._update();
+          if (this.isConnected !== false) this._update();
         });
     }
     if (this._histKey !== key) return null;

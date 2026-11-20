@@ -866,3 +866,25 @@ test("history: the sparkline boxes are reserved while the statistics load, dropp
   failing._update();
   assert.doesNotMatch(failing.html, /<svg class="spark"/);
 });
+
+test("history: an answer that comes after the card left the page is kept, nothing is drawn until it is back", async () => {
+  const el = new DockerCard();
+  el._config = {};
+  el._hass = {
+    states: baseStates(),
+    entities,
+    devices,
+    language: "en",
+    callWS: async (msg) => Object.fromEntries(msg.statistic_ids.map((id) => [id, [{ start: Date.now() - 600000, mean: 30 }]])),
+  };
+  let draws = 0;
+  el._update = () => {
+    draws++;
+    el.html = el._render();
+  };
+  el._update();
+  Object.defineProperty(el, "isConnected", { value: false, configurable: true });
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(draws, 1, "not drawn off the page");
+  assert.ok(el._hist && Object.keys(el._hist).length, "the answer is kept");
+});

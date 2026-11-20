@@ -2649,7 +2649,11 @@ function rangeText(points, loc) {
   return ` · 24 h ${fmtPct(Math.min(...vs), loc)} – ${fmtPct(Math.max(...vs), loc)}`;
 }
 
+// While the first history answer is on its way: the sparkline's box without a curve, so the card has its final height
+// from the first render and does not grow (moving the page under it) when the statistics arrive.
+const HIST_WAIT = Object.freeze([]);
 function spark(points, end, max) {
+  if (points === HIST_WAIT) return `<svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"></svg>`;
   if (!points || points.length < 2) return "";
   const peak = max || Math.max(...points.map((p) => p.v)) || 1;
   const x = (t) => Math.max(0, Math.min(100, (100 * (t - (end - HIST_WINDOW))) / HIST_WINDOW)).toFixed(2);
@@ -3409,6 +3413,9 @@ class DockerCard extends DockerBase {
     const key = ids.join(",");
     if (key && this._hass.callWS && (this._histKey !== key || Date.now() - this._histAt > HIST_REFRESH)) {
       const end = Date.now();
+      // Other series: until their first answer (or failure), the curves already known stay and the new ones keep
+      // their box (HIST_WAIT).
+      if (this._histKey !== key) this._histWait = true;
       this._histKey = key;
       this._histAt = end;
       this._hass
@@ -3421,6 +3428,7 @@ class DockerCard extends DockerBase {
         })
         .then((r) => {
           if (this._histKey !== key) return;
+          this._histWait = false;
           const point = (p) => ({ t: typeof p.start === "number" ? p.start : Date.parse(p.start), v: p.mean });
           this._hist = Object.fromEntries(
             ids.map((id) => [id, (r?.[id] || []).map(point).filter((p) => Number.isFinite(p.t) && Number.isFinite(p.v))])
@@ -3431,9 +3439,14 @@ class DockerCard extends DockerBase {
         // No statistics (sensor without state_class, recorder off): try again in a minute, nothing meanwhile.
         .catch(() => {
           this._histAt = Date.now() - HIST_REFRESH + 60000;
+          if (this._histKey !== key || !this._histWait) return;
+          this._histWait = false;
+          this._update();
         });
     }
-    return this._histKey === key ? this._hist : null;
+    if (this._histKey !== key) return null;
+    if (!this._histWait) return this._hist;
+    return Object.fromEntries(ids.map((id) => [id, this._hist?.[id] ?? HIST_WAIT]));
   }
 
   _counts(env) {

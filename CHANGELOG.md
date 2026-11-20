@@ -2,6 +2,9 @@
 
 ## 3.9.2 - 2026-11-20
 
+### Fixes
+- The 24 h CPU and memory curves keep their place while the statistics load: the full card has its final height from the first render instead of growing by 28 px when they arrive, which moved the page under it.
+
 ### Maintenance
 - Lint workflow: the Biome job now checks that the pre-commit hook's npm package and the `biome.json` schema carry the hook's Biome version, as in the other cards.
 - The commitlint config is an ES module (the package is `"type": "module"`): the local `commit-msg` hook no longer crashes.

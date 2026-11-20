@@ -3,6 +3,7 @@
 ## 3.9.2 - 2026-11-20
 
 ### Fixes
+- The status pill is placed from the card's first frame: it was measured before Home Assistant's `<ha-card>` had laid out its content (0 px wide), so for a frame it showed on the wrong line (under the title, or beside it when it belongs under it), sometimes changing the card's height, before jumping to its place. It is now fitted once the card is drawn.
 - The 24 h CPU and memory curves keep their place while the statistics load: the full card has its final height from the first render instead of growing by 28 px when they arrive, which moved the page under it.
 
 ### Maintenance

@@ -2858,6 +2858,16 @@ class DockerBase extends HTMLElement {
   // keeps its dot alone (.pill-dot, the label in its tooltip and aria-label). Measured after each render and on each
   // new width, never by a fixed width, so that every language fits.
   _fitPill() {
+    // Home Assistant's <ha-card> (a Lit element) shows its content only from its first update, a microtask after it
+    // is connected: measured before, everything is 0 px wide and the pill lands on the wrong line. Fitted then.
+    const haCard = this.shadowRoot?.querySelector?.("ha-card");
+    if (haCard && haCard.hasUpdated === false) {
+      this._pillWait ??= (haCard.updateComplete?.then ? haCard.updateComplete : new Promise((r) => requestAnimationFrame(r))).then(() => {
+        this._pillWait = null;
+        this._fitPill();
+      });
+      return;
+    }
     for (const t of this.shadowRoot?.querySelectorAll?.(".titles") || []) {
       const chips = [...t.querySelectorAll(".chip")];
       if (!chips[0]?.getBoundingClientRect) continue;

@@ -124,7 +124,7 @@ test("updates are counted on the containers' update entities", () => {
   assert.ok(html.includes("4 images"));
 });
 
-test("without the host totals (disabled by default) CPU is unknown and memory falls back on the limits", () => {
+test("without the host totals (disabled by default) CPU is the containers' sum per core and memory falls back on the limits", () => {
   const st = { ...states };
   delete st["sensor.local_total_cpu"];
   delete st["sensor.local_total_memory"];
@@ -132,8 +132,11 @@ test("without the host totals (disabled by default) CPU is unknown and memory fa
   entities[limit.entity_id] = { entity_id: limit.entity_id, device_id: "graf", platform: "portainer", translation_key: "memory_limit" };
   st[limit.entity_id] = limit;
   const host = make(DockerCard, { environment: "ep" }, st)._host(resolve({ states: st, entities: { ...entities }, devices }).envs.find((e) => e.id === "ep"));
-  assert.equal(host.cpu, null);
+  assert.equal(host.cpu, 40);
+  assert.equal(host.perCore, true);
   assert.equal(host.mem, 50);
+  const html = make(DockerCard, { environment: "ep" }, st)._stats(resolve({ states: st, entities: { ...entities }, devices }).envs.find((e) => e.id === "ep"));
+  assert.match(html, /CPU<small>Containers<\/small>/);
   delete entities[limit.entity_id];
 });
 

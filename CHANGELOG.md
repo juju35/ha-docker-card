@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.9.3 - 2026-11-21
+
+### Fixes
+- Portainer: the CPU gauge no longer stays at "—" when the endpoint's **Total CPU** sensor is disabled (its default). It then shows the containers' CPU usage added up, as Docker counts it (100 % = one core), labelled *Containers* and without the warning colours; enabling **Total CPU** still gives the usage of the whole host (#83).
+
 ## 3.9.2 - 2026-11-20
 
 ### Fixes

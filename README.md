@@ -231,14 +231,14 @@ Like for Dockhand, its entities are found through the Home Assistant registries 
 | Card | Portainer |
 |---|---|
 | Header | Status (online chip), Docker version, OS and architecture |
-| CPU gauge | Containers' CPU usage added up, against the host's **Total CPU** |
+| CPU gauge | Containers' CPU usage added up, against the host's **Total CPU** (without it, the plain sum, where 100 % is one core, labelled *Containers*) |
 | Memory gauge | Containers' memory usage added up, against the host's **Total memory** (else the largest container memory limit) |
 | Containers gauge | Containers running / Container count |
 | Images and updates | Image count; updates counted on the containers' image update entities |
 | Stacks list | Status, container count and start / stop switch |
 | Containers list | State, health, image, image update, start / stop switch and restart button |
 
-Portainer has no host usage sensor: enable the **Total CPU** sensor of the endpoint (disabled by default) for the CPU gauge, and **Total memory** for an exact memory gauge. **Docker version**, **Operating system** and **Architecture** (also disabled by default) fill the header. With no host usage sensor, there are no 24 h CPU and memory curves either. The CPU and memory usage sensors of the containers are diagnostic entities, enabled by default.
+Portainer has no host usage sensor: enable the **Total CPU** sensor of the endpoint (disabled by default) for a CPU gauge relative to the whole host — without it, the gauge shows the containers' CPU added up as Docker counts it (100 % = one core), and **Total memory** for an exact memory gauge. **Docker version**, **Operating system** and **Architecture** (also disabled by default) fill the header. With no host usage sensor, there are no 24 h CPU and memory curves either. The CPU and memory usage sensors of the containers are diagnostic entities, enabled by default.
 
 | Light | Dark |
 |---|---|

@@ -3176,8 +3176,11 @@ class DockerBase extends HTMLElement {
       const used = sum("_memory", bytesOf);
       const limits = env.containers.map((ct) => bytesOf(this._s(ct.entities._memory_limit))).filter((v) => v);
       const total = bytesOf(this._s(e._memory_total)) ?? (limits.length ? Math.max(...limits) : null);
+      // Without the core count (the endpoint's Total CPU sensor is disabled by default), the containers' CPU sum
+      // in Docker's convention (100 % = one core), flagged so it is labelled and not coloured as a host usage.
       return {
-        cpu: cores && cpuSum !== null ? cpuSum / cores : null,
+        cpu: cpuSum === null ? null : cores ? cpuSum / cores : cpuSum,
+        perCore: !cores && cpuSum !== null,
         mem: total && used !== null ? (100 * used) / total : null,
         cores,
         used,
@@ -3392,7 +3395,7 @@ class DockerCard extends DockerBase {
   }
 
   _stats(env) {
-    const { cpu, mem, cores, used, total, cpuId, memId } = this._host(env);
+    const { cpu, mem, cores, used, total, cpuId, memId, perCore } = this._host(env);
     const { hist } = this._usageHist(env);
     const cs = this._containerStats(env);
     const runPct = cs.total ? (100 * (cs.running ?? 0)) / cs.total : null;
@@ -3400,11 +3403,15 @@ class DockerCard extends DockerBase {
     return `<div class="gauges">
       ${this._gauge(
         cpuId,
-        cores ? `${this._t("cpu")}<small>${esc(cores)} ${esc(this._tn("cores", cores))}</small>` : this._t("cpu"),
+        cores
+          ? `${this._t("cpu")}<small>${esc(cores)} ${esc(this._tn("cores", cores))}</small>`
+          : perCore
+            ? `${this._t("cpu")}<small>${this._t("containers")}</small>`
+            : this._t("cpu"),
         ICONS.cpu,
         cpu,
         cpu === null ? "—" : `${Math.round(cpu)}%`,
-        this._level("cpu", cpu),
+        perCore ? "ok" : this._level("cpu", cpu),
         hist?.[cpuId]
       )}
       ${this._gauge(memId, memLabel, ICONS.ram, mem, mem === null ? "—" : `${Math.round(mem)}%`, this._level("ram", mem), hist?.[memId])}
@@ -3816,12 +3823,12 @@ class DockerMiniCard extends DockerCard {
     const { env, error } = findEnv(this._hass, this._config);
     if (error) return this._error(error);
     const e = env.entities;
-    const { cpu, mem, cpuId, memId } = this._host(env);
+    const { cpu, mem, cpuId, memId, perCore } = this._host(env);
     const { hist } = this._usageHist(env);
     const cs = this._containerStats(env);
     const runPct = cs.total ? (100 * (cs.running ?? 0)) / cs.total : null;
     const rows = [
-      this._metric(cpuId, ICONS.cpu, this._t("cpu"), cpu, cpu === null ? "—" : `${Math.round(cpu)}%`, this._level("cpu", cpu), hist?.[cpuId]),
+      this._metric(cpuId, ICONS.cpu, this._t("cpu"), cpu, cpu === null ? "—" : `${Math.round(cpu)}%`, perCore ? "ok" : this._level("cpu", cpu), hist?.[cpuId]),
       this._metric(memId, ICONS.ram, this._t("memory"), mem, mem === null ? "—" : `${Math.round(mem)}%`, this._level("ram", mem), hist?.[memId]),
       this._metric(
         cs.entity,

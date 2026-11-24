@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { load } from "./load.mjs";
+import { source } from "./source.mjs";
 
 const { DockerCard, DockerMiniCard, DockerCardEditor, DockerMiniCardEditor, resolve, sameSig, fmtBytesPair, fmtBytes, fmtPct, fmtLang, spark, thresholds, normalizeConfig } = load("docker-card.js", [
   "spark",
@@ -533,7 +533,7 @@ test("header icon: the Docker icon in the status color, a link to Dockhand", () 
 });
 
 test("the mini card keeps the full card's header icon size, even on a narrow card", () => {
-  const src = readFileSync(new URL("../src/docker-card.js", import.meta.url), "utf8");
+  const src = source;
   const mini = src.match(/const MINI_STYLE = `([\s\S]*?)`;/)[1].replace(/\/\*[\s\S]*?\*\//g, "");
   assert.doesNotMatch(mini, /\.logo[^{]*\{/, "MINI_STYLE does not resize or move the header icon");
   assert.match(src, /\.logo \{ height: 40px; width: 40px;/);

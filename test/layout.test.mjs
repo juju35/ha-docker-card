@@ -3,11 +3,11 @@
 // collapses, no chip or button leaves the card, the mini card bars and values stay visible and the full
 // card gauges fit. Skipped when Playwright or Chromium is not installed, except in CI, where it must run.
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import { after, before, test } from "node:test";
 import { devices, entities, states } from "../scripts/mock-states.mjs";
+import { source } from "./source.mjs";
 
-const src = readFileSync(new URL("../src/docker-card.js", import.meta.url), "utf8");
+const src = source;
 let browser;
 let skip = false;
 before(async () => {

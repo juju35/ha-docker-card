@@ -2,11 +2,11 @@
 // focus must not hand that focus to another row. Skipped when Playwright or Chromium is not installed,
 // except in CI, where it must run. CHROMIUM_PATH points to a local Chromium if needed.
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import { after, before, test } from "node:test";
 import { devices, entities, states } from "../scripts/mock-states.mjs";
+import { source } from "./source.mjs";
 
-const src = readFileSync(new URL("../src/docker-card.js", import.meta.url), "utf8");
+const src = source;
 let browser;
 let skip = false;
 before(async () => {

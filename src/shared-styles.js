@@ -7,7 +7,7 @@ import { findEnv } from "./registry-based-resolution.js";
 
 export const BASE_STYLE = `
   :host { --dh-orange: #f26b21; --dh-ok: var(--success-color, #43a047); --dh-warn: var(--warning-color, #ffa600);
-          --dh-crit: var(--error-color, #db4437); --dh-idle: var(--disabled-text-color, #9e9e9e); }
+          --dh-crit: var(--error-color, #db4437); --dh-idle: var(--secondary-text-color, #9e9e9e); }
   /* Query container: the header, the mini card rows and the gauges adapt to the card width (Sections view). */
   :host { display: block; }
   ha-card { overflow: hidden; container: dk-card / inline-size; }
